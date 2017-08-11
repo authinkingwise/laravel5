@@ -1,9 +1,107 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Lora:300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,700");
+// @import "fonts";
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+/*****************************
+* Front end of the main site *
+*****************************/
+body {
+  padding-top: 50px;
+  padding-bottom: 10px;
+}
+
+// Buttons
+.btn-skyblue {
+	background: $skyblue;
+	color: $white;
+}
+.btn-skyblue:hover {
+	background: $skyblue_hover;
+	color: $white;
+}
+
+// Backgrounds
+.transp_000_95 {
+	background: rgba(70,70,70,0.95);
+}
+
+.jumbotron {
+	color: $white;
+	background: linear-gradient(143deg, #26c8dc 0%, #08b0e3 100%);
+	font-family: 'Lato', sans-serif;
+}
+.jumbotron h1 {
+	margin-bottom: 22px;
+}
+.jumbotron p {
+	font-weight: normal;
+	font-size: 22px;
+	color: $lightwhite;
+}
+
+.sign-container {
+	font-family: 'Lato', sans-serif;
+}
+.sign-container h2 {
+	color: $black;
+}
+.sign-container .text {
+	color: $skyblue;
+	font-size: 18px;
+}
+.sign-container .text span {
+	margin-left: 10px;
+}
+
+.open_video_btn {
+	cursor: pointer;
+}
+.video_overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2000;
+}
+.video_overlay #video_player_div {
+	display: block;
+	width: 750px;
+	height: 460px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -280px 0 0 -365px;
+}
+body.overlay {
+	overflow: hidden;
+}
+
+.block-features {
+	font-family: 'Lato', sans-serif;
+	background: #1E1E22;
+	color: $lightwhite;
+	padding: 3rem 0 5rem 0;
+}
+.block-features h2 {
+	color: $lightwhite;
+	line-height: 1.35;
+}
+.block-features .text-container {
+	margin: 0 30px;
+}
+.block-features .text {
+	font-size: 18px;
+}
+
+// End front end of the main site
