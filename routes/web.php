@@ -15,6 +15,8 @@
 //     return view('welcome');
 // });
 
+// Home page ----> front-home
 Route::get('/', function () {
     return view('front-home');
 });
+
