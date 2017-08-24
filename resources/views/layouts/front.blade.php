@@ -44,11 +44,11 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
+                        <li><a href="{{ url('pricing') }}">Pricing</a></li>
                         <li><a href="#">Contact</a></li>
                         @if (Auth::guest())
                             <li><a href="{{-- route('login') --}}">Login</a></li>
-                            <li><a href="{{-- route('register') --}}">Register</a></li>
+                            <li class="register"><a href="{{-- route('register') --}}">Sign Up</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -77,17 +77,60 @@
 
 
         @yield('content')
-
+		
+		<div class="block-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-3">
+						<div class="title">Tour</div>
+						<div class="text-container">
+							<ul>
+								<li><a href="#">Overview</a></li>
+								<li><a href="#">Guides</a></li>
+								<li><a href="#">Demo</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3">
+						<div class="title">Who We Are</div>
+						<div class="text-container">
+							<ul>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Our Prices</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3">
+						<div class="title">Get In Touch</div>
+						<div class="text-container">
+							<ul>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Become Partner</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3">
+						<div class="title">Help</div>
+						<div class="text-container">
+							<ul>
+								<li><a href="#">Support</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="#">Terms-of Service</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
         <footer class="footer">
-            <div class="container">
-                <p>&copy;2017 Agency Bucket</p>
+            <div class="container text-center">
+                <p>Copyright &copy;2017 Agency Bucket. All rights reserved.</p>
             </div>
         </footer>
 
         <!-- Scripts -->
         @section('javascript')
-            
             <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
             <script type="text/javascript" src="{{ asset('js/front.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>

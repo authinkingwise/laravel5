@@ -21,4 +21,16 @@ $(document).ready(function(){
             $('body').removeClass('overlay');
         });
     }
+    
+    $(".faq-section .accordion-arrow").on("click", function() {
+    	$(this).find(".fa-angle-down").toggle();
+    	$(this).find(".fa-angle-up").toggle();
+    	$(this).closest("li").find(".faq-description").toggle();
+    });
+    
+    $(".faq-section .title").on("click", function() {
+    	$(this).closest("li").find(".fa-angle-down").toggle();
+    	$(this).closest("li").find(".fa-angle-up").toggle();
+    	$(this).closest("li").find(".faq-description").toggle();
+    });
 });

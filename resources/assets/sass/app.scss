@@ -17,7 +17,6 @@
 *****************************/
 body {
   padding-top: 50px;
-  padding-bottom: 10px;
 }
 
 // Buttons
@@ -35,6 +34,18 @@ body {
 	background: rgba(70,70,70,0.95);
 }
 
+.navbar-nav li.register {
+	background: $darkblue;
+}
+
+.navbar-nav li.register a {
+	color: $white;
+}
+.navbar-nav li.register a:hover {
+	background: $darkblack;
+	color: $lightwhite;
+}
+
 .jumbotron {
 	color: $white;
 	background: linear-gradient(143deg, #26c8dc 0%, #08b0e3 100%);
@@ -42,6 +53,7 @@ body {
 }
 .jumbotron h1 {
 	margin-bottom: 22px;
+	font-weight: 300;
 }
 .jumbotron p {
 	font-weight: normal;
@@ -87,21 +99,264 @@ body.overlay {
 	overflow: hidden;
 }
 
-.block-features {
+.block-marketing {
+	padding: 26px 0;
 	font-family: 'Lato', sans-serif;
+}
+
+.block-marketing.sign-container {
+	padding-top: 0;
+}
+
+.block-features {
 	background: #1E1E22;
 	color: $lightwhite;
 	padding: 3rem 0 5rem 0;
 }
-.block-features h2 {
+.block-features .title {
 	color: $lightwhite;
 	line-height: 1.35;
+	padding-bottom: 30px;
 }
 .block-features .text-container {
 	margin: 0 30px;
 }
 .block-features .text {
 	font-size: 18px;
+	font-weight: 300;
 }
+
+.block-industry .title {
+	color: #2e4249;
+	padding-bottom: 24px;
+}
+
+.block-industry .text-container {
+	padding-top: 16px;
+}
+
+.block-industry .text {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.block-industry .text, .block-industry .image-container {
+	color: #2e4249;
+}
+
+.block-trial {
+	background: $darkblue;
+	color: $white;
+}
+
+.block-trial .text {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.block-trial .text-container {
+	padding-top: 10px;
+}
+
+.block-trial .button-container {
+	margin-top: 20px;
+}
+
+.block-footer {
+	background: $darkblack;
+	padding: 48px 0 36px 0;
+}
+
+.block-footer .title {
+	font-size: 20px;
+	margin-bottom: 10px;
+	color: $lightwhite;
+}
+
+.block-footer a {
+	color: $skyblue;
+}
+
+.block-footer a:hover {
+	color: $skyblue_hover;
+	text-decoration: none;
+}
+
+.block-footer ul {
+	list-style: none;
+	padding: 0;
+	margin-bottom: 0;
+}
+
+footer {
+	color: $lightwhite;
+	background: $darkblack;
+	padding-bottom: 36px;
+}
+
+.fa.fa-4 {
+	font-size: 4em;
+}
+.fa.fa-6 {
+	font-size: 5em;
+}
+.fa.fa-6 {
+	font-size: 6em;
+}
+
+// Pricing Page
+.content-pricing .banner-container {
+	position: relative;
+	font-family: 'Lato', sans-serif;
+}
+
+.content-pricing .banner-container .text-container {
+	position: absolute;
+	top: 34%;
+	left: 50%;
+	margin-left: -270px;
+	color: $lightwhite;
+}
+
+.content-pricing .banner-container .title {
+	font-weight: 300;
+}
+
+.content-pricing .banner-container .text {
+	font-size: 20px;
+	padding-top: 14px;
+}
+
+.content-pricing .plans {
+	padding: 50px 0 28px 0;
+	font-family: 'Lato', sans-serif;
+}
+
+.plans .panel-title {
+	font-size: 22px;
+	font-weight: 700;
+	color: $black;
+}
+
+.plans .panel-default > .panel-heading {
+	height: 150px;
+}
+
+.plans .panel-heading, .plans .panel-body {
+	padding: 22px 15px;
+}
+
+.plans .price-content {
+	margin-top: 26px;
+}
+
+.plans .currency {
+	font-size: 20px;
+	margin-right: 5px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.plans .price {
+	font-size: 50px;
+	margin-right: 8px;
+	line-height: 0.9;
+}
+
+.plans .price-description {
+	display: inline-block;
+	vertical-align: top;
+	width: 130px;
+	line-height: 1.2;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.plans .list-items .list-title {
+	color: $blue;
+	margin-bottom: 8px;
+}
+
+.plans .list-items ul {
+	list-style: none;
+	padding: 0;
+}
+
+.plans .list-items .text {
+	margin-left: 5px;
+	font-weight: 300;
+}
+
+.plans .list-items i {
+	font-size: 16px;
+	color: $skyblue;
+}
+
+.plans .panel-body {
+	height: 206px;
+	position: relative;
+}
+
+.plans .sign-up .btn {
+	width: 89%;
+	position: absolute;
+	left: 15px;
+	bottom: 15px;
+	text-transform: uppercase;
+}
+
+.faq-section {
+	margin-bottom: 20px;
+}
+.faq-section .content {
+	background: #fff;
+	font-family: 'Lato', sans-serif;
+	padding-top: 10px;
+	padding-bottom: 25px;
+}
+
+.faq-section .heading {
+	font-size: 22px;
+	color: $black;
+}
+
+.faq-section .title {
+	color: $black;
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.faq-section .faq-description {
+	margin: 10px 0;
+}
+
+.faq-section ul {
+	padding: 0;
+	list-style: none;
+	margin-top: 20px;
+}
+
+.faq-section ul li {
+	margin-bottom: 25px;
+	padding: 15px 10px;
+	box-shadow: 0 0 2px 0 rgba(13,26,44,.12), 0 1px 1px 0 rgba(13,26,44,.24);
+	position: relative;
+}
+
+.faq-section ul li:hover {
+	box-shadow: 0 1px 2.91px 0.09px rgba(13,26,44,.16), 0 10px 18px 0 rgba(13,26,44,.24);
+	cursor: pointer;
+}
+
+.faq-section .accordion-arrow {
+	position: absolute;
+	font-size: 20px;
+	top: 14px;
+	right: 18px;
+	color: $blue;
+}
+
+
+
 
 // End front end of the main site

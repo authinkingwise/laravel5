@@ -20,3 +20,12 @@ Route::get('/', function () {
     return view('front-home');
 });
 
+// Pricing page ----> front-pricing
+Route::get('/pricing', function () {
+	return view('front-pricing');
+});
+
+// Contact page ----> front-contact
+Route::get('/contact', function () {
+	return view('front-contact');
+});

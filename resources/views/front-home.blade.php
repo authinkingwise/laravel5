@@ -15,7 +15,7 @@ Home
 		</div>
 	</div>
 
-	<div class="container sign-container">
+	<div class="container sign-container block-marketing">
 		<div class="row">
 			<div class="col-lg-4 col-md-4">
 				<form class="form-signup" method="POST" action="#">
@@ -26,7 +26,7 @@ Home
 					</p>
 					<div class="form-group">
 						<label for="name" class="sr-only">Company</label>
-						<input type="text" id="name" name="name" class="form-control" placeholder="Company Name" value="{{ old('name') }}" required autofocus>
+						<input type="text" id="name" name="name" class="form-control" placeholder="Company Name" value="{{ old('name') }}" required>
 					</div>
 					<div class="form-group">
 						<label for="email" class="sr-only">Email address</label>
@@ -57,19 +57,71 @@ Home
 		</div>
 	</div>
 
-	<div class="block-features">
+	<div class="block-features block-marketing">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8 col-md-8">
-
+				<div class="col-lg-6 col-md-6">
+					<img src="{{ asset('images/home-customizable.png') }}" class="img-responsive img-rounded">
 				</div>
-				<div class="col-lg-4 col-md-4">
+				<div class="col-lg-6 col-md-6">
 					<div class="text-container">
-						<h2>Track Projects from Start to Finish</h2>
+						<h2 class="title">Track Projects from Start to Finish</h2>
 						<p class="text">Responsibilities and next steps are clear, so you can shoot for the moon—and get there.</p>
 						<a href="#" class="btn btn-lg btn-skyblue">Learn More</a>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="block-industry block-marketing">
+		<div class="container">
+			<h2 class="title text-center">Fit with Your Industry</h2>
+			<div class="row">
+				<div class="col-lg-3 col-md-3">
+					<div class="image-container text-center">
+						<i class="fa fa-wordpress fa-6" aria-hidden="true"></i>
+					</div>
+					<div class="text-container">
+						<div class="text text-center">Web Agency</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3">
+					<div class="image-container text-center">
+						<i class="fa fa-youtube-play fa-6" aria-hidden="true"></i>
+					</div>
+					<div class="text-container">
+						<div class="text text-center">Media Advertising</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3">
+					<div class="image-container text-center">
+						<i class="fa fa-eyedropper fa-6" aria-hidden="true"></i>
+					</div>
+					<div class="text-container">
+						<div class="text text-center">Design Consulting</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3">
+					<div class="image-container text-center">
+						<i class="fa fa-camera-retro fa-6" aria-hidden="true"></i>
+					</div>
+					<div class="text-container">
+						<div class="text text-center">Marketing Agency</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="block-marketing block-trial">
+		<div class="container">
+			<h2 class="title text-center">Start a Free Trial</h2>
+			<div class="text-container">
+				<div class="text text-center">Get started today, and set up a free trail with no contact and no credit card.</div>
+			</div>
+			<div class="button-container text-center">
+				<a href="#" class="btn btn-lg btn-skyblue">Learn More</a>
 			</div>
 		</div>
 	</div>
