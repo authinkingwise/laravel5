@@ -5,7 +5,7 @@
         <meta http-euiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width,intial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <title>Agency Bucket - @yield('title')</title>
+        <title>{{ config('app.name', 'Agency Bucket') }} - @yield('title')</title>
         @section('style')
         <!-- <link rel="stylesheet" href="{{ asset('/static/font-awesome/css/font-awesome.min.css') }}"> -->
         <link rel="stylesheet" href="{{ asset(elixir('css/app.css')) }}">
@@ -45,7 +45,7 @@
                         <!-- Authentication Links -->
                         <li><a href="#">Features</a></li>
                         <li><a href="{{ url('pricing') }}">Pricing</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="{{ url('contact') }}">Contact</a></li>
                         @if (Auth::guest())
                             <li><a href="{{-- route('login') --}}">Login</a></li>
                             <li class="register"><a href="{{-- route('register') --}}">Sign Up</a></li>
