@@ -43,7 +43,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        <li><a href="#">Features</a></li>
+                        <li><a href="{{ url('features') }}">Features</a></li>
                         <li><a href="{{ url('pricing') }}">Pricing</a></li>
                         <li><a href="{{ url('contact') }}">Contact</a></li>
                         @if (Auth::guest())

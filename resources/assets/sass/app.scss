@@ -46,6 +46,10 @@ body {
 	color: $lightwhite;
 }
 
+.navbar, .block-footer, footer {
+	font-family: "Lora", serif;
+}
+
 .jumbotron {
 	color: $white;
 	background: linear-gradient(143deg, #26c8dc 0%, #08b0e3 100%);
@@ -202,24 +206,36 @@ footer {
 }
 
 // Pricing Page
-.content-pricing .banner-container {
+.banner-container {
 	position: relative;
 	font-family: 'Lato', sans-serif;
 }
 
-.content-pricing .banner-container .text-container {
+.banner-container img {
+	width: 100%;
+	max-height: 490px;
+}
+
+.banner-container .text-container {
 	position: absolute;
 	top: 34%;
 	left: 50%;
-	margin-left: -270px;
 	color: $lightwhite;
 }
 
-.content-pricing .banner-container .title {
+.content-pricing .banner-container .text-container {
+	margin-left: -270px;
+}
+
+.content-features .banner-container .text-container {
+	margin-left: -384px;
+}
+
+.banner-container .title {
 	font-weight: 300;
 }
 
-.content-pricing .banner-container .text {
+.banner-container .text {
 	font-size: 20px;
 	padding-top: 14px;
 }
@@ -351,6 +367,23 @@ footer {
 	top: 14px;
 	right: 18px;
 	color: $blue;
+}
+
+.content-features .block-features {
+	padding: 5rem;	
+}
+
+.content-features .block-features.first, .content-features .block-features.third {
+	background: #fff;
+	color: $black;
+}
+
+.content-features .block-features.first .title, .content-features .block-features.third .title {
+	color: $black;
+}
+
+.content-features .block-features.third {
+	background: $grey;
 }
 
 

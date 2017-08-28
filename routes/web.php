@@ -29,3 +29,8 @@ Route::get('/pricing', function () {
 Route::get('/contact', function () {
 	return view('front-contact');
 });
+
+// Features page
+Route::get('/features', function () {
+    return view('front-features');
+});
