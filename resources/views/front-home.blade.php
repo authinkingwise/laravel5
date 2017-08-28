@@ -15,7 +15,8 @@ Home
 		</div>
 	</div>
 
-	<div class="container sign-container block-marketing">
+	<div class="block-marketing block-sign">
+	<div class="container">
 		<div class="row">
 			<div class="col-lg-4 col-md-4">
 				<form class="form-signup" method="POST" action="#">
@@ -55,6 +56,7 @@ Home
 	
 			</div>
 		</div>
+	</div>
 	</div>
 
 	<div class="block-features block-marketing">

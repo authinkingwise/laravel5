@@ -8402,20 +8402,16 @@ body {
   color: #e2fbff;
 }
 
-.sign-container {
-  font-family: 'Lato', sans-serif;
-}
-
-.sign-container h2 {
+.block-sign h2 {
   color: #2e4249;
 }
 
-.sign-container .text {
+.block-sign .text {
   color: #01b5d5;
   font-size: 18px;
 }
 
-.sign-container .text span {
+.block-sign .text span {
   margin-left: 10px;
 }
 
@@ -8451,7 +8447,7 @@ body.overlay {
   font-family: 'Lato', sans-serif;
 }
 
-.block-marketing.sign-container {
+.block-sign {
   padding-top: 0;
 }
 
@@ -8710,5 +8706,11 @@ footer {
   top: 14px;
   right: 18px;
   color: #007ac9;
+}
+
+@media screen and (max-width: 768px) {
+  .jumbotron {
+    margin-bottom: 5px;
+  }
 }
 
