@@ -8745,6 +8745,37 @@ footer {
   background: #d3e0e9;
 }
 
+.content-register {
+  background-image: url("/laravel5/public/images/content-marketing.jpg");
+  background-repeat: no-repeat;
+}
+
+.content-register .panel {
+  margin: 44px 0;
+  border-radius: 0;
+}
+
+.content-register h2 {
+  font-weight: 700;
+}
+
+.content-register .panel-heading {
+  padding: 22px 0;
+}
+
+.content-register .panel-body {
+  padding-top: 30px;
+}
+
+.content-register .form-horizontal .control-label {
+  color: #2e4249;
+  font-weight: 400;
+}
+
+.content-register button[type=submit] {
+  text-transform: uppercase;
+}
+
 @media screen and (max-width: 768px) {
   .jumbotron {
     margin-bottom: 5px;

@@ -48,7 +48,7 @@
                         <li><a href="{{ url('contact') }}">Contact</a></li>
                         @if (Auth::guest())
                             <li><a href="{{-- route('login') --}}">Login</a></li>
-                            <li class="register"><a href="{{-- route('register') --}}">Sign Up</a></li>
+                            <li class="register"><a href="{{ url('site/register') }}">Sign Up</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

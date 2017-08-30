@@ -34,3 +34,13 @@ Route::get('/contact', function () {
 Route::get('/features', function () {
     return view('front-features');
 });
+
+/*
+|-------------------------------------
+| Tenant
+|-------------------------------------
+*/
+Route::get('/site/register', ['uses' => 'Admin\TenantController@register']);
+Route::post('/site/create', ['uses' => 'Admin\TenantController@create']);
+Route::get('/site/tenant', ['uses' => 'Admin\TenantController@index']);
+Route::any('/site/tenant/delete/{id}', ['uses' => 'Admin\TenantController@delete'])->where('id', '[0-9]+');
