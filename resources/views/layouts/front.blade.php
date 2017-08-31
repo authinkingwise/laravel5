@@ -43,12 +43,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        <li><a href="{{ url('features') }}">Features</a></li>
-                        <li><a href="{{ url('pricing') }}">Pricing</a></li>
-                        <li><a href="{{ url('contact') }}">Contact</a></li>
+                        <li @if(Request::getPathInfo() == '/features') class="active" @endif><a href="{{ url('features') }}">Features</a></li>
+                        <li @if(Request::getPathInfo() == '/pricing') class="active" @endif><a href="{{ url('pricing') }}">Pricing</a></li>
+                        <li @if(Request::getPathInfo() == '/contact') class="active" @endif><a href="{{ url('contact') }}">Contact</a></li>
                         @if (Auth::guest())
-                            <li><a href="{{-- route('login') --}}">Login</a></li>
-                            <li class="register"><a href="{{ url('site/register') }}">Sign Up</a></li>
+                            <li @if(Request::getPathInfo() == '/login') class="active" @endif><a href="{{ route('login') }}">Login</a></li>
+                            <li class="register {{ Request::getPathInfo() == '/site/register' ? 'active' : '' }}"><a href="{{ url('site/register') }}">Sign Up</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -81,40 +81,40 @@
 		<div class="block-footer">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-3 col-md-3">
+					<div class="col-lg-3 col-md-3 col-sm-3">
 						<div class="title">Tour</div>
 						<div class="text-container">
 							<ul>
-								<li><a href="#">Overview</a></li>
+								<li><a href="{{ url('features') }}">Overview</a></li>
 								<li><a href="#">Guides</a></li>
 								<li><a href="#">Demo</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-3">
+					<div class="col-lg-3 col-md-3 col-sm-3">
 						<div class="title">Who We Are</div>
 						<div class="text-container">
 							<ul>
 								<li><a href="#">About Us</a></li>
-								<li><a href="#">Our Prices</a></li>
+								<li><a href="{{ url('pricing') }}">Our Prices</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-3">
+					<div class="col-lg-3 col-md-3 col-sm-3">
 						<div class="title">Get In Touch</div>
 						<div class="text-container">
 							<ul>
-								<li><a href="#">Contact Us</a></li>
+								<li><a href="{{ url('contact') }}">Contact Us</a></li>
 								<li><a href="#">Become Partner</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-3">
+					<div class="col-lg-3 col-md-3 col-sm-3">
 						<div class="title">Help</div>
 						<div class="text-container">
 							<ul>
 								<li><a href="#">Support</a></li>
-								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
 								<li><a href="#">Terms-of Service</a></li>
 							</ul>
 						</div>
