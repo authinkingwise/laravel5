@@ -166,7 +166,7 @@ body.overlay {
 
 .block-footer {
 	background: $darkblack;
-	padding: 48px 0 36px 0;
+	padding: 48px 0 18px 0;
 }
 
 .block-footer .title {
@@ -193,6 +193,7 @@ body.overlay {
 footer {
 	color: $lightwhite;
 	background: $darkblack;
+	padding-top: 18px;
 	padding-bottom: 36px;
 }
 
@@ -427,3 +428,74 @@ footer {
 }
 
 // End front end of the main site
+
+
+
+/*****************************
+* CSS for App *
+*****************************/
+
+body#app {
+	padding-top: 0;
+}
+
+.sidebar {
+	background: $darkblue;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.sidebar a {
+	color: #fff;
+}
+
+.sidebar .nav > li {
+	height: 49px;
+}
+
+.sidebar .nav > li > a {
+	height: 100%;
+}
+
+.sidebar .nav > li > a {
+	padding: 10px 20px;
+	border-left: 5px solid transparent;
+}
+
+.sidebar .nav > li > a:hover, .sidebar .nav > li > a:focus, .sidebar .nav > li.active > a {
+	background: $blue;
+	border-left: 5px solid $skyblue_hover;
+}
+
+.sidebar .nav > li > a > span {
+	margin-left: 8px;
+}
+
+@media (min-width: 768px) {
+	
+	.sidebar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 1000;
+		display: block;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	.sidebar .brand {
+		height: 60px;
+		display: block;
+		padding-left: 22px;
+		line-height: 52px;
+		font-size: 18px;
+	}
+
+	.sidebar .brand:hover {
+		text-decoration: none;
+	}
+
+}
+
+// End Css for App

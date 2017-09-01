@@ -53,3 +53,10 @@ Route::any('/site/tenant/delete/{id}', ['uses' => 'Admin\TenantController@delete
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+/*
+|-------------------------------------
+| Dashboard
+|-------------------------------------
+*/
+Route::get('/dashboard', ['uses' => 'Admin\DashboardController@index']);
