@@ -13,6 +13,18 @@
 
 
 /*****************************
+* Reset *
+*****************************/
+ul, li {
+	list-style: none;
+}
+
+ul {
+	padding-left: 0;
+}
+
+
+/*****************************
 * Front end of the main site *
 *****************************/
 body {
@@ -390,7 +402,6 @@ footer {
 
 
 .content-register {
-	background-image: url("/laravel5/public/images/content-marketing.jpg");
 	background-repeat: no-repeat;
 }
 
@@ -469,6 +480,156 @@ body#app {
 
 .sidebar .nav > li > a > span {
 	margin-left: 8px;
+}
+
+.navbar-toggle {
+	float: left;
+	background: $darkblue;	
+}
+
+.navbar-toggle .icon-bar {
+	background: #fff;
+}
+
+.navbar-top {
+	min-height: 50px;
+}
+
+.main .nav-wrap {
+	background: #fff;
+	border-bottom: 1px solid $grey;
+}
+
+.nav-links {
+	margin-bottom: 0;
+}
+
+.nav-links .btn {
+	min-width: 100px;
+	border-radius: 12px;
+}
+
+.nav-links .btn i {
+	margin-right: 5px;
+}
+
+.nav-links > li {
+	display: inline-block;
+}
+
+.nav-links li.dropdown > a {
+	display: block;
+	min-height: 50px;
+	padding: 20px 10px;
+}
+
+.m-b-n-sm {
+	margin-bottom: -10px;
+}
+
+.m-t-n-sm {
+	margin-top: -4px;
+}
+
+.m-l-sm {
+	margin-left: 10px;
+}
+
+.name-init {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle;
+	border-radius: 50%;
+	text-align: center;
+}
+
+.dropdown-menu {
+	left: inherit;
+	right: 0;
+}
+
+.badge.up {
+	position: absolute;
+	top: 20%;
+	right: -3px;
+	background: $skyblue;
+}
+
+.dashboard-content {
+	padding: 30px 0 20px 0;
+	color: $black;
+}
+
+.dashboard-content .panel-heading .title {
+	font-weight: bold;
+	display: inline-block;
+}
+
+.number, .round {
+	width: 30px;
+	height: 30px;
+	background: $blue;
+	color: #fff;
+	border-radius: 50%;
+	display: inline-block;
+	line-height: 30px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.dashboard-content a {
+	color: $black;
+	&:hover {
+		color: $blue;
+		text-decoration: none;
+	}
+}
+
+.dashboard-content .panel-heading .number {
+	margin-top: 5px;
+}
+
+.dashboard-content .time {
+	font-size: 13px;
+	color: $darkgrey;
+	&.delay {
+		color: $pink;
+	}
+	&.priority-urgent {
+		color: $red;
+	}
+	&.priority-warning {
+		color: $gold;
+	}
+}
+
+.dashboard-content .time .text {
+	margin-left: 3px;
+}
+
+.dashboard-content .panel-body li:not(:first-child), .dashboard-content .panel-body li:not(:last-child) {
+	padding: 15px 0;	
+}
+
+.dashboard-content .panel-body li:not(:last-child) {
+	border-bottom: 1px solid $grey;
+}
+
+.dashboard-content .panel-body li:first-child {
+	padding-top: 0;
+	padding-bottom: 15px;
+}
+
+.dashboard-content .panel-body li:last-child {
+	padding-top: 15px;
+	padding-bottom: 0;
+}
+
+.dashboard-content .subject {
+	height: 24px;
+	overflow: hidden;
 }
 
 @media (min-width: 768px) {

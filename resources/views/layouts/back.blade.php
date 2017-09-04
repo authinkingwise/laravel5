@@ -20,9 +20,9 @@
             
             <div class="row">
                 
-                <div class="col-sm-3 col-md-2 sidebar">
+                <div class="col-sm-3 col-md-2 sidebar collapse" id="sidebar">
                     
-                    <a class="brand" href="{{ url('/') }}">
+                    <a class="brand hidden-xs" href="{{ url('/') }}">
                         {{ config('app.name', 'Agency Bucket') }}
                     </a>
 
@@ -39,6 +39,10 @@
                     </ul>
 
                     <ul class="nav nav-sidebar">
+                        <li><a href="{{ url('account') }}"><i class="fa fa-diamond"></i><span>Clients</span></span></a></li>
+                    </ul>
+
+                    <ul class="nav nav-sidebar">
                         <li><a href="{{ url('user') }}"><i class="fa fa-user-plus"></i><span>Users</span></a></li>
                     </ul>
 
@@ -50,14 +54,67 @@
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     
-                    <div class="container-fluid">
+                    <div class="row nav-wrap">
+                        <div class="container-fluid">
+                            <nav class="navbar-top" role="navigation">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                {{--
+                                <div class="navbar-header pull-left">
+                                    <span class="search"><i class="fa fa-search"></i></span>
+                                </div>
+                                --}}
+                                <ul class="nav-links pull-right">
+                                    <li class="hidden-xs"><a href="#" class="btn btn-sm btn-skyblue" title="Add Ticket"><i class="fa fa-plus"></i><span>Add Ticket</span></a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" title="Notifications">
+                                            <i class="fa fa-bell-o"></i>
+                                            <span class="badge badge-sm up bg-danger pull-right-xs">0</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                                                <span class="name-init bg-danger">
+                                                    <img src="{{ asset('/images/a7.jpg') }}" class="img-circle m-t-xs img-responsive">
+                                                </span>
+                                                <i class="on md b-white bottom"></i>
+                                            </span>
+                                            <span class="hidden hidden-sm hidden-md">Darren Li</span> <b class="caret"></b>
+                                        </a>
 
-                        <nav class="navbar">
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="{{ url('setting/profile') }}" title="Name" alt="Name">Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                                    Logout
+                                                </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    {{ csrf_field() }}
+                                                </form>
+                                            </li>
+                                        </ul>
 
-                        </nav>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
 
-                        @yield('content')
+                    <div class="main-content-wrap">
+                        <div class="container-fluid">
 
+                            @yield('content')
+
+                        </div>
                     </div>
 
                 </div>
