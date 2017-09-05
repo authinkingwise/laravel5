@@ -27,7 +27,7 @@
                     </a>
 
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="{{ url('dashboard') }}"><i class="fa fa-desktop"></i><span>Dashboard</span></a></li>
+                        <li @if(Request::getPathInfo() == '/dashboard') class="active" @endif><a href="{{ url('dashboard') }}"><i class="fa fa-desktop"></i><span>Dashboard</span></a></li>
                     </ul>
 
                     <ul class="nav nav-sidebar">
@@ -35,11 +35,11 @@
                     </ul>
 
                     <ul class="nav nav-sidebar">
-                        <li><a href="{{ url('ticket') }}"><i class="fa fa-free-code-camp"></i><span>Tickets</span></span></a></li>
+                        <li @if(Request::getPathInfo() == '/ticket') class="active" @endif><a href="{{ url('ticket') }}"><i class="fa fa-free-code-camp"></i><span>Tickets</span></span></a></li>
                     </ul>
 
                     <ul class="nav nav-sidebar">
-                        <li><a href="{{ url('account') }}"><i class="fa fa-diamond"></i><span>Clients</span></span></a></li>
+                        <li><a href="{{ url('account') }}"><i class="fa fa-diamond"></i><span>Accounts</span></span></a></li>
                     </ul>
 
                     <ul class="nav nav-sidebar">

@@ -60,3 +60,21 @@ Route::get('/home', 'HomeController@index');
 |-------------------------------------
 */
 Route::get('/dashboard', ['uses' => 'Admin\DashboardController@index']);
+
+/*
+|-------------------------------------
+| Ticket
+|-------------------------------------
+*/
+Route::get('/ticket', ['uses' => 'TicketController@index']);
+
+/*
+|-------------------------------------
+| Account
+|-------------------------------------
+*/
+Route::get('/account', ['uses' => 'AccountController@index']);
+Route::get('/account/add', ['uses' => 'AccountController@add']);
+Route::get('/account/edit/{id}', ['uses' => 'AccountController@edit']);
+Route::post('/account/delete/{id}', ['uses' => 'AccountController@delete']);
+Route::any('/account/save', ['uses' => 'AccountController@save']);

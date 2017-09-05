@@ -16,4 +16,12 @@ class Tenant extends Model
 	protected $fillable = [
 		'name', 'email', 'password',
 	];
+
+	/**
+     * The tenant owns this account. One-to-many relationship.
+     */
+	public function accounts()
+    {
+        return $this->hasMany('App\Models\Account');
+    }
 }

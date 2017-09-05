@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The account is created by this user. One-to-many relationship.
+     */
+    public function accounts()
+    {
+        return $this->hasMany('App\Models\Account');
+    }
 }

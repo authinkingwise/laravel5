@@ -509,7 +509,7 @@ body#app {
 	border-radius: 12px;
 }
 
-.nav-links .btn i {
+.btn i {
 	margin-right: 5px;
 }
 
@@ -630,6 +630,20 @@ body#app {
 .dashboard-content .subject {
 	height: 24px;
 	overflow: hidden;
+}
+
+.page-heading {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 18px;
+}
+
+.main-content-wrap {
+	padding: 30px 0 20px 0;
+}
+
+select.form-control {
+	height: 30px;
 }
 
 @media (min-width: 768px) {
