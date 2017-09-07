@@ -1,7 +1,7 @@
 @extends('layouts.back')
 
 @section('title')
-Dashboard
+Your Tickets
 @endsection
 
 @section('content')
