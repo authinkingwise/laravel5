@@ -77,4 +77,19 @@ Route::get('/account', ['uses' => 'AccountController@index']);
 Route::get('/account/add', ['uses' => 'AccountController@add']);
 Route::get('/account/edit/{id}', ['uses' => 'AccountController@edit']);
 Route::post('/account/delete/{id}', ['uses' => 'AccountController@delete']);
-Route::any('/account/save', ['uses' => 'AccountController@save']);
+Route::any('/account/store', ['uses' => 'AccountController@store']);
+Route::any('/account/update/{id}', ['uses' => 'AccountController@update']);
+
+/*
+|-------------------------------------
+| Permission
+|-------------------------------------
+*/
+Route::resource('permissions', 'PermissionController');
+
+/*
+|-------------------------------------
+| Role
+|-------------------------------------
+*/
+Route::resource('roles', 'RoleController');

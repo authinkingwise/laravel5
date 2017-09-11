@@ -19,9 +19,21 @@ class Tenant extends Model
 
 	/**
      * The tenant owns this account. One-to-many relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
 	public function accounts()
     {
         return $this->hasMany('App\Models\Account');
+    }
+
+    /**
+     * A tenant may have many roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function roles()
+    {
+        return $this->hasMany('App\Models\Role');
     }
 }
