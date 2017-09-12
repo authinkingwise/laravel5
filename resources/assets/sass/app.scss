@@ -650,6 +650,14 @@ form label {
 	font-weight: 400;
 }
 
+form.delete-action {
+	display: inline-block;
+}
+
+label.role-permission {
+	min-width: 108px;
+}
+
 @media (min-width: 768px) {
 	
 	.sidebar {

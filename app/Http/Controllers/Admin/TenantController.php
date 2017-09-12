@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use App\Models\Tenant;
+use App\Models\Role;
+use App\Models\Permission;
 
 class TenantController extends Controller
 {
@@ -36,12 +38,29 @@ class TenantController extends Controller
 			'password' => $password,
 		])) {
 
+			// Copy the new registered tenant details to user table as the admin user.
 			$user = User::create([
 				'name' => $request->input('name'),
 				'email' => $request->input('email'),
 				'password' => $password,
 				'tenant_id' => $tenant->id ? $tenant->id : null,
 			]);
+
+			// Create a default admin role for the user
+			$role = Role::create([
+				'name' => 'admin',
+				'label' => 'Admin',
+				'tenant_id' => $tenant->id
+			]);
+
+			// Link all permissions to this admin role
+			$permissions = Permission::all();
+			foreach ($permissions as $permission) {
+				$role->givePermissionTo($permission);
+			}
+			
+			// Assign the default admin role to this new user
+			$user->assignRole($role);
 
 			return redirect('/')->with('success', 'Welcome ' . $user->name . "! Your account has been created.");
 		}

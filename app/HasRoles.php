@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Role;
+use App\Models\Permission;
 
 trait HasRoles
 {

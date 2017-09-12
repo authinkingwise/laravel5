@@ -3,9 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+
+use App\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        // Determine if the user is site admin
+        $this->middleware(function($request, $next) {
+            if (Gate::denies('site-admin'))
+                return response()->view('errors.403', [], 403);
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +26,13 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        $permissions = Permission::paginate(10);
+        $total = Permission::all()->count();
+
+        return view('permission.index', [
+            'permissions' => $permissions,
+            'total' => $total
+        ]);
     }
 
     /**
@@ -23,7 +42,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('permission.create');
     }
 
     /**
@@ -34,7 +53,12 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        if (Permission::create($input))
+            return redirect('permissions');
+        else
+            return redirect()->back();
     }
 
     /**
@@ -56,7 +80,11 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+
+        return view('permission.edit', [
+            'permission' => $permission
+        ]);
     }
 
     /**
@@ -68,7 +96,14 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+
+        $input = $request->all();
+
+        if ($permission->update($input))
+            return redirect('permissions');
+        else
+            return redirect()->back();
     }
 
     /**
@@ -79,6 +114,12 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+
+        if ($permission->delete()) {
+            return redirect('permissions');
+        } else {
+            return redirect()->back();
+        }
     }
 }
