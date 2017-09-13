@@ -22,6 +22,8 @@ Roles
 
 		<div class="col-lg-12 col-md-12 col-sm-12">
 
+			@include('layouts.message')
+
 			<div class="panel panel-default">
 
 				<div class="panel-body">
@@ -46,6 +48,7 @@ Roles
 											@endcan
 
 											@if($role->name != 'admin')
+												@can('destroy-role', Auth::user())
 												<form action="{{ url('roles/'.$role->id) }}" method="POST" class="form-inline delete-action">
 													{{ csrf_field() }}
 													<input type="hidden" name="_method" value="DELETE">
@@ -53,6 +56,7 @@ Roles
 														<button type="submit" class="btn btn-default btn-sm" onclick="return confirm('Sure to delete?')"><i class="fa fa-trash"></i><span class="hidden-xs">Delete</span></button>
 													</div>
 												</form>
+												@endcan
 											@endif
 										</td>
 									</tr>

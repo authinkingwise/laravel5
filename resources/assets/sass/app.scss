@@ -658,6 +658,13 @@ label.role-permission {
 	min-width: 108px;
 }
 
+.form-group.required .control-label:after {
+	content: "*";
+	color: $skyblue;
+	position: absolute;
+	right: 2px;
+}
+
 @media (min-width: 768px) {
 	
 	.sidebar {

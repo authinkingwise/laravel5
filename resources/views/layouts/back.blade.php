@@ -42,13 +42,27 @@
                         <li><a href="{{ url('account') }}"><i class="fa fa-diamond"></i><span>Accounts</span></span></a></li>
                     </ul>
 
+                    @can('show-user')
                     <ul class="nav nav-sidebar">
-                        <li><a href="{{ url('user') }}"><i class="fa fa-user-plus"></i><span>Users</span></a></li>
+                        <li><a href="{{ url('users') }}"><i class="fa fa-user-plus"></i><span>Users</span></a></li>
                     </ul>
+                    @endcan
 
                     <ul class="nav nav-sidebar">
                         <li><a href="{{ url('settings') }}"><i class="fa fa-gears"></i><span>Settings</span></a></li>
                     </ul>
+
+                    @can('show-role', Auth::user()->roles->first())
+                    <ul class="nav nav-sidebar">
+                        <li><a href="{{ url('roles') }}"><i class="fa fa-key"></i><span>Roles</span></a></li>
+                    </ul>
+                    @endcan
+
+                    @can('site-admin')
+                    <ul class="nav nav-sidebar">
+                        <li><a href="{{ url('permissions') }}"><i class="fa fa-shield"></i><span>Permissions</span></a></li>
+                    </ul>
+                    @endcan
 
                 </div>
 
@@ -77,14 +91,14 @@
                                         </a>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="{{ Auth::user()->name }}">
                                             <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                                                 <span class="name-init bg-danger">
                                                     <img src="{{ asset('/images/a7.jpg') }}" class="img-circle m-t-xs img-responsive">
                                                 </span>
                                                 <i class="on md b-white bottom"></i>
                                             </span>
-                                            <span class="hidden hidden-sm hidden-md">Darren Li</span> <b class="caret"></b>
+                                            <span class="hidden hidden-sm hidden-md">{{ Auth::user()->name }}</span> <b class="caret"></b>
                                         </a>
 
                                         <ul class="dropdown-menu" role="menu">

@@ -22,6 +22,8 @@ Permissions
 
 		<div class="col-lg-12 col-md-12 col-sm-12">
 
+			@include('layouts.message')
+
 			<div class="panel panel-default">
 
 				<div class="panel-body">

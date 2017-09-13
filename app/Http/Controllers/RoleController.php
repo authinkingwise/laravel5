@@ -62,7 +62,7 @@ class RoleController extends Controller
 
             foreach ($request['permissions'] as $value) {
                 $permission = Permission::findOrFail($value);
-                $role->givePermissionTo($p);
+                $role->givePermissionTo($permission);
             }
 
             return redirect('roles');
@@ -93,7 +93,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
 
         // Make sure not able to edit other tenants' content
-        if (Gate::denies('check-tenant-role', Auth::user()->roles->first())) {
+        if (Gate::denies('check-tenant-role', $role)) { //Auth::user()->roles->first()
             return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
         }
 
@@ -169,7 +169,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
 
         // Make sure not able to delete other tenants' content
-        if (Gate::denies('check-tenant-role', Auth::user()->roles->first())) {
+        if (Gate::denies('check-tenant-role', $role)) {
             return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
         }
 

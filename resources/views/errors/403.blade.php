@@ -11,7 +11,7 @@ Permission Denied
     		<div class="col-lg-12 col-md-12 col-sm-12">
 	            <div class="panel panel-default">
 	            	@isset($errorTenant)
-		            	<div class="panel-heading page-heading">Page Error</div>
+		            	<div class="panel-heading page-heading">URL Error</div>
 		                <div class="panel-body">
 		                	<p>The page has error or the content does not exist. Please check the url.</p>
 		                	<a href="{{ url()->previous() }}" class="btn btn-skyblue btn-sm"><i class="fa fa-angle-left"></i><span>Go Back</span></a>

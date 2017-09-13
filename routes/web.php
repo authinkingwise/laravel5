@@ -93,3 +93,10 @@ Route::resource('permissions', 'PermissionController');
 |-------------------------------------
 */
 Route::resource('roles', 'RoleController');
+
+/*
+|-------------------------------------
+| User
+|-------------------------------------
+*/
+Route::resource('users', 'UserController');
