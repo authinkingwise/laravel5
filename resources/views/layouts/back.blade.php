@@ -39,7 +39,12 @@
                     </ul>
 
                     <ul class="nav nav-sidebar">
-                        <li><a href="{{ url('account') }}"><i class="fa fa-diamond"></i><span>Accounts</span></span></a></li>
+                        @can('show-account')
+                            <li><a href="{{ url('accounts') }}"><i class="fa fa-diamond"></i><span>Accounts</span></span></a></li>
+                        @endcan
+                        @can('show-contact')
+                            <li><a href="{{ url('contacts') }}"><i class="fa fa-chain-broken"></i><span>Contacts</span></span></a></li>
+                        @endcan
                     </ul>
 
                     @can('show-user')

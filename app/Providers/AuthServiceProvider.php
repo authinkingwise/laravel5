@@ -48,6 +48,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('check-tenant-user', function($user, $showedUser){
             return $user->tenant_id == $showedUser->tenant_id;
         });
+
+        Gate::define('check-tenant-account', function($user, $account){
+            return $user->tenant_id == $account->tenant_id;
+        });
+
+        Gate::define('check-tenant-contact', function($user, $contact){
+            return $user->tenant_id == $contact->tenant_id;
+        });
     }
 
     /**
@@ -57,6 +65,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function getPermissions()
     {
-        return Permission::with('roles')->get();
+        try {
+            return Permission::with('roles')->get();
+        } catch (\Exception $e) {
+            return [];
+        }
     }
 }

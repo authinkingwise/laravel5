@@ -64,6 +64,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('create-user'))
+            return response()->view('errors.403', [], 403);
+
         $roles = Role::where('tenant_id', '=', Auth::user()->tenant_id)->get();
 
         return view('user.create', [

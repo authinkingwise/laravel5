@@ -15,11 +15,11 @@ Accounts
 			<div class="row">
 				
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-					<div class="page-heading">Your accounts</div>
+					<div class="page-heading">Your accounts&nbsp;<span class="badge">{{ $accounts->count() }}</span></div>
 				</div>
 
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-					<a href="{{ url('account/add') }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-plus"></i><span>Add Account</span></a>
+					<a href="{{ url('accounts/create') }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-plus"></i><span>Add Account</span></a>
 				</div>
 
 				<div class="col-lg-2 col-md-2 col-sm-2">
@@ -54,7 +54,7 @@ Accounts
 									@foreach($accounts as $account)
 										<tr>
 											<td class="account-name">
-												<div><a href="{{ url('account/view/' . $account->id) }}"><strong>{{ $account->name }}</strong></a></div>
+												<div><a href="{{ url('accounts/' . $account->id) }}"><strong>{{ $account->name }}</strong></a></div>
 											</td>
 											<td class="account-email hidden-xs">
 												<div>{{ $account->email }}</div>
@@ -66,11 +66,19 @@ Accounts
 												@isset($account->website)<a href="{{ $account->website }}" target="_blank">{{ $account->website }}</a>@endif
 											</td>
 											<td class="actions">
-												<a href="{{ url('account/view/' . $account->id) }}" class="btn btn-default btn-sm"><i class="fa fa-folder-open"></i><span class="hidden-xs">View</span></a>
+												@can('edit-account')
+													<a href="{{ url('accounts/' . $account->id . '/edit') }}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i><span class="hidden-xs">Edit</span></a>
+												@endcan
 												
-												<a href="{{ url('account/edit/' . $account->id) }}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i><span class="hidden-xs">Edit</span></a>
-												
-												<a href="{{ url('account/delete/' . $account->id) }}" class="btn btn-default btn-sm"><i class="fa fa-trash"></i><span class="hidden-xs">Delete</span></a>
+												@can('destroy-account')
+													<form action="{{ url('accounts/'.$account->id) }}" method="POST" class="form-inline delete-action">
+														{{ csrf_field() }}
+														<input type="hidden" name="_method" value="DELETE">
+														<div class="form-group">
+															<button type="submit" class="btn btn-default btn-sm" onclick="return confirm('Sure to delete?')"><i class="fa fa-trash"></i><span class="hidden-xs">Delete</span></button>
+														</div>
+													</form>
+												@endcan
 											</td>
 										</tr>
 									@endforeach

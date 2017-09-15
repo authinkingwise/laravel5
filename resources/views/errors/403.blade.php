@@ -13,13 +13,15 @@ Permission Denied
 	            	@isset($errorTenant)
 		            	<div class="panel-heading page-heading">URL Error</div>
 		                <div class="panel-body">
-		                	<p>The page has error or the content does not exist. Please check the url.</p>
+		                	<h4>The page has error or the content does not exist. Please check the url.</h4>
+		                	<br />
 		                	<a href="{{ url()->previous() }}" class="btn btn-skyblue btn-sm"><i class="fa fa-angle-left"></i><span>Go Back</span></a>
 		                </div>
 	            	@else
 		                <div class="panel-heading page-heading">Access denied</div>
 		                <div class="panel-body">
-		                	<p>Your account does not allow you to operate this action. Please contact administrator.</p>
+		                	<h4>Your account does not allow you to operate this action. Please contact administrator.</h4>
+		                	<br />
 		                	<a href="{{ url()->previous() }}" class="btn btn-skyblue btn-sm"><i class="fa fa-angle-left"></i><span>Go Back</span></a>
 		                </div>
 	                @endisset

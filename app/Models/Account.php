@@ -34,6 +34,16 @@ class Account extends Model
      */
     public function tenant()
     {
-    	return $this->belongsTo('App\Models\Account');
+    	return $this->belongsTo('App\Models\Tenant');
+    }
+
+    /**
+     * An account has many contacts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contacts()
+    {
+        return $this->hasMany('App\Models\Contact');
     }
 }

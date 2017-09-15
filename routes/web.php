@@ -73,12 +73,14 @@ Route::get('/ticket', ['uses' => 'TicketController@index']);
 | Account
 |-------------------------------------
 */
-Route::get('/account', ['uses' => 'AccountController@index']);
-Route::get('/account/add', ['uses' => 'AccountController@add']);
-Route::get('/account/edit/{id}', ['uses' => 'AccountController@edit']);
-Route::post('/account/delete/{id}', ['uses' => 'AccountController@delete']);
-Route::any('/account/store', ['uses' => 'AccountController@store']);
-Route::any('/account/update/{id}', ['uses' => 'AccountController@update']);
+// Route::get('/account', ['uses' => 'AccountController@index']);
+// Route::get('/account/add', ['uses' => 'AccountController@add']);
+// Route::get('/account/edit/{id}', ['uses' => 'AccountController@edit']);
+// Route::post('/account/delete/{id}', ['uses' => 'AccountController@delete']);
+// Route::any('/account/store', ['uses' => 'AccountController@store']);
+// Route::any('/account/update/{id}', ['uses' => 'AccountController@update']);
+
+Route::resource('accounts', 'AccountController');
 
 /*
 |-------------------------------------
@@ -100,3 +102,11 @@ Route::resource('roles', 'RoleController');
 |-------------------------------------
 */
 Route::resource('users', 'UserController');
+
+/*
+|-------------------------------------
+| Contact
+|-------------------------------------
+*/
+Route::resource('contacts', 'ContactController');
+
