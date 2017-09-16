@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // Determine if the user is site admin
         Gate::define('site-admin', function($user){
-            if ($user->id == 1)
+            if ($user->email == config('app.site_email'))
                 return true;
             else
                 return false;
