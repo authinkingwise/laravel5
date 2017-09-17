@@ -5,53 +5,50 @@ Contact Us
 @endsection
 
 @section('content')
-
-	<div class="content-contact">
-
-		<section class="section-form">
-			
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-
-						<form class="form-horizontal" action="#" method="POST">
-							<div class="form-group">
-								<label for="name" class="col-sm-2 control-label">Name</label>
-								<div class="col-sm-5">
-									<input type="text" name="name" class="form-control" id="name">
-								</div>
-							</div>
-							<div class="form-group required">
-								<label for="email" class="col-sm-2 control-label">Email</label>
-								<div class="col-sm-5">
-									<input type="text" name="email" class="form-control" id="email" required="true">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="phone" class="col-sm-2 control-label">Phone</label>
-								<div class="col-sm-5">
-									<input type="text" name="phone" class="form-control" id="phone">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="description" class="col-sm-2 control-label">Description</label>
-								<div class="col-sm-5">
-									<textarea name="description" class="form-control" id="description" rows="5"></textarea>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<button type="submit" class="btn btn-skyblue">Send Message</button>
-								</div>
-							</div>
-						</form>
-
-					</div>
-				</div>
-			</div>
-
-		</section>
-
+	<div class="content-contact"> 
+		 <!-- Contact Section -->
+		 <section id="contact">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-md-12 text-center">
+		                    <h2 class="section-heading">Contact Me</h2>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <form name="sentMessage" id="contactForm" novalidate>
+		                        <div class="row">
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                                <div class="form-group">
+		                                    <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
+		                                    <p class="help-block text-danger"></p>
+		                                </div>
+		                            </div>
+		                            <div class="clearfix"></div>
+		                            <div class="col-md-12 text-center">
+		                                <div id="success"></div>
+		                                <button type="submit" class="btn-primary btn-xl">Send Message</button>
+		                            </div>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
 	</div>
 
 @endsection
