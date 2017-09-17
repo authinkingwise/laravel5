@@ -49,6 +49,11 @@ Contact Us
 		            </div>
 		        </div>
 		    </section>
+        <!-- Scripts -->
+        @section('javascript')
+            <script type="text/javascript" src="{{ asset('/js/contact_me.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/js/jqBootstrapValidation.js') }}"></script>           
+        @show		    
 	</div>
 
-@endsection
+@endsection	
