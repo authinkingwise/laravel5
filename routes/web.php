@@ -102,6 +102,7 @@ Route::resource('roles', 'RoleController');
 |-------------------------------------
 */
 Route::resource('users', 'UserController');
+Route::any('/users/{id}/invite', ['uses' => 'UserController@invite']);
 
 /*
 |-------------------------------------

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Notifications\InviteUser;
 
 class UserController extends Controller
 {
@@ -104,7 +105,12 @@ class UserController extends Controller
                 // $user->assignRole( $role->name );
                 $user->roles()->attach($request['role_id'], ['user_id' => $user->id]);
             }
-            return redirect('users')->with('success', 'Success to add ' . $user->name);
+
+            /* Notification InviteUser */
+            $inviteUser = new InviteUser($user, Auth::user(), $request['password']);
+            $user->notify($inviteUser);
+            
+            return redirect('users')->with('success', 'Success to add ' . $user->name . ' and a mesaage has been sent to the new user.');
         } else {
             return redirect()->back()->with('error', 'Failed to add ' . $request['name']);
         }
@@ -242,5 +248,36 @@ class UserController extends Controller
             return redirect('users')->with('success', 'Success to delete the user');
         else
             return redirect()->back();
+    }
+
+    /**
+     * Send an email to invite the new user
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function invite(Request $request = null, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Make sure not able to delete other tenants' content
+        if (Gate::denies('check-tenant-user', $user, Auth::user())) {
+            return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
+        }
+
+        if (Gate::denies('create-user'))
+            return response()->view('errors.403', [], 403);
+
+        /* Notification InviteUser */
+        if ($request['_token'] != null) {
+            $token = app('auth.password.broker')->createToken($user);
+            $inviteUser = new InviteUser($user, Auth::user(), $password = null, $token);
+        }
+        else
+            $inviteUser = new InviteUser($user, Auth::user());
+        
+        $user->notify($inviteUser);
+        
+        return redirect()->back()->with('success', 'Sent a message to invite the user ' . $user->name);
     }
 }

@@ -74,6 +74,16 @@ Users
 													</div>
 												</form>
 												@endcan
+
+												@can('create-user')
+													<!-- <a href="{{ url('users/'.$user->id.'/invite') }}" class="btn btn-default btn-sm"><i class="fa fa-mail-forward"></i><span class="hidden-xs">Invite</span></a> -->
+													<form action="{{ url('users/'.$user->id.'/invite') }}" method="POST" class="form-inline delete-action invite-action">
+														{{ csrf_field() }}
+														<div class="form-group">
+														<button type="submit" class="btn btn-default btn-sm"><i class="fa fa-mail-forward"></i><span class="hidden-xs">Invite</span></button>
+													</div>
+													</form>
+												@endcan
 											</td>
 										</tr>
 									@endforeach

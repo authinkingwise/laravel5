@@ -9,6 +9,7 @@ use App\User;
 use App\Models\Tenant;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Notifications\TenantCreated;
 
 class TenantController extends Controller
 {
@@ -31,7 +32,7 @@ class TenantController extends Controller
 	protected function create(Request $request)
 	{
 		$password = bcrypt($request->input('password'));
-		
+
 		if ($tenant = Tenant::create([
 			'name' => $request->input('name'),
 			'email' => $request->input('email'),
@@ -61,6 +62,10 @@ class TenantController extends Controller
 			
 			// Assign the default admin role to this new user
 			$user->assignRole($role);
+
+			/* Notification TenantCreated */
+			$tenantCreated = new TenantCreated($tenant);
+			$user->notify($tenantCreated);
 
 			return redirect('/')->with('success', 'Welcome ' . $user->name . "! Your account has been created.");
 		}
