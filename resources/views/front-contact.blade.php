@@ -39,9 +39,9 @@ Contact Us
 		                                </div>
 		                            </div>
 		                            <div class="clearfix"></div>
-		                            <div class="col-md-12 text-center">
+		                            <div class="col-md-12 text-center" id="sendmessage" style="margin-bottom: 20px;">
 		                                <div id="success"></div>
-		                                <button type="submit" class="btn-primary btn-xl">Send Message</button>
+		                                <button type="submit" class="btn btn-primary">Send Message</button>
 		                            </div>
 		                        </div>
 		                    </form>
