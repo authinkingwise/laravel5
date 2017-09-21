@@ -54,9 +54,15 @@ User Details
 
 								<dl class="dl-horizontal">
 									<dt>Role:</dt>
-									<dd>{{ $user->roles->first()->label }}</dd>
+									<dd>
+										@if($user->roles->first() != null)
+											{{ $user->roles->first()->label }}
+										@endif
+									</dd>
 								</dl>
 						</div>
+
+						@can('edit-user')
 						<div class="col-lg-2 col-md-2 col-sm-2">
 							<div class="pull-right">
 								<a href="{{ url('users/' . $user->id . '/edit') }}" class="btn btn-skyblue btn-sm btn-block">
@@ -65,6 +71,7 @@ User Details
 								</a>
 							</div>
 						</div>
+						@endcan
 					</div>
 
 				</div>

@@ -62,7 +62,7 @@ Create User
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="role_id" class="col-sm-2 control-label">Role</label>
                     <div class="col-sm-5">
                         <select name="role_id" class="form-control" id="role_id">
@@ -71,6 +71,9 @@ Create User
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
                         </select>
+                        @can('create-role')
+                        	<p class="help-block">If you can not find the role in the drop-down list, please <a href="{{ url('roles/create') }}">create</a> a new role.</p>
+                        @endcan
                     </div>
                 </div>
 

@@ -78,6 +78,8 @@ Account Details
 									<dd>{{ $account->updated_at }}</dd>
 								</dl>
 						</div>
+
+						@can('edit-account')
 						<div class="col-lg-2 col-md-2 col-sm-2">
 							<div class="pull-right">
 								<a href="{{ url('accounts/' . $account->id . '/edit') }}" class="btn btn-skyblue btn-sm btn-block">
@@ -86,6 +88,7 @@ Account Details
 								</a>
 							</div>
 						</div>
+						@endcan
 					</div>
 
 				</div><!-- End .panel-body -->

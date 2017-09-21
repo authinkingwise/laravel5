@@ -36,4 +36,12 @@ class Tenant extends Model
     {
         return $this->hasMany('App\Models\Role');
     }
+
+    /**
+     * Ticket is owned by this tenant.
+     */
+    public function tickets()
+    {
+        return $this->hasMany('App\Models\Tenant');
+    }
 }

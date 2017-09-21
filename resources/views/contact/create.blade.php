@@ -65,7 +65,9 @@ Create Contact
                                 <option value="{{ $account->id }}">{{ $account->name }}</option>
                             @endforeach
                         </select>
-                        <p class="help-block">If you can not find the account in the drop-down list, please <a href="{{ url('account/add') }}">create</a> a new account.</p>
+                        @can('create-account')
+                        	<p class="help-block">If you can not find the account in the drop-down list, please <a href="{{ url('accounts/create') }}">create</a> a new account.</p>
+                        @endcan
                     </div>
                 </div>
 

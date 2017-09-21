@@ -56,6 +56,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('check-tenant-contact', function($user, $contact){
             return $user->tenant_id == $contact->tenant_id;
         });
+
+        Gate::define('check-tenant-ticket', function($user, $ticket){
+            return $user->tenant_id == $ticket->tenant_id;
+        });
     }
 
     /**

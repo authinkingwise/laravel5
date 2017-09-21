@@ -12,6 +12,11 @@ use App\Models\Account;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -197,6 +202,6 @@ class ContactController extends Controller
         if ($contact->delete())
             return redirect()->back()->with('success', 'Success to delete the contact');
         else
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Failed to delete the contact');
     }
 }

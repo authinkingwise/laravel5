@@ -34,4 +34,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Account');
     }
+
+    /**
+     * Ticket is assigned to this user.
+     */
+    public function tickets()
+    {
+        return $this->hasMany('App\Models\Ticket', 'user_id');
+    }
 }

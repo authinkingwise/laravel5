@@ -66,7 +66,8 @@ Route::get('/dashboard', ['uses' => 'Admin\DashboardController@index']);
 | Ticket
 |-------------------------------------
 */
-Route::get('/ticket', ['uses' => 'TicketController@index']);
+Route::resource('tickets', 'TicketController');
+Route::get('/mytickets', ['uses' => 'TicketController@myTickets']);
 
 /*
 |-------------------------------------

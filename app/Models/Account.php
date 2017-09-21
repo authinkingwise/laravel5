@@ -46,4 +46,12 @@ class Account extends Model
     {
         return $this->hasMany('App\Models\Contact');
     }
+
+    /**
+     * An account has many tickets.
+     */
+    public function tickets()
+    {
+        return $this->hasMany('App\Models\Ticket');
+    }
 }

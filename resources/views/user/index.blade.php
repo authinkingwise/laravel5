@@ -52,9 +52,9 @@ Users
 											</td>
 											<td>
 												<div>
-													@isset($user->roles)
+													@if($user->roles->first() != null)
 														{{ $user->roles->first()->label }}
-													@endisset
+													@endif
 												</div>
 											</td>
 											<td>

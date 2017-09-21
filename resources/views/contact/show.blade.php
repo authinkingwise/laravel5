@@ -65,6 +65,8 @@ Contact Details
 									<dd>{{ $contact->updated_at }}</dd>
 								</dl>
 						</div>
+
+						@can('edit-contact')
 						<div class="col-lg-2 col-md-2 col-sm-2">
 							<div class="pull-right">
 								<a href="{{ url('contacts/' . $contact->id . '/edit') }}" class="btn btn-skyblue btn-sm btn-block">
@@ -73,6 +75,7 @@ Contact Details
 								</a>
 							</div>
 						</div>
+						@endcan
 					</div>
 
 				</div>

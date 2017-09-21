@@ -200,7 +200,10 @@ class UserController extends Controller
             }
         }
 
-        $roleId = $user->roles->first()->id; // User's current role
+        if ($user->roles->first() != null)
+            $roleId = $user->roles->first()->id; // User's current role
+        else
+            $roleId = null;
 
         $user->name = $request['name'];
         $user->email = $request['email'];
@@ -216,7 +219,9 @@ class UserController extends Controller
 
         // Update user's role
         if ($request['role_id'] != $roleId) {
-            $user->roles()->detach($roleId);
+            if ($roleId != null) {
+                $user->roles()->detach($roleId);
+            }
             // $user->assignRole( Role::find($request['role_id'])->name );
             // Sometime different customers have the same role name 
             $user->roles()->attach($request['role_id'], ['user_id' => $user->id]);

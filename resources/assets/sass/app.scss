@@ -41,6 +41,52 @@ body {
 	color: $white;
 }
 
+.btn-new {
+	background: $orange;
+	color: $white;
+}
+.btn-assigned {
+	background: $lightpurple;
+	color: $white;
+}
+.btn-in-progress {
+	background: $blue;
+	color: $white;
+}
+.btn-pending {
+	background: $yellow;
+	color: $white;
+}
+.btn-resolved {
+	background: $green;
+	color: $white;
+}
+.btn-closed {
+	background: $grey;
+	color: $white;
+}
+
+.status-new {
+	color: $orange;
+}
+
+.status-assigned {
+	color: $lightpurple;
+}
+
+.status-in-progress {
+	color: $blue;
+}
+.status-pending {
+	color: $yellow;
+}
+.status-resolved {
+	color: $green;
+}
+.status-closed {
+	color: $grey;
+}
+
 // Backgrounds
 .transp_000_95 {
 	background: rgba(70,70,70,0.95);
@@ -663,6 +709,20 @@ label.role-permission {
 	color: $skyblue;
 	position: absolute;
 	right: 2px;
+}
+
+form {
+	&.filter-search {
+		padding-bottom: 18px;
+		.form-group {
+			margin-right: 10px;
+		}
+		.form-control {
+			font-size: 12px;
+			font-family: "Lora", serif;
+			font-weight: bold;
+		}
+	}
 }
 
 @media (min-width: 768px) {

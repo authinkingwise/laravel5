@@ -66,13 +66,13 @@ Edit User
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="role_id" class="col-sm-2 control-label">Role</label>
                     <div class="col-sm-5">
                         <select name="role_id" class="form-control" id="role_id">
                         	<option disabled value> -- Select a Role -- </option>
                             @foreach($roles as $role)
-                                <option value="{{ $role->id }}" @if($role->id == $user->roles->first()->id) selected @endif>{{ $role->name }}</option>
+                                <option value="{{ $role->id }}" @if($user->roles->first() != null) @if($role->id == $user->roles->first()->id) selected @endif @endif>{{ $role->name }}</option>
                             @endforeach
                         </select>
                     </div>
