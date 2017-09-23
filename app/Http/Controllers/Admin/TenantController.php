@@ -61,7 +61,8 @@ class TenantController extends Controller
 			}
 			
 			// Assign the default admin role to this new user
-			$user->assignRole($role);
+			// $user->assignRole($role);
+			$user->roles()->attach($role->id, ['user_id' => $user->id]);
 
 			/* Notification TenantCreated */
 			$tenantCreated = new TenantCreated($tenant);
