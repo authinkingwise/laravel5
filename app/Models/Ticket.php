@@ -9,7 +9,7 @@ class Ticket extends Model
     protected $table = 'tickets';
 
     protected $fillable = [
-    	'title', 'description', 'status_id', 'account_id', 'user_id', 'creator_id', 'last_update_user_id', 'estimated_time', 'tenant_id'
+    	'title', 'description', 'status_id', 'account_id', 'user_id', 'creator_id', 'last_update_user_id', 'estimated_time', 'priority_id', 'tenant_id'
     ];
 
     public function status()
@@ -40,5 +40,10 @@ class Ticket extends Model
     public function tenant()
     {
     	return $this->belongsTo('App\Models\Tenant');
+    }
+
+    public function priority()
+    {
+        return $this->belongsTo('App\Models\Priority', 'priority_id');
     }
 }

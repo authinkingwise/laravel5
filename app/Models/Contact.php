@@ -13,7 +13,7 @@ class Contact extends Model
     ];
 
     /**
-     * A contact belongs to a account.
+     * A contact belongs to an account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

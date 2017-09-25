@@ -59,6 +59,15 @@ Ticket Details
 									</dd>
 								</dl>
 
+								<dl class="dl-horizontal">
+									<dt>Priority:</dt>
+									<dd>
+										@isset($ticket->priority)
+											{{ $ticket->priority->name }}
+										@endisset
+									</dd>
+								</dl>
+
 								@isset($ticket->estimated_time)
 								<dl class="dl-horizontal">
 									<dt>Estimated Hours:</dt>

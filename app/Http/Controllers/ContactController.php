@@ -56,15 +56,23 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request = null)
     {
         if (Gate::denies('create-contact'))
             return response()->view('errors.403', [], 403);
 
         $accounts = Account::where('tenant_id', '=', Auth::user()->tenant_id)->get();
 
+        if ($request['account_id'] != null) {
+            $account = Account::findOrFail($request['account_id']);
+            if (Gate::denies('check-tenant-account', $account)) {
+                return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
+            }
+        }
+
         return view('contact.create', [
-            'accounts' => $accounts
+            'accounts' => $accounts,
+            'related_account' => ($request['account_id'] != null) ? $account : null,
         ]);
     }
 

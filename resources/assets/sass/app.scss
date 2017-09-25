@@ -87,6 +87,14 @@ body {
 	color: $grey;
 }
 
+.table-hover > tbody > tr.critical {
+	background-color: #fad0da;
+}
+
+.table-hover > tbody > tr.high {
+	background-color: #ffffcc;
+}
+
 // Backgrounds
 .transp_000_95 {
 	background: rgba(70,70,70,0.95);
@@ -723,6 +731,11 @@ form {
 			font-weight: bold;
 		}
 	}
+}
+
+.btn.more-tickets {
+	margin-left: 2px;
+	margin-bottom: 2px;
 }
 
 @media (min-width: 768px) {

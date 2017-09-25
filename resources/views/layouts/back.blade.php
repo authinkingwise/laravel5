@@ -14,7 +14,7 @@
 
         <script type="text/javascript" src="{{ asset('/js/jquery/jquery-3.2.1.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('/js/global.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/back.js') }}"></script>
     </head>
     <body id="app">
         <div class="container-fluid">

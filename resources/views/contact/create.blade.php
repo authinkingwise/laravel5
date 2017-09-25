@@ -8,7 +8,10 @@ Create Contact
 
 	<div class="panel panel-default">
 
-		<div class="page-heading panel-heading">Add a new contact<a href="{{ url('contacts') }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-list"></i><span>All contacts</span></a></div>
+		<div class="page-heading panel-heading">
+			<span>Add a new contact</span>@isset($related_account) - <span>{{ $related_account->name }}</span> @endisset
+			<a href="{{ url('contacts') }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-list"></i><span>All contacts</span></a>
+		</div>
 
 		<div class="panel-body">
 
@@ -62,7 +65,12 @@ Create Contact
                         <select name="account_id" class="form-control" id="account_id" required="true">
                         	<option selected value> -- Select a Account -- </option>
                             @foreach($accounts as $account)
-                                <option value="{{ $account->id }}">{{ $account->name }}</option>
+                                <option value="{{ $account->id }}" 
+                                	@isset($related_account) 
+                                		@if($related_account->id == $account->id) selected @endif 
+                                	@else
+                                		@if(old('account_id') == $account->id) selected @endif
+                                	@endisset>{{ $account->name }}</option>
                             @endforeach
                         </select>
                         @can('create-account')

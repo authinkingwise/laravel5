@@ -8,7 +8,10 @@ Create Ticket
 
 	<div class="panel panel-default">
 
-		<div class="page-heading panel-heading">Add a new ticket<a href="{{ url('mytickets') }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-list"></i><span>My Tickets</span></a></div>
+		<div class="page-heading panel-heading">
+            <span>Add a new ticket</span>@isset($related_account) - <span>{{ $related_account->name }}</span> @endisset
+            <a href="{{ url('mytickets') }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-list"></i><span>My Tickets</span></a>
+        </div>
 
 		<div class="panel-body">
 
@@ -65,10 +68,26 @@ Create Ticket
                         <select name="account_id" class="form-control" id="account_id" required="true">
                         	<option selected value> -- Select a Account -- </option>
                             @foreach($accounts as $account)
-                                <option value="{{ $account->id }}" @if(old('account_id') == $account->id) selected @endif>{{ $account->name }}</option>
+                                <option value="{{ $account->id }}" 
+                                    @isset($related_account) 
+                                        @if($related_account->id == $account->id) selected @endif 
+                                    @else
+                                        @if(old('account_id') == $account->id) selected @endif
+                                    @endisset>{{ $account->name }}</option>
                             @endforeach
                         </select>
                         <p class="help-block">If you can not find the account in the drop-down list, please <a href="{{ url('accounts/create') }}">create</a> a new account.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority_id" class="col-sm-2 control-label">Priority</label>
+                    <div class="col-sm-5">
+                        <select name="priority_id" class="form-control" id="priority_id">
+                            @foreach($priorities as $priority)
+                                <option value="{{ $priority->id }}" @if(old('priority_id') == $priority->id) selected @endif>{{ $priority->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 

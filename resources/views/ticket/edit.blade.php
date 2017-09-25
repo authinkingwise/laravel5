@@ -107,6 +107,28 @@ Edit Ticket
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="priority_id" class="col-sm-2 control-label">Priority</label>
+                    <div class="col-sm-5">
+                        <select name="priority_id" class="form-control" id="priority_id">
+                            @foreach($priorities as $priority)
+                                <option value="{{ $priority->id }}"
+                                    @if(old('priority_id')) 
+                                        selected 
+                                    @else
+                                        @isset($ticket->priority)
+                                            @if($priority->id == $ticket->priority->id)
+                                                selected
+                                            @endif
+                                        @endisset
+                                    @endif>
+                                    {{ $priority->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group{{ $errors->has('estimated_time') ? ' has-error' : '' }}">
 					<label for="estimated_time" class="col-sm-2 control-label">Estimated Hours</label>
 					<div class="col-sm-3">

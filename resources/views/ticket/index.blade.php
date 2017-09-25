@@ -44,7 +44,7 @@ Your Tickets
     						<select name="account_id" class="form-control" id="account_id">
 	                        	<option selected value> -- Select a Account -- </option>
 	                            @foreach($accounts as $account)
-	                                <option value="{{ $account->id }}" @if($request['account_id'] == $account->id) selected @endif>{{ $account->name }}</option>
+	                                <option value="{{ $account->id }}" @isset($request['account_id']) @if($request['account_id'] == $account->id) selected @endif @endisset>{{ $account->name }}</option>
 	                            @endforeach
 	                        </select>
     					</div>
@@ -54,7 +54,7 @@ Your Tickets
 	    						<select name="user_id" class="form-control" id="user_id">
 		                        	<option selected value> -- Assign to -- </option>
 		                            @foreach($users as $user)
-		                                <option value="{{ $user->id }}" @if($request['user_id'] == $user->id) selected @endif>{{ $user->name }}</option>
+		                                <option value="{{ $user->id }}" @isset($request['user_id']) @if($request['user_id'] == $user->id) selected @endif @endisset>{{ $user->name }}</option>
 		                            @endforeach
 		                        </select>
 	    					</div>
@@ -64,7 +64,7 @@ Your Tickets
     						<select name="status_id" class="form-control" id="status_id">
 	                        	<option selected value> -- Status -- </option>
 	                            @foreach($statuses as $status)
-	                                <option value="{{ $status->id }}" @if($request['status_id'] == $status->id) selected @endif>{{ $status->name }}</option>
+	                                <option value="{{ $status->id }}" @isset($request['status_id']) @if($request['status_id'] == $status->id) selected @endif @endisset>{{ $status->name }}</option>
 	                            @endforeach
 	                        </select>
     					</div>
@@ -72,8 +72,8 @@ Your Tickets
     					<div class="form-group">
     						<select name="orderby" class="form-control" id="orderby">
 	                        	<option selected value> -- Update time -- </option>
-	                        	<option value="asc" @if($request['orderby'] == 'asc') selected @endif>Ascending</option>
-	                            <option value="desc" @if($request['orderby'] != 'asc') selected @endif>Descending</option>
+	                        	<option value="asc" @isset($request['orderby']) @if($request['orderby'] == 'asc') selected @endif @endisset>Ascending</option>
+	                            <option value="desc" @isset($request['orderby']) @if($request['orderby'] != 'asc') selected @endif @endisset>Descending</option>
 	                        </select>
     					</div>
 
@@ -101,12 +101,13 @@ Your Tickets
 												<th>Ticket</th>
 												<th>Account</th>
 												<th>Assigned to</th>
+												<th>Priority</th>
 												<th>Action</th>
 											</tr>
 										</thead>
 										<tbody>
 											@foreach($tickets as $ticket)
-												<tr>
+												<tr @isset($ticket->priority) class="{{ strtolower($ticket->priority->name) }}" @endisset>
 													<td class="status">
 														<button class="btn btn-xs btn-{{ $ticket->status->short_name }}">{{ $ticket->status->name }}</button>
 													</td>
@@ -116,6 +117,7 @@ Your Tickets
 													</td>
 													<td class="account"><a href="{{ url('accounts/'.$ticket->account->id) }}">{{ $ticket->account->name }}</a></td>
 													<td class="user">{{ $ticket->user->name }}</td>
+													<td class="priority">@isset($ticket->priority) {{ $ticket->priority->name }} @endisset</td>
 													<td class="actions">
 														@can('edit-ticket')
 															<a href="{{ url('tickets/'.$ticket->id.'/edit') }}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i><span class="hidden-xs">Edit</span></a>

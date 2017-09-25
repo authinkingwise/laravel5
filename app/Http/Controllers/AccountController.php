@@ -58,17 +58,24 @@ class AccountController extends Controller
         if (Gate::denies('show-account'))
             return response()->view('errors.403', [], 403);
 
-        // $tickets = $account->tickets;
-        // $users = User::where('tenant_id', '=', $tenant_id);
-
-        if( isset($account->contacts) )
+        if( isset($account->contacts) ) {
+            $contacts = $account->contacts();
+            $totalContact = count($contacts->get());
             $contacts = $account->contacts->take(3); // Contacts for this account
+        }
+
+        if( isset($account->tickets) ) {
+            $tickets = $account->tickets()->where('status_id', '!=', 6);
+            $totalTicket = count($tickets->get());
+            $tickets = $tickets->orderBy('updated_at', 'desc')->take(3)->get(); // Tickets for this account
+        }
 
     	return view('account.show', [
     		'account' => $account,
-            // 'tickets' => $tickets,
-            // 'users' => $users,
-            'contacts' => isset($contacts) ? $contacts : null
+            'contacts' => isset($contacts) ? $contacts : null,
+            'tickets' => isset($tickets) ? $tickets : null,
+            'totalContact' => isset($totalContact) ? $totalContact : 0,
+            'totalTicket' => isset($totalTicket) ? $totalTicket : 0,
     	]);
     }
 

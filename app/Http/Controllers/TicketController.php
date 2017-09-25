@@ -26,12 +26,23 @@ class TicketController extends Controller
 
 		$tickets = Ticket::where('tenant_id', '=', Auth::user()->tenant_id);
 
-		if ($request['account_id'] != null)
+		if ($request['account_id'] != null) {
+			$account = Account::findOrFail($request['account_id']);
+            if (Gate::denies('check-tenant-account', $account)) {
+                return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
+            }
 			$tickets = $tickets->where('account_id' , '=', $request['account_id']);
-		if ($request['user_id'] != null)
+		}
+		if ($request['user_id'] != null) {
+			$user = User::findOrFail($request['user_id']);
+            if (Gate::denies('check-tenant-user', $user, Auth::user())) {
+                return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
+            }
 			$tickets = $tickets->where('user_id' , '=', $request['user_id']);
-		if ($request['status_id'] != null)
+		}
+		if ($request['status_id'] != null) {
 			$tickets = $tickets->where('status_id' , '=', $request['status_id']);
+		}
 		if ($request['orderby'] != null) {
 			if ($request['orderby'] == 'asc' || $request['orderby'] == 'desc')
 				$tickets = $tickets->orderBy('updated_at', $request['orderby']);
@@ -64,10 +75,18 @@ class TicketController extends Controller
 		$tickets = Ticket::where('tenant_id', '=', Auth::user()->tenant_id)
 							->where('user_id', '=', Auth::id());
 
-		if ($request['account_id'] != null)
+		if ($request['account_id'] != null) {
+			$account = Account::findOrFail($request['account_id']);
+            if (Gate::denies('check-tenant-account', $account)) {
+                return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
+            }
 			$tickets = $tickets->where('account_id' , '=', $request['account_id']);
-		if ($request['status_id'] != null)
+		}
+
+		if ($request['status_id'] != null) {
 			$tickets = $tickets->where('status_id' , '=', $request['status_id']);
+		}
+
 		if ($request['orderby'] != null) {
 			if ($request['orderby'] == 'asc' || $request['orderby'] == 'desc')
 				$tickets = $tickets->orderBy('updated_at', $request['orderby']);
@@ -91,7 +110,7 @@ class TicketController extends Controller
 		]);
 	}
 
-	public function create()
+	public function create(Request $request = null)
 	{
 		if (Gate::denies('create-ticket'))
             return response()->view('errors.403', [], 403);
@@ -99,11 +118,21 @@ class TicketController extends Controller
 		$users = User::where('tenant_id', '=', Auth::user()->tenant_id)->get();
 		$accounts = Account::where('tenant_id', '=', Auth::user()->tenant_id)->get();
 		$statuses = \App\Models\Status::all();
+		$priorities = \App\Models\Priority::all();
+
+		if ($request['account_id'] != null) {
+            $account = Account::findOrFail($request['account_id']);
+            if (Gate::denies('check-tenant-account', $account)) {
+                return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
+            }
+        }
 
 		return view('ticket.create', [
 			'users' => $users,
 			'accounts' => $accounts,
-			'statuses' => $statuses
+			'statuses' => $statuses,
+			'priorities' => $priorities,
+			'related_account' => ($request['account_id'] != null) ? $account : null,
 		]);
 	}
 
@@ -163,12 +192,14 @@ class TicketController extends Controller
 		$users = User::where('tenant_id', '=', Auth::user()->tenant_id)->get();
 		$accounts = Account::where('tenant_id', '=', Auth::user()->tenant_id)->get();
 		$statuses = \App\Models\Status::all();
+		$priorities = \App\Models\Priority::all();
 
 		return view('ticket.edit', [
 			'ticket' => $ticket,
 			'users' => $users,
 			'accounts' => $accounts,
-			'statuses' => $statuses
+			'statuses' => $statuses,
+			'priorities' => $priorities
 		]);
 	}
 

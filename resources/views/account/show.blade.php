@@ -100,13 +100,15 @@ Account Details
 				<div class="page-heading panel-heading">
 					<div class="row">
 						<div class="col-lg-9 col-md-9 col-sm-9">
-							Contacts of {{ $account->name }}&nbsp;<span class="badge">{{ $contacts->count() }}</span>
+							Contacts of {{ $account->name }}&nbsp;<span class="badge">{{ $totalContact }}</span>
 						</div>
-						@if(count($contacts))
-							<div class="col-lg-3 col-md-3 col-sm-3">
+						<div class="col-lg-3 col-md-3 col-sm-3">
+							@if(count($contacts))
 								<a href="{{ url('contacts?account_id=' . $account->id) }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-list"></i><span>More Contacts</span></a>
-							</div>
-						@endif
+							@else
+								<a href="{{ url('contacts/create?account_id=' . $account->id) }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-plus"></i><span>Add Contact</span></a>
+							@endif
+						</div>
 					</div>
 				</div>
 
@@ -159,6 +161,80 @@ Account Details
 						</table>
 					@else
 						<p>There is no contact yet.</p>
+					@endif
+
+				</div>
+
+			</div><!-- End .panel-default -->
+
+			<div class="panel panel-default">
+
+				<div class="page-heading panel-heading">
+					<div class="row">
+						<div class="col-lg-9 col-md-9 col-sm-9">
+							Tickets of {{ $account->name }}&nbsp;<span class="badge">{{ $totalTicket }}</span>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-3">
+							@if(count($tickets))
+								<a href="{{ url('tickets?account_id=' . $account->id) }}" class="btn btn-skyblue btn-sm pull-right more-tickets"><i class="fa fa-list"></i><span>More Tickets</span></a>	
+							@endif
+							<a href="{{ url('tickets/create?account_id=' . $account->id) }}" class="btn btn-skyblue btn-sm pull-right add-ticket"><i class="fa fa-plus"></i><span>Add Ticket</span></a>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel-body">
+
+					@if(count($tickets))
+						@can('show-ticket')
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Status</th>
+										<th>Ticket</th>
+										<th>Account</th>
+										<th>Assigned to</th>
+										<th>Priority</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach($tickets as $ticket)
+										<tr @isset($ticket->priority) class="{{ strtolower($ticket->priority->name) }}" @endisset>
+											<td class="status">
+												<button class="btn btn-xs btn-{{ $ticket->status->short_name }}">{{ $ticket->status->name }}</button>
+											</td>
+											<td class="ticket-name">
+												<div><a href="{{ url('tickets/'.$ticket->id) }}"><strong>{{ $ticket->title }}</strong></a></div>
+												<div><small>{{ $ticket->created_at }}</small></div>
+											</td>
+											<td class="account"><a href="{{ url('accounts/'.$ticket->account->id) }}">{{ $ticket->account->name }}</a></td>
+											<td class="user">{{ $ticket->user->name }}</td>
+											<td class="priority">@isset($ticket->priority) {{ $ticket->priority->name }} @endisset</td>
+											<td class="actions">
+												@can('edit-ticket')
+													<a href="{{ url('tickets/'.$ticket->id.'/edit') }}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i><span class="hidden-xs">Edit</span></a>
+												@endcan
+												@can('destroy-ticket')
+													<form action="{{ url('tickets/'.$ticket->id) }}" method="POST" class="form-inline delete-action">
+														{{ csrf_field() }}
+														<input type="hidden" name="_method" value="DELETE">
+														<div class="form-group">
+															<button type="submit" class="btn btn-default btn-sm" onclick="return confirm('Sure to delete?')"><i class="fa fa-trash"></i><span class="hidden-xs">Delete</span></button>
+														</div>
+													</form>
+												@endcan
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						@else
+							<p>No ticket is shown due to permission.</p>
+						@endcan
+					@else
+						<p>There is no ticket yet.</p>
 					@endif
 
 				</div>
