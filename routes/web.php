@@ -118,3 +118,10 @@ Route::resource('contacts', 'ContactController');
 |-------------------------------------
 */
 Route::resource('comments', 'CommentController');
+
+/*
+|-------------------------------------
+| Profile
+|-------------------------------------
+*/
+Route::get('/profile', ['uses' => 'ProfileController@show']);
