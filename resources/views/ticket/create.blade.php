@@ -15,7 +15,7 @@ Create Ticket
 
 		<div class="panel-body">
 
-			<form class="form-horizontal" action="{{ url('tickets') }}" method="POST">
+			<form class="form-horizontal" action="{{ url('tickets') }}" method="POST" id="ticketform">
 
 				{{ csrf_field() }}
 
@@ -35,7 +35,7 @@ Create Ticket
 				<div class="form-group">
 					<label for="description" class="col-sm-2 control-label">Description</label>
 					<div class="col-sm-5">
-						<textarea name="description" class="form-control" id="description" rows="5">{{ old('description') ?: '' }}</textarea>
+						<textarea name="description" class="form-control" id="description" rows="5" name="ticketform">{{ old('description') ?: '' }}</textarea>
 					</div>
 				</div>
 

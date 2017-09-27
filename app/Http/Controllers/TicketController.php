@@ -172,8 +172,24 @@ class TicketController extends Controller
         if (Gate::denies('show-ticket'))
             return response()->view('errors.403', [], 403);
 
+        $users = User::where('tenant_id', '=', Auth::user()->tenant_id)->get();
+        $statuses = \App\Models\Status::all();
+        $priorities = \App\Models\Priority::all();
+
+        $comments = $ticket->comments;
+        $time_spent = 0;
+
+        foreach ($comments as $comment) {
+        	$time_spent = $time_spent + $comment->time;
+        }
+
 		return view('ticket.show', [
-			'ticket' => $ticket
+			'ticket' => $ticket,
+			'users' => $users,
+			'statuses' => $statuses,
+			'priorities' => $priorities,
+			'comments' => $comments,
+			'time_spent' => $time_spent
 		]);
 	}
 

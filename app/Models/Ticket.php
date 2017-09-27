@@ -46,4 +46,9 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\Models\Priority', 'priority_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment', 'ticket_id');
+    }
 }

@@ -44,7 +44,7 @@ Edit Ticket
                         <select name="status_id" class="form-control" id="status_id">
                             @foreach($statuses as $status)
                                 <option value="{{ $status->id }}"
-                                    @if(old('status_id')) 
+                                    @if(old('status_id') == $status->id) 
                                         selected 
                                     @else
                                         @isset($ticket->status)
@@ -67,7 +67,7 @@ Edit Ticket
                         	<option selected value="{{ old('user_id') ?: '' }}"> -- Select a User -- </option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}"
-                                    @if(old('user_id')) 
+                                    @if(old('user_id') == $user->id) 
                                         selected 
                                     @else
                                         @isset($ticket->user)
@@ -90,7 +90,7 @@ Edit Ticket
                         	<option selected value> -- Select a Account -- </option>
                             @foreach($accounts as $account)
                                 <option value="{{ $account->id }}"
-                                    @if(old('account_id')) 
+                                    @if(old('account_id') == $account->id) 
                                         selected 
                                     @else
                                         @isset($ticket->account)

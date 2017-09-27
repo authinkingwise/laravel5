@@ -39,7 +39,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        $controllers = ['account', 'contact', 'ticket', 'project', 'task', 'user', 'role'];
+        $controllers = ['account', 'contact', 'ticket', 'comment', 'project', 'task', 'user', 'role'];
 
         return view('role.create', [
             'permissions' => $permissions,
@@ -108,7 +108,7 @@ class RoleController extends Controller
 
         $allPermissions = Permission::all(); // all default permissions
 
-        $controllers = ['account', 'contact', 'ticket', 'project', 'task', 'user', 'role'];
+        $controllers = ['account', 'contact', 'ticket', 'comment', 'project', 'task', 'user', 'role'];
 
         return view('role.edit', [
             'role' => $role,

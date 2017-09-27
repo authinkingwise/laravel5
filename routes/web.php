@@ -112,3 +112,9 @@ Route::any('/users/{id}/invite', ['uses' => 'UserController@invite']);
 */
 Route::resource('contacts', 'ContactController');
 
+/*
+|-------------------------------------
+| Comment
+|-------------------------------------
+*/
+Route::resource('comments', 'CommentController');

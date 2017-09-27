@@ -32,58 +32,65 @@ Ticket Details
 
 					<div class="row">
 						<div class="col-lg-10 col-md-10 col-sm-10">
-								<dl class="dl-horizontal">
-									<dt>Description:</dt>
-									<dd>{!! $ticket->description !!}</dd>
-								</dl>
+							<dl class="dl-horizontal">
+								<dt>Description:</dt>
+								<dd>{!! $ticket->description !!}</dd>
+							</dl>
 
-								<dl class="dl-horizontal">
-									<dt>Status:</dt>
-									<dd><span class="status-{{ $ticket->status->short_name }}"><strong>{{ $ticket->status->name }}</strong></span></dd>
-								</dl>
+							<dl class="dl-horizontal">
+								<dt>Status:</dt>
+								<dd><span class="status-{{ $ticket->status->short_name }}"><strong>{{ $ticket->status->name }}</strong></span></dd>
+							</dl>
 
-								<dl class="dl-horizontal">
-									<dt>Assigned to:</dt>
-									<dd>
-										@isset($ticket->user)
-											{{ $ticket->user->name }}
-										@endisset
-									</dd>
-								</dl>
+							<dl class="dl-horizontal">
+								<dt>Assigned to:</dt>
+								<dd>
+									@isset($ticket->user)
+										{{ $ticket->user->name }}
+									@endisset
+								</dd>
+							</dl>
 
-								<dl class="dl-horizontal">
-									<dt>Account:</dt>
-									<dd>@isset($ticket->account)
-										<a href="{{ url('accounts/'.$ticket->account->id) }}">{{ $ticket->account->name }}</a>
-										@endisset
-									</dd>
-								</dl>
+							<dl class="dl-horizontal">
+								<dt>Account:</dt>
+								<dd>@isset($ticket->account)
+									<a href="{{ url('accounts/'.$ticket->account->id) }}">{{ $ticket->account->name }}</a>
+									@endisset
+								</dd>
+							</dl>
 
-								<dl class="dl-horizontal">
-									<dt>Priority:</dt>
-									<dd>
-										@isset($ticket->priority)
-											{{ $ticket->priority->name }}
-										@endisset
-									</dd>
-								</dl>
+							<dl class="dl-horizontal">
+								<dt>Priority:</dt>
+								<dd>
+									@isset($ticket->priority)
+										{{ $ticket->priority->name }}
+									@endisset
+								</dd>
+							</dl>
 
-								@isset($ticket->estimated_time)
+							@isset($ticket->estimated_time)
 								<dl class="dl-horizontal">
 									<dt>Estimated Hours:</dt>
 									<dd>{{ $ticket->estimated_time }}</dd>
 								</dl>
-								@endisset
+							@endisset
 
-								<dl class="dl-horizontal">
-									<dt>Created by:</dt>
-									<dd>{{ $ticket->creator->name }}&nbsp;&nbsp;{{ $ticket->created_at }}</dd>
-								</dl>
+							<dl class="dl-horizontal">
+								<dt>Created by:</dt>
+								<dd>{{ $ticket->creator->name }}&nbsp;&nbsp;<small>{{ $ticket->created_at }}</small></dd>
+							</dl>
 
+							<dl class="dl-horizontal">
+								<dt>Last Updated by:</dt>
+								<dd>{{ $ticket->lastUpdateUser->name }}&nbsp;&nbsp;<small>{{ $ticket->updated_at }}</small></dd>
+							</dl>
+
+							@if($time_spent > 0)
 								<dl class="dl-horizontal">
-									<dt>Last Updated by:</dt>
-									<dd>{{ $ticket->lastUpdateUser->name }}&nbsp;&nbsp;{{ $ticket->updated_at }}</dd>
+									<dt>Hours spent:</dt>
+									<dd>{{ $time_spent }}</dd>
 								</dl>
+							@endif
 						</div>
 
 						@can('edit-ticket')
@@ -100,7 +107,19 @@ Ticket Details
 
 				</div>
 
-			</div>
+			</div><!-- End .panel -->
+
+			@if(count($comments))
+
+				@include('ticket_comment.index')
+
+			@endif
+
+			@can('create-comment')
+			
+				@include('ticket_comment.create')
+
+			@endcan
 
 		</div>
 
