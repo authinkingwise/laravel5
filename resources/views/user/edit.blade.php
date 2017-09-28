@@ -81,6 +81,7 @@ Edit User
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-skyblue">Update</button>
+						<a href="{{ url()->previous() }}" class="btn btn-default">Cancel</a>
 					</div>
 				</div>
 

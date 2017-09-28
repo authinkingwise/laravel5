@@ -17,6 +17,13 @@ class Comment extends Model
 		'description', 'ticket_id', 'user_id', 'tenant_id', 'time'
 	];
 
+    /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['ticket']; // it will update the parent ticket's timestamp.
+
 	/**
      * A comment belongs to a ticket.
      *
@@ -35,5 +42,10 @@ class Comment extends Model
     public function user()
     {
     	return $this->belongsTo('App\User');
+    }
+
+    public function ticketActivity()
+    {
+        return $this->hasOne('App\Models\TicketActivity');
     }
 }

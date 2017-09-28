@@ -53,7 +53,6 @@ Profile Details
 								</dl>
 						</div>
 
-						{{--
 						<div class="col-lg-2 col-md-2 col-sm-2">
 							<div class="pull-right">
 								<a href="{{ url('profile/edit') }}" class="btn btn-skyblue btn-sm btn-block">
@@ -62,7 +61,6 @@ Profile Details
 								</a>
 							</div>
 						</div>
-						--}}
 					</div>
 
 				</div>

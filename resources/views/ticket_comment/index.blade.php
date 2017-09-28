@@ -12,7 +12,10 @@
 						<dt>{{ $comment->user->name }}:</dt>
 						<dd>
 							<div>{!! $comment->description !!}</div>
-							<div><small>{{ $comment->updated_at }}</small></div>
+							<div><small>@isset($comment->ticketActivity) {!! $comment->ticketActivity->text !!}&nbsp; @endisset{{ $comment->updated_at }}</small></div>
+							@isset($comment->time)
+								<div><small>Hours spent: {{ $comment->time }} hours</small></div>
+							@endisset
 						</dd>
 					</dl>
 				@endforeach
