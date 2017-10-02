@@ -50,7 +50,7 @@ Create Ticket
                     </div>
                 </div>
 
-				<div class="form-group">
+				<div class="form-group required">
                     <label for="user_id" class="col-sm-2 control-label">Assign to</label>
                     <div class="col-sm-5">
                         <select name="user_id" class="form-control" id="user_id">

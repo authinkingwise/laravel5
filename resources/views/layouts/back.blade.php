@@ -14,7 +14,6 @@
 
         <script type="text/javascript" src="{{ asset('/js/jquery/jquery-3.2.1.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('/js/back.js') }}"></script>
     </head>
     <body id="app">
         <div class="container-fluid">
@@ -32,7 +31,7 @@
                     </ul>
 
                     <ul class="nav nav-sidebar">
-                        <li><a href="{{ url('workflow') }}"><i class="fa fa-tasks"></i><span>Workflow</span></span></a></li>
+                        <li @if(Request::getPathInfo() == '/projects') class="active" @endif><a href="{{ url('projects') }}"><i class="fa fa-tasks"></i><span>Projects</span></span></a></li>
                     </ul>
 
                     <ul class="nav nav-sidebar">
@@ -153,8 +152,8 @@
 
         <!-- Scripts -->
         @section('javascript')
-            <script type="text/javascript" src="{{ asset('js/front.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/back.js') }}"></script>
         @show
     </body>
 </html>

@@ -696,8 +696,12 @@ body#app {
 	padding: 30px 0 20px 0;
 }
 
-select.form-control {
+.filter-search select.form-control {
 	height: 30px;
+}
+
+select[multiple] {
+	max-height: 120px;
 }
 
 form label {
@@ -736,6 +740,15 @@ form {
 .btn.more-tickets {
 	margin-left: 2px;
 	margin-bottom: 2px;
+}
+
+.text-desc {
+	ul {
+		margin-left: 20px;
+	}
+	ul, li {
+		list-style: inherit;
+	}
 }
 
 @media (min-width: 768px) {

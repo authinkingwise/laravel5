@@ -85,7 +85,7 @@ Your Tickets
 
 			</div>
 
-			<div class="row task-list">
+			<div class="row ticket-list">
 				<div class="col-lg-12 col-md-12 col-sm-12">
 
 					<div class="panel panel-default">

@@ -34,7 +34,7 @@ Ticket Details
 						<div class="col-lg-10 col-md-10 col-sm-10">
 							<dl class="dl-horizontal">
 								<dt>Description:</dt>
-								<dd>{!! $ticket->description !!}</dd>
+								<dd><div class="text-desc">{!! $ticket->description !!}</div></dd>
 							</dl>
 
 							<dl class="dl-horizontal">
