@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Project;
 use App\User;
 use App\Models\Account;
+use App\Models\TaskSchedule;
 
 class ProjectController extends Controller
 {
@@ -124,6 +125,10 @@ class ProjectController extends Controller
             }
             $allowed_users_ids = $project->visibleToUsers();
         }
+
+        $schedules = TaskSchedule::all();
+
+        $tasks = $project->tasks;
         
         return view('project.show', [
             'project' => $project,
@@ -131,6 +136,13 @@ class ProjectController extends Controller
             'accounts' => $accounts,
             'allowed_users' => ($allowed_users != null) ? $allowed_users : null,
             'allowed_users_ids' => isset($allowed_users_ids) ? $allowed_users_ids : null,
+            'schedules' => $schedules,
+
+            'tasks' => $tasks,
+            'newTasks' => $project->tasks()->where('schedule_id', '=', 1)->orderBy('order_index', 'asc')->orderBy('id', 'desc')->get(),
+            'todoTasks' => $project->tasks()->where('schedule_id', '=', 2)->orderBy('order_index', 'asc')->orderBy('id', 'desc')->get(),
+            'workingOnTasks' => $project->tasks()->whereIn('schedule_id', [3,4,5])->orderBy('order_index', 'asc')->orderBy('id', 'desc')->get(),
+            'completedTasks' => $project->tasks()->where('schedule_id', '=', 6)->orderBy('order_index', 'asc')->orderBy('id', 'desc')->get(),
         ]);
     }
 
@@ -211,6 +223,11 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        if ($project->delete())
+            return redirect()->back()->with('success', 'Success to delete the project');
+        else
+            return redirect()->back()->with('error', 'Failed to delete the project');
     }
 }

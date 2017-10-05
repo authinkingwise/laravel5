@@ -35,7 +35,7 @@ Project
 						</button>
 					@endcan
 					@can('create-task')
-						<button class="btn btn-primary btn-sm" title="Add a new task to this project" data-toggle="modal" data-target="#add-modal">
+						<button class="btn btn-primary btn-sm" title="Add a new task to this project" data-toggle="modal" data-target="#create-task-modal">
 							<i class="fa fa fa-plus-circle"></i>
 							<span>Create Task</span>
 						</button>
@@ -163,10 +163,225 @@ Project
 
 		</div>
 
-	</div>
+	</div><!-- End .project-details -->
+
+	@if(count($tasks))
+	<div class="row tasks">
+
+		<div class="col-lg-3 col-md-4 col-sm-12">
+
+			<div class="panel panel-default">
+
+				<div class="panel-heading bg-info">Someday</div>
+
+				<div class="panel-body">
+
+					<ul class="list-unstyled list-tasks" id="list-new-tasks" data-schedule="1">
+						@foreach($newTasks as $task)
+							<li data-parent="{{ $project->id }}" 
+								data-task="{{ $task->id }}" 
+								data-schedule="{{ $task->schedule_id }}" 
+								data-name="{{ $task->name }}"
+								@cannot('edit-task') class="no-permission" @endcannot>
+								<div class="task-name" data-toggle="modal" data-target="#show-task-modal" data-task="{{ $task->id }}">
+									{{ $task->name }}
+								</div>
+								<div class="photo profile">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6">
+											{{ $task->user->name }}
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>
+										</div>
+									</div>
+								</div>
+								<div class="action row">
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<span class="schedule-name">{{ $task->schedule->name }}</span>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+										<button class="btn btn-xs btn-info new-button" data-task="{{ $task->id }}">Start</button>
+									</div>
+								</div>
+							</li>
+						@endforeach
+					</ul>
+
+				</div>
+
+			</div>
+
+		</div><!-- End .col-lg-3 -->
+
+		<div class="col-lg-3 col-md-4 col-sm-12">
+
+			<div class="panel panel-default">
+
+				<div class="panel-heading bg-danger">To Do</div>
+
+				<div class="panel-body">
+
+					<ul class="list-unstyled list-tasks" id="list-todo-tasks" data-schedule="2">
+						@foreach($todoTasks as $task)
+							<li data-parent="{{ $project->id }}" 
+								data-task="{{ $task->id }}" 
+								data-schedule="{{ $task->schedule_id }}" 
+								data-name="{{ $task->name }}"
+								@cannot('edit-task') class="no-permission" @endcannot>
+								<div class="task-name" data-toggle="modal" data-target="#show-task-modal" data-task="{{ $task->id }}">
+									{{ $task->name }}
+								</div>
+								<div class="photo profile">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6">
+											{{ $task->user->name }}
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>
+										</div>
+									</div>
+								</div>
+								<div class="action row">
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<span class="schedule-name">{{ $task->schedule->name }}</span>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+										<button class="btn btn-xs btn-danger new-button" data-task="{{ $task->id }}">Start</button>
+									</div>
+								</div>
+							</li>
+						@endforeach
+					</ul>
+
+				</div>
+
+			</div>
+
+		</div><!-- End .col-lg-3 -->
+
+		<div class="col-lg-3 col-md-4 col-sm-12">
+
+			<div class="panel panel-default">
+
+				<div class="panel-heading bg-warning">Working On</div>
+
+				<div class="panel-body">
+
+					<ul class="list-unstyled list-tasks" id="list-workingon-tasks" data-schedule="3">
+						@foreach($workingOnTasks as $task)
+							<li data-parent="{{ $project->id }}" 
+								data-task="{{ $task->id }}" 
+								data-schedule="{{ $task->schedule_id }}" 
+								data-name="{{ $task->name }}"
+								@cannot('edit-task') class="no-permission" @endcannot>
+								<div class="task-name" data-toggle="modal" data-target="#show-task-modal" data-task="{{ $task->id }}">
+									{{ $task->name }}
+								</div>
+								<div class="photo profile">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6">
+											{{ $task->user->name }}
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>
+										</div>
+									</div>
+								</div>
+								<div class="action row">
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<span class="schedule-name">{{ $task->schedule->name }}</span>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+										@if($task->schedule_id == 3)
+											<button class="btn btn-xs btn-warning finish-button" data-task="{{ $task->id }}">Finish</button>
+										@elseif($task->schedule_id == 4)
+											<button class="btn btn-xs btn-success accept-button" data-task="{{ $task->id }}">Accept</button>
+											<button class="btn btn-xs btn-danger reject-button" data-task="{{ $task->id }}">Reject</button>
+										@elseif($task->schedule_id == 5)
+											<button class="btn btn-xs btn-primary restart-button" data-task="{{ $task->id }}">Restart</button>
+										@endif
+									</div>
+								</div>
+							</li>
+						@endforeach
+					</ul>
+
+				</div>
+
+			</div>
+
+		</div><!-- End .col-lg-3 -->
+
+		<div class="col-lg-3 col-md-4 col-sm-12">
+
+			<div class="panel panel-default">
+
+				<div class="panel-heading bg-success">Completed</div>
+
+				<div class="panel-body">
+
+					<ul class="list-unstyled list-tasks" id="list-completed-tasks" data-schedule="6">
+						@foreach($completedTasks as $task)
+							<li data-parent="{{ $project->id }}" 
+								data-task="{{ $task->id }}" 
+								data-schedule="{{ $task->schedule_id }}" 
+								data-name="{{ $task->name }}"
+								@cannot('edit-task') class="no-permission" @endcannot>
+								<div class="task-name" data-toggle="modal" data-target="#show-task-modal" data-task="{{ $task->id }}">
+									{{ $task->name }}
+								</div>
+								<div class="photo profile">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6">
+											{{ $task->user->name }}
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>
+										</div>
+									</div>
+								</div>
+								<div class="action row">
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<span class="schedule-name">{{ $task->schedule->name }}</span>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+										<button class="btn btn-xs btn-info new-button" data-task="{{ $task->id }}">Complete</button>
+									</div>
+								</div>
+							</li>
+						@endforeach
+					</ul>
+
+				</div>
+
+			</div>
+
+		</div><!-- End .col-lg-3 -->
+
+	</div><!-- End .tasks -->
+	@else
+		<p>There is no task for this project yet.</p>
+	@endif
 
 	<div class="modal fade" id="edit-project-modal" tabindex="-1" role="dialog" aria-labelledby="edit-project-modal-label">
 		@include('project.edit')
 	</div><!-- End #edit-project-modal -->
 
+	<div class="modal fade" id="create-task-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label">
+		@include('task.create')
+	</div><!-- End #create-task-modal -->
+
+	<!-- View & Edit task modal -->
+	<div class="modal fade" id="show-task-modal" tabindex="-1" role="dialog" aria-labelledby="show-task-modal-label">
+		@include('task.edit')
+	</div><!-- End #show-task-modal -->
+
+	@include('modal.dialog-permission')
+
+@endsection
+
+@section('javascript')
+	<script type="text/javascript">var url_get_task = "{{ url('tasks') }}";</script>
+	@parent
 @endsection

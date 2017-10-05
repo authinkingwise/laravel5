@@ -4,7 +4,7 @@
 
 		<div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		    <h4 class="modal-title" id="edit-project-modal-label">Edit project</h4>
+		    <h4 class="modal-title">Edit project</h4>
 		</div>
 
 		<div class="modal-body">

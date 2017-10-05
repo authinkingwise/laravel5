@@ -3,17 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta http-euiv="X-UA-Compatible">
-        <meta name="viewport" content="width=device-width,intial-scale=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>{{ config('app.name', 'Agency Bucket') }} - @yield('title')</title>
         @section('style')
-        <!-- <link rel="stylesheet" href="{{ asset('/static/font-awesome/css/font-awesome.min.css') }}"> -->
+        <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui.css') }}">
         <link rel="stylesheet" href="{{ asset(elixir('css/app.css')) }}">
         <link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}">
         @show
 
         <script type="text/javascript" src="{{ asset('/js/jquery/jquery-3.2.1.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/bootstrap/bootstrap.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/jquery/jquery-ui.js') }}"></script>
+        <!-- <script type="text/javascript" src="{{ asset('/js/jquery/timepicker/jquery.timepicker.js') }}"></script> -->
     </head>
     <body id="app">
         <div class="container-fluid">
@@ -150,9 +153,13 @@
             </div>
         </footer>
 
+        <div class="ajax-loader" style="display:none;">
+            <img src="{{ asset('/images/ajax-loader.gif') }}" class="loading-indicator">
+        </div>
+
         <!-- Scripts -->
         @section('javascript')
-            <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+            <!-- <script type="text/javascript" src="{{ asset('js/app.js') }}"></script> -->
             <script type="text/javascript" src="{{ asset('js/back.js') }}"></script>
         @show
     </body>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-euiv="X-UA-Compatible">
-        <meta name="viewport" content="width=device-width,intial-scale=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>{{ config('app.name', 'Agency Bucket') }} - @yield('title')</title>
         @section('style')

@@ -751,6 +751,56 @@ form {
 	}
 }
 
+/*****************************
+* Project Task *
+*****************************/
+.panel-default > .panel-heading {
+	&.bg-info {
+		background-color: $skyblue;
+		color: $white;
+	}
+	&.bg-danger {
+		background-color: $red;
+		color: $white;
+	}
+	&.bg-warning {
+		background-color: $orange;
+		color: $white;
+	}
+	&.bg-success {
+		background-color: $green;
+		color: $white;
+	}
+}
+
+.tasks {
+	.list-tasks {
+		min-height: 36px;
+	}
+}
+
+/*****************************
+* Ajax Loader *
+*****************************/
+.ajax-loader {
+    background-color: rgba(229,229,229, 0.3);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3000;
+}
+.ajax-loader .loading-indicator {
+    position: absolute;
+    top: 50%;
+    left:  50%;
+}
+
+.ui-autocomplete {
+    z-index:2147483647;
+}
+
 @media (min-width: 768px) {
 	
 	.sidebar {
