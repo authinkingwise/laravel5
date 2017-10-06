@@ -779,6 +779,49 @@ form {
 	}
 }
 
+.tasks .profile img {
+    max-width: 25px;
+}
+
+.tasks ul li {
+	padding: 10px 0;
+
+	&:not(:last-child) {
+		border-bottom: 1px solid #ddd;
+	}
+
+	.task-name {
+		font-size: 12px;
+	    font-weight: bold;
+	    margin-bottom: 4px;
+	    cursor: pointer;
+	    color: $blue;
+	    display: inline-block;
+	    &:hover {
+	    	color: $skyblue;
+	    }
+	}
+
+	.task-created-at, .user {
+		font-size: 11px;
+	}
+
+	.profile {
+		margin-bottom: 4px;
+	}
+
+	.action {
+		.schedule-name {
+			font-size: 10px;
+    		color: $lightgrey;
+		}
+		.btn-xs {
+			font-size: 11px;
+		}
+	}
+}
+
+
 /*****************************
 * Ajax Loader *
 *****************************/

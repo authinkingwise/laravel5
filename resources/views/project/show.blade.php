@@ -35,7 +35,7 @@ Project
 						</button>
 					@endcan
 					@can('create-task')
-						<button class="btn btn-primary btn-sm" title="Add a new task to this project" data-toggle="modal" data-target="#create-task-modal">
+						<button class="btn btn-skyblue btn-sm" title="Add a new task to this project" data-toggle="modal" data-target="#create-task-modal">
 							<i class="fa fa fa-plus-circle"></i>
 							<span>Create Task</span>
 						</button>
@@ -189,7 +189,7 @@ Project
 								<div class="photo profile">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-6">
-											{{ $task->user->name }}
+											<div class="user">{{ $task->user->name }}</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
 											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>
@@ -235,7 +235,7 @@ Project
 								<div class="photo profile">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-6">
-											{{ $task->user->name }}
+											<div class="user">{{ $task->user->name }}</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
 											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>
@@ -281,7 +281,7 @@ Project
 								<div class="photo profile">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-6">
-											{{ $task->user->name }}
+											<div class="user">{{ $task->user->name }}</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
 											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>
@@ -334,7 +334,7 @@ Project
 								<div class="photo profile">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-6">
-											{{ $task->user->name }}
+											<div class="user">{{ $task->user->name }}</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-6 text-right">
 											<div class="task-created-at">{{ $task->created_at->format('Y-m-d') }}</div>

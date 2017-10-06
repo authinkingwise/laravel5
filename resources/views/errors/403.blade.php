@@ -22,6 +22,9 @@ Permission Denied
 		                <div class="panel-body">
 		                	<h4>Your account does not allow you to operate this action. Please contact administrator.</h4>
 		                	<br />
+		                	@isset($errorProjectVisible)
+		                		<h4>Not visible to this project.</h4>
+		                	@endisset
 		                	<a href="{{ url()->previous() }}" class="btn btn-skyblue btn-sm"><i class="fa fa-angle-left"></i><span>Go Back</span></a>
 		                </div>
 	                @endisset

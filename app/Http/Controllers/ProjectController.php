@@ -115,6 +115,16 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = Project::findOrFail($id);
+
+        // Make sure not able to show other tenants' content
+        if (Gate::denies('check-tenant-project', $project)) {
+            return response()->view('errors.403', ['errorTenant' => Auth::user()->tenant_id], 403);
+        }
+
+        if (Gate::denies('show-project', $project)) {
+            return response()->view('errors.403', ['errorProjectVisible' => 1], 403);
+        }
+
         $users = User::where('tenant_id', '=', Auth::user()->tenant_id)->get();
         $accounts = Account::where('tenant_id', '=', Auth::user()->tenant_id)->get();
 

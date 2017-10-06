@@ -76,6 +76,22 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('check-tenant-task', function($user, $task){
             return $user->tenant_id == $task->tenant_id;
         });
+
+        Gate::define('show-project', function($user, $project){
+            $permission = Permission::where('name', 'show-project')->firstOrFail();
+
+            if ($user->hasPermission($permission) != true)
+                return false;
+            if ($project->visible == true)
+                return true;
+
+            if ($project->visibleToUsers() != null) {
+                $allowed_users_ids = $project->visibleToUsers();
+                if (in_array($user->id, $allowed_users_ids)) {
+                    return true;
+                }
+            }
+        });
     }
 
     /**

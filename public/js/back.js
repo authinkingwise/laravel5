@@ -1,6 +1,6 @@
 tinymce.init({
     selector: 'textarea',
-    height: 250,
+    height: 220,
     menubar: false,
     plugins: [
         'advlist autolink lists link image charmap print preview anchor textcolor',
@@ -134,6 +134,8 @@ $(document).ready(function(){
 
             var new_schedule_id = $(this).attr('data-schedule');
 
+            var button = $(ui.item).find("button");
+
             // Update the schedule status of the task
             if (schedule_id !== new_schedule_id) {
                 $.ajax({
@@ -143,6 +145,30 @@ $(document).ready(function(){
                     headers: {"X-HTTP-Method-Override": "PUT"},
                     success: function( msg ) {
                         
+                        // Update Button color and text
+                        if (new_schedule_id == schedule.new) { // Schedule: New
+                            if (schedule_id == schedule.completed)
+                                button.css("visibility", "visible");
+                            button.attr('class', 'btn btn-xs btn-info new-button');
+                            button.html("Start");
+                        }
+                        if (new_schedule_id == schedule.todo) { // Schedule: To do
+                            if (schedule_id == schedule.completed)
+                                button.show();
+                            button.attr('class', 'btn btn-xs btn-danger new-button');
+                            button.html("Start");
+                        }
+                        if (new_schedule_id == schedule.in_progress) { // Schedule: In progress
+                            if (schedule_id == schedule.completed)
+                                button.show();
+                            button.attr('class', 'btn btn-xs btn-warning finish-button');
+                            button.html("Finish");
+                        }
+                        if (new_schedule_id == schedule.completed) { // Schedule: Completed
+                            button.css("visibility", "hidden");
+                            button.attr('class', 'btn btn-xs btn-success completed-button');
+                            button.html("Completed");
+                        }
                     }
                 });
             }
