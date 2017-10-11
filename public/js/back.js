@@ -19,7 +19,7 @@ var schedule = {
     "completed": 6
 };
 
-$(document).ready(function(){
+$(function(){
 
     // Ajax Loader
     var ajax_loader = $(".ajax-loader");

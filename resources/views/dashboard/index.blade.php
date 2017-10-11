@@ -6,6 +6,8 @@ Dashboard
 
 @section('content')
 
+	@include('dashboard.chart')
+
 	<div class="row dashboard-content">
 		
 		<div class="col-lg-4 col-md-4">
@@ -77,13 +79,15 @@ Dashboard
 			</div>
 		</div>
 
+		<!-- My Tickets -->
 		<div class="col-lg-4 col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h4 class="title">Tickets</h4>
-					<span class="number pull-right">24</span>
+					<h4 class="title">My Tickets</h4>
+					<span class="number pull-right">{{ $countTickets }}</span>
 				</div>
 				<div class="panel-body">
+					{{--
 					<ul>
 						<li>
 							<div class="row">
@@ -142,6 +146,31 @@ Dashboard
 							</div>
 						</li>
 					</ul>
+					--}}
+					
+					@if(count($tickets))
+						<ul>
+							@foreach($tickets as $ticket)
+								<li>
+									<div class="row">
+										<div class="col-md-2 col-sm-2 col-xs-2">
+											<a href="{{ url('accounts/' . $ticket->account->id) }}" class="round account" title="{{ $ticket->account->name }}">{{ strtoupper( substr($ticket->account->name, 0, 1) ) }}</a>
+										</div>
+										<div class="col-md-10 col-sm-10 col-xs-10">
+											<div class="subject"><a href="{{ url('tickets/' . $ticket->id) }}">{{ $ticket->title }}</a></div>
+											<div class="time @isset($ticket->priority) @if($ticket->priority->code == 1) priority-urgent @elseif($ticket->priority->code == 2) priority-warning @endif @endisset">
+												<span class="icon"><i class="fa fa-clock-o"></i></span>
+												<span class="text">updated at: <span>{{ $ticket->updated_at }}</span></span>
+											</div>
+										</div>
+									</div>
+								</li>
+							@endforeach
+						</ul>
+					@else	
+						<p>You do not have any tickets yet.</p>
+					@endif
+					
 				</div>
 			</div>
 		</div>

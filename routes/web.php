@@ -141,3 +141,10 @@ Route::resource('tasks', 'TaskController');
 Route::get('/profile', ['uses' => 'ProfileController@show']);
 Route::get('/profile/edit', ['uses' => 'ProfileController@edit']);
 Route::put('/profile', ['uses' => 'ProfileController@update']);
+
+/*
+|-------------------------------------
+| Report
+|-------------------------------------
+*/
+Route::get('/reports', ['uses' => 'ReportController@index']);

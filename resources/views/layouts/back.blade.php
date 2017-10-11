@@ -17,6 +17,8 @@
         <script type="text/javascript" src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/jquery/jquery-ui.js') }}"></script>
         <!-- <script type="text/javascript" src="{{ asset('/js/jquery/timepicker/jquery.timepicker.js') }}"></script> -->
+        <script type="text/javascript" src="{{ asset('/js/chart/Chart.bundle.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/chart/utils.js') }}"></script>
     </head>
     <body id="app">
         <div class="container-fluid">
@@ -71,6 +73,10 @@
                         <li @if(Request::getPathInfo() == '/permissions') class="active" @endif><a href="{{ url('permissions') }}"><i class="fa fa-shield"></i><span>Permissions</span></a></li>
                     </ul>
                     @endcan
+
+                    <ul class="nav nav-sidebar">
+                        <li @if(Request::getPathInfo() == '/reports') class="active" @endif><a href="{{ url('reports') }}"><i class="fa fa-bar-chart"></i><span>Reports</span></a></li>
+                    </ul>
 
                 </div>
 
