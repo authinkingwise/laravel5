@@ -12,7 +12,7 @@ Edit Profile
 
 		<div class="panel-body">
 
-			<form class="form-horizontal" action="{{ url('profile') }}" method="POST">
+			<form class="form-horizontal" action="{{ url('profile') }}" method="POST" enctype="multipart/form-data">
 
 				{{ csrf_field() }}
 
@@ -56,6 +56,29 @@ Edit Profile
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                     </div>
                 </div>
+
+                <div class="form-group">
+					<label for="full_name" class="col-sm-2 control-label">Full Name</label>
+					<div class="col-sm-5">
+						<input type="text" name="full_name" class="form-control" id="full_name" value="{{ old('full_name') ?: (isset($user->full_name) ? $user->full_name : '') }}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="avatar" class="col-sm-2 control-label">Avatar</label>
+					<div class="col-sm-5">
+						<div class="row">
+							<div class="col-md-9">
+								<input type="file" name="avatar" class="form-control" id="avatar">
+							</div>
+							@isset($user->avatar)
+								<div class="col-md-3">
+									<img src="{{ asset('storage/profile') }}/{{ $user->tenant_id }}/{{ Auth::id() }}/{{ $user->avatar }}" class="img-circle m-t-xs img-responsive">
+								</div>
+							@endisset
+						</div>
+					</div>
+				</div>
 
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">

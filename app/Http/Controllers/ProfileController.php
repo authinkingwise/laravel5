@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use App\User;
 
@@ -40,6 +41,27 @@ class ProfileController extends Controller
 
         $input = $request->all();
 
+        if ($file = $request->file('avatar')) {
+            if ($file->isValid()) {
+                $originalName = $file->getClientOriginalName(); // original name
+                $ext = $file->getClientOriginalExtension(); // ext
+                $type = $file->getClientMimeType(); // MimeType
+                $realPath = $file->getRealPath(); // tmp path
+                $filename = time() . '-' . $originalName;
+                $storage = Storage::disk('profile')->put((string)$user->tenant_id . '/' . (string)Auth::id() . '/' . $filename, file_get_contents($realPath));
+
+                if ($storage) {
+                    if ($user->avatar != null) {
+                        Storage::disk('profile')->delete((string)$user->tenant_id . '/' . (string)Auth::id() . '/' . $user->avatar); // delete the old file
+                    }
+                }
+
+                $user->avatar = $filename;
+            }
+        }
+
+        $user->full_name = $input['full_name'];
+
         if ($request['password'] != null) {
             Validator::make($request->all(), [
                 'password' => 'required|string|min:6|confirmed'
@@ -55,7 +77,8 @@ class ProfileController extends Controller
                 return redirect('profile')->with('success', 'Hi ' . $user->name . ', the password keeps the same.');
             }
         } else {
-            return redirect('profile')->with('success', 'Hi ' . $user->name . ', the password remains the same.');
+            if ($user->save())
+                return redirect('profile')->with('success', 'Hi ' . $user->name . ', the password remains the same.');
         }
 
     }

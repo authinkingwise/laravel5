@@ -63,6 +63,20 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        'app' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/app'),
+            'url' => env('APP_URL').'/storage/app',
+            'visibility' => 'private',
+        ],
+
+        'profile' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/profile'),
+            'url' => env('APP_URL').'/storage/profile',
+            'visibility' => 'private',
+        ],
+
     ],
 
 ];

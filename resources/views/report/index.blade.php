@@ -81,21 +81,21 @@ Report
 
 	<script type="text/javascript">
 
-		function getFormattedMondayDate(week) {
-			var todayTime = new Date();
-			var month = todayTime.getMonth() + 1;
-			var year = todayTime.getFullYear();
-			if (week === undefined) {
-			    var day = todayTime.getDate() - todayTime.getDay() + 1;
-			} else {
-				if (isNaN(week)) {
-					var day = todayTime.getDate() - todayTime.getDay() + 1;
-				} else {
-					var day = todayTime.getDate() - todayTime.getDay() + 1 - (week * 7);
-				}
-			}
-			return year + "-" month + "-" + day;
-		}
+		// function getFormattedMondayDate(week) {
+		// 	var todayTime = new Date();
+		// 	var month = todayTime.getMonth() + 1;
+		// 	var year = todayTime.getFullYear();
+		// 	if (week === undefined) {
+		// 	    var day = todayTime.getDate() - todayTime.getDay() + 1;
+		// 	} else {
+		// 		if (isNaN(week)) {
+		// 			var day = todayTime.getDate() - todayTime.getDay() + 1;
+		// 		} else {
+		// 			var day = todayTime.getDate() - todayTime.getDay() + 1 - (week * 7);
+		// 		}
+		// 	}
+		// 	return year + "-" month + "-" + day;
+		// }
 
 		/* Hours Spent on Tickets This Week */
 		var data_hour = [];

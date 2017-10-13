@@ -29,13 +29,22 @@ Profile Details
 					<div class="row">
 						<div class="col-lg-10 col-md-10 col-sm-10">
 								<dl class="dl-horizontal">
-									<dt>User:</dt>
+									<dt>Username:</dt>
 									<dd>{{ $user->name }}</dd>
 								</dl>
 
 								<dl class="dl-horizontal">
 									<dt>Email:</dt>
 									<dd>{{ $user->email }}</dd>
+								</dl>
+
+								<dl class="dl-horizontal">
+									<dt>Full Name:</dt>
+									<dd>
+										@isset($user->full_name)
+											{{ $user->full_name }}
+										@endisset
+									</dd>
 								</dl>
 
 								<dl class="dl-horizontal">
@@ -49,6 +58,21 @@ Profile Details
 										@if($user->roles->first() != null)
 											{{ $user->roles->first()->label }}
 										@endif
+									</dd>
+								</dl>
+
+								<dl class="dl-horizontal">
+									<dt>Avatar:</dt>
+									<dd>
+										<div class="row">
+											<div class="col-lg-3 col-md-3 col-sm-4">
+												@isset($user->avatar)
+													<img src="{{ asset('storage/profile') }}/{{ $user->tenant_id }}/{{ Auth::id() }}/{{ $user->avatar }}" class="img-circle m-t-xs img-responsive">
+												@else
+													No avatar image
+												@endisset
+											</div>
+										</div>
 									</dd>
 								</dl>
 						</div>
