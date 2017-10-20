@@ -244,4 +244,11 @@ $(function(){
 
     });
 
+
+    /* Add more file attachment */
+    $("#add-file").on("click", function() {
+        var html_file = '<input type="file" class="form-control" name="files[]">';
+        $(html_file).insertBefore($(this));
+    });
+
 });

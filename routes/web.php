@@ -148,3 +148,10 @@ Route::put('/profile', ['uses' => 'ProfileController@update']);
 |-------------------------------------
 */
 Route::get('/reports', ['uses' => 'ReportController@index']);
+
+/*
+|-------------------------------------
+| Ticket File
+|-------------------------------------
+*/
+Route::resource('ticketfiles', 'TicketFileController');

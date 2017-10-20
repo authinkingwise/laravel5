@@ -10,11 +10,17 @@ use App\Models\Ticket;
 use App\User;
 use App\Models\Account;
 
+use App\Repositories\TicketFileRepository;
+
 class TicketController extends Controller
 {
-    public function __construct()
+    protected $ticketFile;
+
+    public function __construct(TicketFileRepository $ticketFile)
     {
         $this->middleware('auth');
+
+        $this->ticketFile = $ticketFile;
     }
 
     public function index(Request $request)
@@ -154,8 +160,20 @@ class TicketController extends Controller
 		$input['last_update_user_id'] = Auth::id();
         $input['tenant_id'] = Auth::user()->tenant_id;
 
-        if ($ticket = Ticket::create($input))
+        
+
+        if ($ticket = Ticket::create($input)) {
+
+        	if ($files = $request->file('files')) {
+	        	foreach ($files as $file) {
+	        		if ($file->isValid()) {
+	        			$this->ticketFile->create($ticket->id, $file);
+	        		}
+	        	}
+	        }
+
             return redirect('tickets/'.$ticket->id)->with('success', 'Success to add ticket.');
+        }
         else
             return redirect()->back()->with('error', 'Failed to add ticket.');
 	}
@@ -183,13 +201,16 @@ class TicketController extends Controller
         	$time_spent = $time_spent + $comment->time;
         }
 
+        $attachments = $ticket->ticketFiles;
+
 		return view('ticket.show', [
 			'ticket' => $ticket,
 			'users' => $users,
 			'statuses' => $statuses,
 			'priorities' => $priorities,
 			'comments' => $comments,
-			'time_spent' => $time_spent
+			'time_spent' => $time_spent,
+			'attachments' => $attachments
 		]);
 	}
 

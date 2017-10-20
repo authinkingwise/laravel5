@@ -91,6 +91,17 @@ Ticket Details
 									<dd>{{ $time_spent }}</dd>
 								</dl>
 							@endif
+
+							@if($attachments->count() > 0)
+								<dl class="dl-horizontal">
+									<dt>Attachment:</dt>
+									<dd>
+										@foreach($attachments as $attachment)
+											<a href="{{ url('ticketfiles/' . $attachment->id) }}">{{ $attachment->file }}</a>
+										@endforeach
+									</dd>
+								</dl>
+							@endif
 						</div>
 
 						@can('edit-ticket')

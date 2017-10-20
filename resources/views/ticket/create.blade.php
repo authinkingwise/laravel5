@@ -15,7 +15,7 @@ Create Ticket
 
 		<div class="panel-body">
 
-			<form class="form-horizontal" action="{{ url('tickets') }}" method="POST" id="ticketform">
+			<form class="form-horizontal" action="{{ url('tickets') }}" method="POST" id="ticketform" enctype="multipart/form-data">
 
 				{{ csrf_field() }}
 
@@ -103,6 +103,14 @@ Create Ticket
                         @endif
 					</div>
 				</div>
+
+                <div class="form-group">
+                    <label for="files" class="col-sm-2 control-label">Upload File</label>
+                    <div class="col-sm-5">
+                        <input type="file" name="files[]" class="form-control">
+                        <span class="btn btn-warning btn-sm pull-right" id="add-file"><i class="fa fa fa-plus-circle"></i>&nbsp;<span>Add more files</span></span>
+                    </div>
+                </div>
 
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">

@@ -51,4 +51,9 @@ class Ticket extends Model
     {
         return $this->hasMany('App\Models\Comment', 'ticket_id');
     }
+
+    public function ticketFiles()
+    {
+        return $this->hasMany('App\Models\TicketFile', 'ticket_id');
+    }
 }
