@@ -27,8 +27,9 @@ Route::get('/pricing', function () {
 
 // Contact page ----> front-contact
 Route::get('/contact', function () {
-	return view('front-contact');
+    return view('front-contact')->with('STATUS','PENDING');
 });
+Route::post('/contact', ['uses' => 'EmailController@contactUs']);
 
 // Features page
 Route::get('/features', function () {
