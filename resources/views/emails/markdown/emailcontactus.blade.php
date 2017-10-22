@@ -10,12 +10,8 @@ Phone:  {{$phone}}
 
 Message:{{$message}}
 
-@component('mail::button', ['url' => route('/')])
+@component('mail::button', ['url' => 'http://13.55.209.187:8080/' ])
     Browser More
-@endcomponent
-
-@component('mail::button', ['url' => route('/login')])
-    Replay back
 @endcomponent
 
 Thanks,<br>

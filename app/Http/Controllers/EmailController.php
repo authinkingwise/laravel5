@@ -53,7 +53,7 @@ class EmailController extends Controller
         Log::info('Invoking EmailController.................5='.$message);
 
 
-        Mail::to('agencylinking@gmail.com')->send(new EmailContactus());
+        Mail::to('agencybucket17@gmail.com')->send(new EmailContactus());
         return view('front-contact')->with(["STATUS" => "SUCCESS"]);
     }
 }
