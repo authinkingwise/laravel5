@@ -31,6 +31,50 @@ body {
   padding-top: 50px;
 }
 
+// Checkbox
+.checkbox {
+	.ck {
+		border: 1px solid $lightgrey;
+		display: inline-block;
+		position: relative;
+		border-radius: 0.25em;
+		width: 1.3em;
+		height: 1.3em;
+		float: left;
+		margin-right: 0.5em;
+		margin-top: 0.15em;
+		.ck-icon {
+			position: absolute;
+			top: 50%;
+			left: 8%;
+			font-size: 0.9em;
+			line-height: 0;
+		}
+	}
+}
+
+.checkbox label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.checkbox label input[type="checkbox"] {
+	display: none;
+}
+
+.checkbox label input[type="checkbox"]+.ck>.ck-icon {
+	opacity: 0;
+}
+
+.checkbox label input[type="checkbox"]:checked+.ck>.ck-icon {
+	opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled+.ck {
+	opacity: 0.5;
+}
+
 // Buttons
 .btn-skyblue {
 	background: $skyblue;
@@ -85,6 +129,20 @@ body {
 }
 .status-closed {
 	color: $grey;
+}
+
+// Colors
+.darkblue {
+	color: $darkblue;
+}
+
+// Margin
+.margin-top {
+	margin-top: 20px;
+}
+
+.margin-bottom {
+	margin-bottom: 20px;
 }
 
 .table-hover > tbody > tr.critical {
@@ -848,6 +906,61 @@ form {
 #add-file.btn {
     margin-top: 8px;
     margin-bottom: 4px;
+}
+
+/*****************************
+* Ticket Comments *
+*****************************/
+.comment-list {
+	.item {
+		padding-bottom: 8px;
+		border-bottom: 1px solid $body-bg;
+	}
+}
+
+/*****************************
+* Settings *
+*****************************/
+.nav > .panel-nav-heading {
+	padding: 16px 15px 4px 15px;
+	color: $darkgrey;
+	text-transform: uppercase;
+	&:not(:first-child) {
+		border-top: 1px solid $grey;
+	}
+}
+
+#access_form {
+	.panel-heading {
+		border-color: $grey;
+	}
+	.page-heading {
+		font-size: 16px;
+	}
+}
+
+.section-heading {
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 6px;
+	padding-bottom: 2px;
+	color: $darkblue;
+}
+
+.current-plan {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 1px solid $grey;
+	border-radius: 3px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+}
+
+.usage-summary {
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 @media (min-width: 768px) {

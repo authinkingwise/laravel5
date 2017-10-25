@@ -11,16 +11,22 @@ use App\Models\Role;
 use App\Models\Permission;
 use App\Notifications\TenantCreated;
 
+use App\Repositories\TenantRepository;
+
 class TenantController extends Controller
 {
-     /**
+    protected $tenant;
+
+    /**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(TenantRepository $tenant)
 	{
-		$this->middleware('guest');
+		// $this->middleware('guest');
+
+		$this->tenant = $tenant;
 	}
 
 	/**
@@ -77,5 +83,23 @@ class TenantController extends Controller
 	protected function register()
 	{
 		return view('tenant.register');
+	}
+
+	protected function index()
+	{
+		$tenants = $this->tenant->all();
+
+		return view('tenant.index', [
+			'tenants' => $tenants
+		]);
+	}
+
+	public function show($id)
+	{
+		$tenant = $this->tenant->find($id);
+
+		return view('tenant.show', [
+			'tenant' => $tenant
+		]);
 	}
 }

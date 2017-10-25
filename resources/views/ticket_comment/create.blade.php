@@ -4,7 +4,7 @@
 
 	<div class="panel-body">
 
-		<form class="form-horizontal" action="{{ url('comments') }}" method="POST" id="commentform">
+		<form class="form-horizontal" action="{{ url('comments') }}" method="POST" id="commentform" enctype="multipart/form-data">
 
 			{{ csrf_field() }}
 
@@ -91,6 +91,14 @@
 					<textarea name="comment_description" class="form-control" id="comment_description" rows="3" form="commentform">{{ old('comment_description') ?: '' }}</textarea>
 				</div>
 			</div>
+
+			<div class="form-group">
+                <label for="files" class="col-sm-2 control-label">Upload File</label>
+                <div class="col-sm-4">
+                    <input type="file" name="files[]" class="form-control">
+                    <span class="btn btn-warning btn-sm" id="add-file"><i class="fa fa fa-plus-circle"></i>&nbsp;<span>Add more files</span></span>
+                </div>
+            </div>
 
 			<div class="form-group">
 				<div class="col-sm-12 text-right">

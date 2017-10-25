@@ -40,19 +40,23 @@ Route::get('/privacy-policy', function () {
     return view('front-privacy-policy');
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
 /*
 |-------------------------------------
 | Tenant
 |-------------------------------------
 */
-Route::get('/site/register', ['uses' => 'Admin\TenantController@register']);
-Route::post('/site/create', ['uses' => 'Admin\TenantController@create']);
-Route::get('/site/tenant', ['uses' => 'Admin\TenantController@index']);
-Route::any('/site/tenant/delete/{id}', ['uses' => 'Admin\TenantController@delete'])->where('id', '[0-9]+');
+Route::get('/site/register', ['uses' => 'Admin\TenantController@register'])->middleware('guest');
+Route::post('/site/create', ['uses' => 'Admin\TenantController@create'])->middleware('guest');
+Route::get('/site/tenants', ['uses' => 'Admin\TenantController@index'])->middleware('auth');
+Route::delete('/site/tenants/{id}', ['uses' => 'Admin\TenantController@destory'])->where('id', '[0-9]+')->middleware('auth');
+Route::get('/site/tenants/{id}', ['uses' => 'Admin\TenantController@show'])->where('id', '[0-9]+')->middleware('auth');
+Route::get('/site/tenants/{id}/edit', ['uses' => 'Admin\TenantController@edit'])->where('id', '[0-9]+')->middleware('auth');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
 
 /*
 |-------------------------------------
@@ -155,3 +159,25 @@ Route::get('/reports', ['uses' => 'ReportController@index']);
 |-------------------------------------
 */
 Route::resource('ticketfiles', 'TicketFileController');
+
+/*
+|-------------------------------------
+| Comment File
+|-------------------------------------
+*/
+Route::resource('commentfiles', 'CommentFileController');
+
+/*
+|-------------------------------------
+| Project File
+|-------------------------------------
+*/
+Route::resource('projectfiles', 'ProjectFileController');
+
+/*
+|-------------------------------------
+| Settings for the tenant account
+|-------------------------------------
+*/
+Route::get('/settings', ['uses' => 'SettingController@index']);
+Route::any('/settings/account', ['uses' => 'SettingController@setAccount']);

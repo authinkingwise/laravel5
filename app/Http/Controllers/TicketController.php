@@ -161,9 +161,9 @@ class TicketController extends Controller
         $input['tenant_id'] = Auth::user()->tenant_id;
 
         
-
         if ($ticket = Ticket::create($input)) {
 
+        	// Attach files to ticket
         	if ($files = $request->file('files')) {
 	        	foreach ($files as $file) {
 	        		if ($file->isValid()) {
@@ -201,7 +201,7 @@ class TicketController extends Controller
         	$time_spent = $time_spent + $comment->time;
         }
 
-        $attachments = $ticket->ticketFiles;
+        $attachments = $ticket->ticketFiles()->orderBy('created_at')->get();
 
 		return view('ticket.show', [
 			'ticket' => $ticket,
@@ -231,12 +231,15 @@ class TicketController extends Controller
 		$statuses = \App\Models\Status::all();
 		$priorities = \App\Models\Priority::all();
 
+		$attachments = $ticket->ticketFiles()->orderBy('created_at')->get();
+
 		return view('ticket.edit', [
 			'ticket' => $ticket,
 			'users' => $users,
 			'accounts' => $accounts,
 			'statuses' => $statuses,
-			'priorities' => $priorities
+			'priorities' => $priorities,
+			'attachments' => $attachments
 		]);
 	}
 
@@ -272,8 +275,18 @@ class TicketController extends Controller
             }
         }
 
-        if ($ticket->update($input))
+        if ($ticket->update($input)) {
+        	// Add attached files to the ticket
+        	if ($files = $request->file('files')) {
+	        	foreach ($files as $file) {
+	        		if ($file->isValid()) {
+	        			$this->ticketFile->create($ticket->id, $file);
+	        		}
+	        	}
+	        }
+
         	return redirect('tickets/'.$ticket->id)->with('success', 'Success to edit ticket.');
+        }
         else
         	return redirect()->back()->with('error', 'Failed to edit ticket.');
 	}

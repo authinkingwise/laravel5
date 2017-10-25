@@ -66,17 +66,20 @@
                     <ul class="nav nav-sidebar">
                         <li @if(Request::getPathInfo() == '/roles') class="active" @endif><a href="{{ url('roles') }}"><i class="fa fa-key"></i><span>Roles</span></a></li>
                     </ul>
-                    @endcan
+                    @endcan 
+
+                    <ul class="nav nav-sidebar">
+                        <li @if(Request::getPathInfo() == '/reports') class="active" @endif><a href="{{ url('reports') }}"><i class="fa fa-bar-chart"></i><span>Reports</span></a></li>
+                    </ul>
 
                     @can('site-admin')
                     <ul class="nav nav-sidebar">
                         <li @if(Request::getPathInfo() == '/permissions') class="active" @endif><a href="{{ url('permissions') }}"><i class="fa fa-shield"></i><span>Permissions</span></a></li>
                     </ul>
-                    @endcan
-
                     <ul class="nav nav-sidebar">
-                        <li @if(Request::getPathInfo() == '/reports') class="active" @endif><a href="{{ url('reports') }}"><i class="fa fa-bar-chart"></i><span>Reports</span></a></li>
+                        <li @if(Request::getPathInfo() == '/site/tenants') class="active" @endif><a href="{{ url('site/tenants') }}"><i class="fa fa-bed"></i><span>Tenants</span></a></li>
                     </ul>
+                    @endcan
 
                 </div>
 
@@ -134,8 +137,8 @@
                                                 </form>
                                             </li>
                                         </ul>
-
                                     </li>
+
                                 </ul>
                             </nav>
                         </div>

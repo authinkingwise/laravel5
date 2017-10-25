@@ -4,18 +4,18 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\TicketFile;
+use App\Models\ProjectFile;
 
-class TicketFileRepository
+class ProjectFileRepository
 {
 	/**
-     * Create a new TicketFile.
+     * Create a new ProjectFile.
      *
-     * @param  int  $ticket_id
+     * @param  int  $project_id
      * @param  object  $file
      * @return boolean
      */
-	public function create($ticket_id, $file)
+	public function create($project_id, $file)
 	{
 		$originalName = $file->getClientOriginalName(); // original name
         $ext = $file->getClientOriginalExtension(); // ext
@@ -29,35 +29,31 @@ class TicketFileRepository
         }
 
 		$input = array(
-			'ticket_id' => $ticket_id,
+			'project_id' => $project_id,
 			'file' => $filename
 		);
 
-		if (TicketFile::create($input)) {
-			return true;
-		} else {
+		if (ProjectFile::create($input) == false) {
 			return redirect()->back()->with('error', 'Failed to add file to database - ' . $filename);
 		}
 	}
 
 	/**
-     * Retrieve a TicketFile.
+     * Retrieve a ProjectFile.
      *
      * @param  int  $id
-     * @return App\Models\TicketFile
+     * @return App\Models\ProjectFile
      */
 	public function find($id)
 	{
-		$file = TicketFile::findOrFail($id);
+		$file = ProjectFile::findOrFail($id);
 
 		return $file;
 	}
 
 	public function destroy($id)
 	{
-		$file = TicketFile::findOrFail($id);
-
-		// $path = storage_path('app/public/app') . '/' . (string)Auth::user()->tenant_id . '/' . $file->file;
+		$file = ProjectFile::findOrFail($id);
 
 		$relative_path = (string)Auth::user()->tenant_id . '/' . $file->file;
 

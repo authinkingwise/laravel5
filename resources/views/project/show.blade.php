@@ -157,6 +157,24 @@ Project
 						</div>
 					</dl>
 
+					@if($project->projectFiles->count() > 0)
+						<dl class="row">
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+								<div class="pull-right">
+									<label>Attachment:</label>
+								</div>
+							</div>
+
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+								<div>
+									@foreach($project->projectFiles as $attachment)
+										<a href="{{ url('projectfiles/' . $attachment->id) }}">{{ $attachment->file }}</a>
+									@endforeach
+								</div>
+							</div>
+						</dl>
+					@endif
+
 				</div>
 
 			</div>

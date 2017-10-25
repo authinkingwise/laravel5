@@ -6,23 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-use App\Repositories\TicketFileRepository;
-use App\Models\TicketFile;
+use App\Repositories\ProjectFileRepository;
+use App\Models\ProjectFile;
 
-class TicketFileController extends Controller
+class ProjectFileController extends Controller
 {
-    protected $ticketFile;
+    protected $projectFile;
 
-    public function __construct(TicketFileRepository $ticketFile)
+    public function __construct(ProjectFileRepository $projectFile)
     {
         $this->middleware('auth');
 
-        $this->ticketFile = $ticketFile;
+        $this->projectFile = $projectFile;
     }
 
     public function show($id)
     {
-    	$file = $this->ticketFile->find($id);
+    	$file = $this->projectFile->find($id);
 
     	$path = storage_path('app/public/app') . '/' . (string)Auth::user()->tenant_id . '/' . $file->file;
 
@@ -31,7 +31,7 @@ class TicketFileController extends Controller
 
     public function destroy($id)
     {
-    	if ($this->ticketFile->destroy($id))
+    	if ($this->projectFile->destroy($id))
 			return redirect()->back()->with('success', 'File deleted.');
 		else
 			return redirect()->back()->with('success', 'File not deleted yet.');

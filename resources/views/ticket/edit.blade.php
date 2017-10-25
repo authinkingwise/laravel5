@@ -6,13 +6,15 @@ Edit Ticket
 
 @section('content')
 
+    @include('layouts.message')
+
 	<div class="panel panel-default">
 
 		<div class="page-heading panel-heading">Edit ticket<a href="{{ url('mytickets') }}" class="btn btn-skyblue btn-sm pull-right"><i class="fa fa-list"></i><span>My Tickets</span></a></div>
 
 		<div class="panel-body">
 
-			<form class="form-horizontal" action="{{ url('tickets/'.$ticket->id) }}" method="POST">
+			<form class="form-horizontal" action="{{ url('tickets/'.$ticket->id) }}" method="POST" enctype="multipart/form-data">
 
 				{{ csrf_field() }}
 
@@ -142,6 +144,22 @@ Edit Ticket
 					</div>
 				</div>
 
+                <div class="form-group">
+                    <label for="files" class="col-sm-2 control-label">Attachment</label>
+                    <div class="col-sm-5">
+                        @if($attachments->count() > 0)
+                            @foreach($attachments as $attachment)
+                                <div class="form-control-static">
+                                    <a href="{{ url('ticketfiles/' . $attachment->id) }}">{{ $attachment->file }}</a>&nbsp;
+                                    <button type="submit" class="btn btn-default btn-sm" onclick="return confirm('Sure to delete?')" form="{{ $attachment->id }}"><i class="fa fa-trash"></i><span class="hidden-xs">Delete</span></button>
+                                </div>
+                            @endforeach
+                        @endif
+                        <input type="file" name="files[]" class="form-control">
+                        <span class="btn btn-warning btn-sm pull-right" id="add-file"><i class="fa fa fa-plus-circle"></i>&nbsp;<span>Add more files</span></span>
+                    </div>
+                </div>
+
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-skyblue">Update</button>
@@ -149,6 +167,15 @@ Edit Ticket
 				</div>
 
 			</form>
+
+            @if($attachments->count() > 0)
+                @foreach($attachments as $attachment)
+                    <form action="{{ url('ticketfiles/'.$attachment->id) }}" method="POST" class="form-inline delete-action" id="{{ $attachment->id }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" form="{{ $attachment->id }}">
+                        <input type="hidden" name="_method" value="DELETE" form="{{ $attachment->id }}">
+                    </form>
+                @endforeach
+            @endif
 
 		</div>
 

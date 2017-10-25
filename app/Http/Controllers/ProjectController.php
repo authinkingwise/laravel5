@@ -11,11 +11,17 @@ use App\User;
 use App\Models\Account;
 use App\Models\TaskSchedule;
 
+use App\Repositories\ProjectFileRepository;
+
 class ProjectController extends Controller
 {
-    public function __construct()
+    protected $projectFile;
+
+    public function __construct(ProjectFileRepository $projectFile)
     {
         $this->middleware('auth');
+
+        $this->projectFile = $projectFile;
     }
 
     /**
@@ -100,6 +106,16 @@ class ProjectController extends Controller
         );
 
         if ($project = Project::create($data)) {
+
+            // Attach files to project
+            if ($files = $request->file('files')) {
+                foreach ($files as $file) {
+                    if ($file->isValid()) {
+                        $this->projectFile->create($project->id, $file);
+                    }
+                }
+            }
+
             return redirect('projects/' . $project->id)->with('success', 'Success to add project.');
         } else {
             return redirect()->back()->with('error', 'Failed to add project.');
@@ -219,6 +235,15 @@ class ProjectController extends Controller
         );
 
         if ($project->update($data)) {
+            // Add attached files to the project
+            if ($files = $request->file('files')) {
+                foreach ($files as $file) {
+                    if ($file->isValid()) {
+                        $this->projectFile->create($project->id, $file);
+                    }
+                }
+            }
+
             return redirect('projects/' . $project->id)->with('success', 'Success to edit project.');
         } else {
             return redirect('projects/' . $project->id)->with('error', 'Failed to edit project.');

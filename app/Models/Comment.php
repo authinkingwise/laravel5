@@ -48,4 +48,9 @@ class Comment extends Model
     {
         return $this->hasOne('App\Models\TicketActivity');
     }
+
+    public function commentFiles()
+    {
+        return $this->hasMany('App\Models\CommentFile', 'comment_id');
+    }
 }
