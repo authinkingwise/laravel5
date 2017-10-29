@@ -92,6 +92,10 @@ class AuthServiceProvider extends ServiceProvider
                 }
             }
         });
+
+        Gate::define('tenant-owner', function($user){
+            return $user->email == $user->tenant->email;
+        });
     }
 
     /**

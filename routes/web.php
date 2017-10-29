@@ -182,3 +182,17 @@ Route::resource('projectfiles', 'ProjectFileController');
 */
 Route::get('/settings', ['uses' => 'SettingController@index']);
 Route::any('/settings/account', ['uses' => 'SettingController@setAccount']);
+
+/*
+|-------------------------------------
+| Tenant Billing Address setting
+|-------------------------------------
+*/
+Route::resource('address', 'TenantAddressController');
+
+/*
+|-------------------------------------
+| Tenant Billing Address setting
+|-------------------------------------
+*/
+Route::resource('notification-settings', 'TenantNotificationSettingController');

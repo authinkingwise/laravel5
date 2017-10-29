@@ -42,4 +42,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Ticket', 'user_id');
     }
+
+    /**
+     * User belongs to this tenant.
+     */
+    public function tenant()
+    {
+        return $this->belongsTo('App\Models\Tenant', 'tenant_id');
+    }
 }

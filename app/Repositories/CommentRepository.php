@@ -1,28 +1,23 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\TenantAddress;
+use App\Models\Comment;
 
-class TenantAddressRepository
+class CommentRepository
 {
 	public function find($id)
 	{
-		return TenantAddress::findOrFail($id);
+		return Comment::findOrFail($id);
 	}
 
 	public function all()
 	{
-		return TenantAddress::all();
-	}
-
-	public function create($input)
-	{
-		return TenantAddress::create($input);
+		return Comment::all();
 	}
 
 	public function destroy($id)
 	{
-		$object = TenantAddress::findOrFail($id);
+		$object = Comment::findOrFail($id);
 		if ($object->delete()) {
 			return true;
 		} else {
@@ -32,7 +27,7 @@ class TenantAddressRepository
 
 	public function update($input, $id)
 	{
-		$object = TenantAddress::findOrFail($id);
+		$object = Comment::findOrFail($id);
 		if ($object->update($input)) {
 			return true;
 		} else {

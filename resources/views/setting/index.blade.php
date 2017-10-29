@@ -12,8 +12,10 @@ Settings
 
 			<div class="row">
 				
-				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="page-heading">Settings</div>
+
+					@include('layouts.message')
 				</div>
 
 			</div><!-- End .row -->
@@ -101,7 +103,18 @@ Settings
 						  				<div class="form-group">
 						  					<label for="website" class="col-md-3 control-label">Website</label>
 						  					<div class="col-md-5">
-												<input type="text" name="website" class="form-control" id="website" required="true" value="{{ old('website') ?: '' }}">
+												<input type="text" name="website" class="form-control" id="website" value="{{ old('website') ?: '' }}">
+											</div>
+						  				</div>
+
+						  				<div class="form-group">
+						  					<label for="language" class="col-md-3 control-label">Language</label>
+						  					<div class="col-md-5">
+												<select name="language" class="form-control" id="language">
+													<option value="0">English</option>
+													<option value="1">French</option>
+													<option value="2">Chinese</option>
+												</select>
 											</div>
 						  				</div>
 
@@ -120,9 +133,21 @@ Settings
 						  				Notifications
 						  			</div>
 
-						  			<form class="form-horizontal" action="{{ url('settings/notifications') }}" method="POST">
+						  			<form class="form-horizontal" 
+						  				@isset($tenant->tenantNotificationSetting)
+						  					action="{{ url('notification-settings/'.$tenant->tenantNotificationSetting->id) }}" 
+						  				@else
+						  					action="{{ url('notification-settings') }}"
+						  				@endisset
+						  				method="POST">
 
 						  				{{ csrf_field() }}
+
+						  				@isset($tenant->tenantNotificationSetting)
+									  		<input type="hidden" name="_method" value="PUT">
+									  	@else
+									  		<input type="hidden" name="tenant_id" value="{{ $tenant->id }}">
+									  	@endisset
 
 						  				<div class="form-group">
 						  					<label class="col-md-3 control-label">
@@ -131,21 +156,39 @@ Settings
 						  					<div class="col-md-9">
 						  						<div class="checkbox">
 						  							<label for="ticket-notification">
-							  							<input type="checkbox" name="ticket-notification" id="ticket-notification">
+							  							<input type="checkbox" name="ticket_update" id="ticket-notification"
+							  							@isset($tenant->tenantNotificationSetting)
+							  								@if($tenant->tenantNotificationSetting->ticket_update)
+							  									checked="checked"
+							  								@endif
+							  							@endisset
+							  							>
 							  							<span class="ck"><i class="fa fa-check ck-icon" aria-hidden="true"></i></span>
 							  							Notifies the user when his/her ticket is updated.
 							  						</label>
 						  						</div>
 						  						<div class="checkbox">
 							  						<label for="project-notification">
-							  							<input type="checkbox" name="project-notification" id="project-notification">
+							  							<input type="checkbox" name="project_update" id="project-notification"
+							  							@isset($tenant->tenantNotificationSetting)
+							  								@if($tenant->tenantNotificationSetting->project_update)
+							  									checked="checked"
+							  								@endif
+							  							@endisset
+							  							>
 							  							<span class="ck"><i class="fa fa-check ck-icon" aria-hidden="true"></i></span>
 							  							Notifies the user when his/her project or task is updated.
 							  						</label>
 						  						</div>
 						  						<div class="checkbox">
 							  						<label for="role-notification">
-							  							<input type="checkbox" name="role-notification" id="role-notification">
+							  							<input type="checkbox" name="role_update" id="role-notification"
+							  							@isset($tenant->tenantNotificationSetting)
+							  								@if($tenant->tenantNotificationSetting->role_update)
+							  									checked="checked"
+							  								@endif
+							  							@endisset
+							  							>
 							  							<span class="ck"><i class="fa fa-check ck-icon" aria-hidden="true"></i></span>
 							  							Notifies the user when his/her role (permission) is updated.
 							  						</label>
@@ -160,7 +203,13 @@ Settings
 						  					<div class="col-md-9">
 						  						<div class="checkbox">
 						  							<label for="update-notification">
-							  							<input type="checkbox" name="update-notification" id="update-notification">
+							  							<input type="checkbox" name="news_update" id="update-notification"
+							  							@isset($tenant->tenantNotificationSetting)
+							  								@if($tenant->tenantNotificationSetting->news_update)
+							  									checked="checked"
+							  								@endif
+							  							@endisset
+							  							>
 							  							<span class="ck"><i class="fa fa-check ck-icon" aria-hidden="true"></i></span>
 							  							Occasional updates from us.
 							  						</label>
@@ -217,10 +266,22 @@ Settings
 						  				Users on plan
 						  			</div>
 
-						  			<form class="form-horizontal" action="{{ url('settings/users-on-plan') }}" method="POST">
-						  				{{ csrf_field() }}
+						  			<div class="panel-body">
 
-						  			</form>
+						  				<div class="section-heading">Your users</div>
+
+						  				@if($tenant->users->count() > 0)
+						  				<ul>
+							  				@foreach($tenant->users as $user)
+							  					<li>
+							  						<span>{{ $user->email }}</span>
+							  						@if($user->email == $tenant->email)<span> - <strong>owner</strong></span>@endif
+							  					</li>
+							  				@endforeach
+						  				</ul>
+						  				@endif
+
+						  			</div>
 						  		</div>
 
 						  		<div role="tabpanel" class="tab-pane" id="billing-address">
@@ -232,42 +293,55 @@ Settings
 
 									  	<div class="section-heading">Enter your billing details</div>
 
-									  	<form class="form-horizontal margin-top" action="{{ url('settings/billing-address') }}" method="POST">
+									  	<form class="form-horizontal margin-top" 
+									  		@isset($tenant->tenantAddress)
+									  			action="{{ url('address/'.$tenant->tenantAddress->id) }}" 
+									  		@else
+									  			action="{{ url('address') }}"
+									  		@endisset
+									  		method="POST">
 									  		{{ csrf_field() }}
+
+									  		@isset($tenant->tenantAddress)
+									  			<input type="hidden" name="_method" value="PUT">
+									  		@else
+									  			<input type="hidden" name="tenant_id" value="{{ $tenant->id }}">
+									  		@endisset
+
 									  		<div class="form-group">
 									  			<label for="company-name-billing" class="col-md-3 control-label">Company Name</label>
 									  			<div class="col-md-9">
-													<input type="text" name="company-name" class="form-control" id="company-name-billing" required="true" value="{{ old('company-name') ?: (isset($tenant->name) ? $tenant->name : '') }}">
+													<input type="text" name="company" class="form-control" id="company-name-billing" value="{{ old('company') ?: (isset($tenant->tenantAddress) ? $tenant->tenantAddress->company : '') }}">
 												</div>
 									  		</div>
 									  		<div class="form-group">
 									  			<label for="company-address" class="col-md-3 control-label">Address</label>
 									  			<div class="col-md-9">
-													<input type="text" name="company-address" class="form-control" id="company-address" required="true" value="{{ old('company-address') ?: '' }}">
+													<input type="text" name="address" class="form-control" id="company-address" value="{{ old('address') ?: (isset($tenant->tenantAddress) ? $tenant->tenantAddress->address : '') }}">
 												</div>
 									  		</div>
 									  		<div class="form-group">
 									  			<label for="city" class="col-md-3 control-label">City</label>
 									  			<div class="col-md-5">
-													<input type="text" name="city" class="form-control" id="city" required="true" value="{{ old('city') ?: '' }}">
+													<input type="text" name="city" class="form-control" id="city" value="{{ old('city') ?: (isset($tenant->tenantAddress) ? $tenant->tenantAddress->city : '') }}">
 												</div>
 									  		</div>
 									  		<div class="form-group">
 									  			<label for="state" class="col-md-3 control-label">State / Province</label>
 									  			<div class="col-md-5">
-													<input type="text" name="state" class="form-control" id="state" required="true" value="{{ old('state') ?: '' }}">
+													<input type="text" name="state" class="form-control" id="state" value="{{ old('state') ?: (isset($tenant->tenantAddress) ? $tenant->tenantAddress->state : '') }}">
 												</div>
 									  		</div>
 									  		<div class="form-group">
 									  			<label for="postcode" class="col-md-3 control-label">Postcode / Zip</label>
 									  			<div class="col-md-5">
-													<input type="text" name="postcode" class="form-control" id="postcode" required="true" value="{{ old('postcode') ?: '' }}">
+													<input type="text" name="postcode" class="form-control" id="postcode" value="{{ old('postcode') ?: (isset($tenant->tenantAddress) ? $tenant->tenantAddress->postcode : '') }}">
 												</div>
 									  		</div>
 									  		<div class="form-group">
 									  			<label for="country" class="col-md-3 control-label">Country</label>
 									  			<div class="col-md-5">
-													<input type="text" name="country" class="form-control" id="country" required="true" value="{{ old('country') ?: '' }}">
+													<input type="text" name="country" class="form-control" id="country" value="{{ old('country') ?: (isset($tenant->tenantAddress) ? $tenant->tenantAddress->country : '') }}">
 												</div>
 									  		</div>
 									  		<div class="form-group">

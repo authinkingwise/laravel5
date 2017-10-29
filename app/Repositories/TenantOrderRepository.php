@@ -1,28 +1,23 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\TenantAddress;
+use App\Models\TenantOrder;
 
-class TenantAddressRepository
+class TenantOrderRepository
 {
 	public function find($id)
 	{
-		return TenantAddress::findOrFail($id);
+		return TenantOrder::findOrFail($id);
 	}
 
 	public function all()
 	{
-		return TenantAddress::all();
-	}
-
-	public function create($input)
-	{
-		return TenantAddress::create($input);
+		return TenantOrder::all();
 	}
 
 	public function destroy($id)
 	{
-		$object = TenantAddress::findOrFail($id);
+		$object = TenantOrder::findOrFail($id);
 		if ($object->delete()) {
 			return true;
 		} else {
@@ -32,7 +27,7 @@ class TenantAddressRepository
 
 	public function update($input, $id)
 	{
-		$object = TenantAddress::findOrFail($id);
+		$object = TenantOrder::findOrFail($id);
 		if ($object->update($input)) {
 			return true;
 		} else {

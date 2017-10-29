@@ -17,6 +17,16 @@ class Tenant extends Model
 		'name', 'email', 'password',
 	];
 
+    /**
+     * The tenant owns this user. One-to-many relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
+
 	/**
      * The tenant owns this account. One-to-many relationship.
      *
@@ -43,5 +53,21 @@ class Tenant extends Model
     public function tickets()
     {
         return $this->hasMany('App\Models\Tenant');
+    }
+
+    /**
+     * Tenant has a billing address.
+     */
+    public function tenantAddress()
+    {
+        return $this->hasOne('App\Models\TenantAddress');
+    }
+
+    /**
+     * Tenant has notification setting.
+     */
+    public function tenantNotificationSetting()
+    {
+        return $this->hasOne('App\Models\TenantNotificationSetting');
     }
 }

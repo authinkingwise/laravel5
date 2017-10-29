@@ -58,9 +58,11 @@
                     </ul>
                     @endcan
 
+                    @can('tenant-owner')
                     <ul class="nav nav-sidebar">
                         <li><a href="{{ url('settings') }}"><i class="fa fa-gears"></i><span>Settings</span></a></li>
                     </ul>
+                    @endcan
 
                     @can('show-role', Auth::user()->roles->first())
                     <ul class="nav nav-sidebar">
