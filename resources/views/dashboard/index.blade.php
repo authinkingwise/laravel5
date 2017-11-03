@@ -5,6 +5,8 @@ Dashboard
 @endsection
 
 @section('content')
+	
+	@include('dashboard.tab')
 
 	@include('dashboard.chart')
 

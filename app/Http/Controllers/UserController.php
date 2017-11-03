@@ -134,8 +134,18 @@ class UserController extends Controller
         if (Gate::denies('show-user'))
             return response()->view('errors.403', [], 403);
 
+        $tickets = $user->tickets()->orderBy('updated_at', 'desc')->get();
+
+        $tasks = $user->tasks()->where('schedule_id', '!=', 6)->orderBy('project_id')->get();
+
+        $tasks = $tasks->reject(function($task){
+            return $task->project->status == 0;
+        });
+
         return view('user.show', [
-            'user' => $user
+            'user' => $user,
+            'tickets' => $tickets,
+            'tasks' => $tasks,
         ]);
     }
 

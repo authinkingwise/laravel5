@@ -82,4 +82,6 @@ User Details
 
 	</div>
 
+	@include('user.tab')
+
 @endsection

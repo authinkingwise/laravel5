@@ -251,4 +251,8 @@ $(function(){
         $(html_file).insertBefore($(this));
     });
 
+    $(".plan-list .toggle").on("click", function(){
+        $(this).closest("li").find(".item-details").toggle();
+    });
+
 });

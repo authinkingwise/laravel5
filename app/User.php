@@ -44,6 +44,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Task is assigned to this user.
+     */
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Task', 'user_id');
+    }
+
+    /**
      * User belongs to this tenant.
      */
     public function tenant()

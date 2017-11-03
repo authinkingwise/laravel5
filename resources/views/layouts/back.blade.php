@@ -112,7 +112,7 @@
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="{{ Auth::user()->name }}">
                                             <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                                                <span class="name-init bg-danger">
+                                                <span class="name-init">
                                                     @isset(Auth::user()->avatar)
                                                         <img src="{{ asset('storage/profile') }}/{{ Auth::user()->tenant_id }}/{{ Auth::id() }}/{{ Auth::user()->avatar }}" class="img-circle m-t-xs img-responsive">
                                                     @else

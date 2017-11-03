@@ -59,7 +59,7 @@ Settings
 
 					</div>
 
-				</div>
+				</div><!-- End #sideTabs -->
 
 				<div id="access_form" class="defaultForm col-lg-9 col-md-9">
 
