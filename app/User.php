@@ -58,4 +58,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Tenant', 'tenant_id');
     }
+
+    /**
+     * Planning is assigned to this user.
+     */
+    public function plannings()
+    {
+        return $this->hasMany('App\Models\Planning', 'user_id');
+    }
 }

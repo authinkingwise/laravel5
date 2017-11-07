@@ -4,16 +4,18 @@
 
 		<div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		    <h4 class="modal-title">New Schedule - <span class="ticket-name"></span></h4>
+		    <h4 class="modal-title">New Schedule - <span class="task-name"></span></h4>
 		</div>
 
 		<div class="modal-body">
 
-			<form class="form-horizontal" action="{{ url('plannings') }}" method="POST" id="schedule-ticket">
+			<form class="form-horizontal" action="{{ url('plannings') }}" method="POST" id="schedule-task">
 
 				{{ csrf_field() }}
+				
+				<input type="hidden" name="task_id" id="task_id" value="">
 
-				<input type="hidden" name="ticket_id" id="ticket_id" value="">
+				<input type="hidden" name="project_id" id="project_id" value="">
 
 				<input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
 
@@ -34,7 +36,7 @@
 				<div class="form-group">
 					<label for="description" class="col-sm-4 control-label">Description</label>
 					<div class="col-sm-8">
-						<textarea name="description" class="form-control" id="description" form="schedule-ticket" rows="3"></textarea>
+						<textarea name="description" class="form-control" id="description" form="schedule-task" rows="3"></textarea>
 					</div>
 				</div>
 

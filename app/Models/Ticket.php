@@ -56,4 +56,9 @@ class Ticket extends Model
     {
         return $this->hasMany('App\Models\TicketFile', 'ticket_id');
     }
+
+    public function plannings()
+    {
+        return $this->hasMany('App\Models\Planning', 'ticket_id');
+    }
 }

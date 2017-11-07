@@ -255,4 +255,34 @@ $(function(){
         $(this).closest("li").find(".item-details").toggle();
     });
 
+    /*
+    * View and edit planning.
+    * Click the ticket or task schedule button, the modal loads the details of the relevant planning.
+    */
+    $(".schedule_date").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+
+    $(".actions .schedule-ticket").on("click", function(){
+        var ticket_id = $(this).data("ticket");
+        $.getJSON(url_get_ticket + "/get/" + ticket_id, function(data){
+            $("#schedule-ticket #ticket_id").val(data.id);
+            if (typeof data.title !== "undefined" && data.title !== null) {
+                $(".modal-dialog .ticket-name").html(data.title);
+            }
+        });
+    });
+
+    $(".actions .schedule-task").on("click", function(){
+        var task_id = $(this).data("task");
+        var project_id = $(this).data("project");
+        $.getJSON(url_get_task + "/" + task_id, function(data){
+            $("#schedule-task #task_id").val(data.id);
+            $("#schedule-task #project_id").val(project_id);
+            if (typeof data.name !== "undefined" && data.name !== null) {
+                $(".modal-dialog .task-name").html(data.name);
+            }
+        });
+    });
+
 });

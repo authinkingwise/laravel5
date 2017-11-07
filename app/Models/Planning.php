@@ -8,7 +8,7 @@ class Planning extends Model
 {
 	use \App\Uuids;
 
-    protected $table = 'planning';
+    protected $table = 'plannings';
 
     protected $fillable = [
     	'user_id', 
@@ -25,4 +25,24 @@ class Planning extends Model
     ];
 
     public $incrementing = false;
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo('App\Models\Ticket', 'ticket_id');
+    }
+
+    public function task()
+    {
+        return $this->belongsTo('App\Models\Task', 'task_id');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo('App\Models\Project', 'project_id');
+    }
 }

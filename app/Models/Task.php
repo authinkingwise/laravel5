@@ -36,4 +36,9 @@ class Task extends Model
     {
     	return $this->belongsTo('App\Models\TaskSchedule', 'schedule_id');
     }
+
+    public function planning()
+    {
+        return $this->hasOne('App\Models\Planning', 'task_id');
+    }
 }

@@ -308,4 +308,10 @@ class TicketController extends Controller
         else
             return redirect()->back()->with('error', 'Failed to delete the ticket');
 	}
+
+	public function get($id)
+	{
+		$ticket = Ticket::findOrFail($id);
+		return $ticket;
+	}
 }

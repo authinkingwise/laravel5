@@ -73,6 +73,7 @@ Route::get('/dashboard', ['uses' => 'Admin\DashboardController@index']);
 */
 Route::resource('tickets', 'TicketController');
 Route::get('/mytickets', ['uses' => 'TicketController@myTickets']);
+Route::get('/tickets/get/{id}', ['uses' => 'TicketController@get'])->middleware('auth');
 
 /*
 |-------------------------------------
@@ -196,3 +197,10 @@ Route::resource('address', 'TenantAddressController');
 |-------------------------------------
 */
 Route::resource('notification-settings', 'TenantNotificationSettingController');
+
+/*
+|-------------------------------------
+| Planning
+|-------------------------------------
+*/
+Route::resource('plannings', 'PlanningController');

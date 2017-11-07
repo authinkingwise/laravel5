@@ -136,6 +136,10 @@ body {
 	color: $darkblue;
 }
 
+.black {
+	color: $black;
+}
+
 // Margin
 .margin-top {
 	margin-top: 20px;
@@ -143,6 +147,14 @@ body {
 
 .margin-bottom {
 	margin-bottom: 20px;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.bold {
+	font-weight: bold;
 }
 
 .table-hover > tbody > tr.critical {
@@ -942,14 +954,19 @@ form {
 	}
 
 	.slot {
-		height: 60px;
+		height: 50px;
 		border: 1px solid $grey;
 		vertical-align: middle;
 		display: inline-block;
-		line-height: 56px;
+		line-height: 44px;
 		text-align: center;
 		font-weight: bold;
+		font-size: 11px;
 		color: $darkgrey;
+
+		&.black {
+			color: $black;
+		}
 
 		.available {
 
@@ -960,6 +977,17 @@ form {
 		.over-allocated {
 
 		}
+	}
+
+
+	.project-name {
+		color: $lightgrey;
+	}
+}
+
+.planning-pagination {
+	.btn i {
+		margin: 0;
 	}
 }
 

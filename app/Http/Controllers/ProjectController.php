@@ -155,7 +155,25 @@ class ProjectController extends Controller
         $schedules = TaskSchedule::all();
 
         $tasks = $project->tasks;
+
+        $tasksOrdered = $project->tasks()->orderBy('user_id')->get();
+
+        $users_array = array();
+        foreach ($tasksOrdered as $value) {
+            $users_array[] = $value->user_id;
+        }
+        $users_unique = array_unique($users_array);
         
+        $tasksOrderedByUser = array();
+
+        foreach ($users_unique as $value) {
+            foreach ($tasksOrdered as $task) {
+                if ($value == $task['user_id']) {
+                    $tasksOrderedByUser[$value][] = $task;
+                }
+            }
+        }
+
         return view('project.show', [
             'project' => $project,
             'users' => $users,
@@ -169,6 +187,8 @@ class ProjectController extends Controller
             'todoTasks' => $project->tasks()->where('schedule_id', '=', 2)->orderBy('order_index', 'asc')->orderBy('id', 'desc')->get(),
             'workingOnTasks' => $project->tasks()->whereIn('schedule_id', [3,4,5])->orderBy('order_index', 'asc')->orderBy('id', 'desc')->get(),
             'completedTasks' => $project->tasks()->where('schedule_id', '=', 6)->orderBy('order_index', 'asc')->orderBy('id', 'desc')->get(),
+
+            'tasksOrderedByUser' => $tasksOrderedByUser,
         ]);
     }
 

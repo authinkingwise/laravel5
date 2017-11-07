@@ -15,6 +15,11 @@ class PlanningRepository
 		return Planning::all();
 	}
 
+	public function create($input)
+	{
+		return Planning::create($input);
+	}
+
 	public function destroy($id)
 	{
 		$object = Planning::findOrFail($id);

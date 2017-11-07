@@ -122,7 +122,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $user = User::findOrFail($id);
 
@@ -142,10 +142,46 @@ class UserController extends Controller
             return $task->project->status == 0;
         });
 
+        $week_page = 0;
+        if (isset($request['week'])) {
+            $week_page = (int)$request['week'];
+        }
+
+        $week_number = (int)date('W') + $week_page; // week number of year
+
+        $plannings = $user->plannings;
+
+        $ticket_plannings = $plannings->reject(function($planning) use ($week_number) {
+            $w = (int)date('W', strtotime($planning->schedule_date));
+            return $planning->ticket_id == null || $week_number != $w;
+        });
+
+        // $task_plannings = $plannings->reject(function($planning){
+        //     return $planning->task_id == null;
+        // });
+
+        $task_plannings = $plannings->reject(function($planning) use ($week_number) {
+            $w = (int)date('W', strtotime($planning->schedule_date));
+            return $planning->task_id == null || $week_number != $w;
+        })->groupBy('project_id');
+
+        $project_plannings = $plannings->reject(function($planning){
+            return $planning->project_id == null;
+        });
+
+        // $today = date('W');
+        // var_dump($today);
+        // dd($today);
+
         return view('user.show', [
             'user' => $user,
             'tickets' => $tickets,
             'tasks' => $tasks,
+            'plannings' => $plannings,
+            'ticket_plannings' => $ticket_plannings,
+            'task_plannings' => $task_plannings,
+            'project_plannings' => $project_plannings,
+            'week_page' => $week_page,
         ]);
     }
 

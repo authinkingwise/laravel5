@@ -85,3 +85,9 @@ User Details
 	@include('user.tab')
 
 @endsection
+
+@section('javascript')
+	<script type="text/javascript">var url_get_ticket = "{{ url('tickets') }}";</script>
+	<script type="text/javascript">var url_get_task = "{{ url('tasks') }}";</script>
+	@parent
+@endsection
