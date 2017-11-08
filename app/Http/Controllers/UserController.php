@@ -142,6 +142,7 @@ class UserController extends Controller
             return $task->project->status == 0;
         });
 
+        // Plannings
         $week_page = 0;
         if (isset($request['week'])) {
             $week_page = (int)$request['week'];
@@ -154,7 +155,7 @@ class UserController extends Controller
         $ticket_plannings = $plannings->reject(function($planning) use ($week_number) {
             $w = (int)date('W', strtotime($planning->schedule_date));
             return $planning->ticket_id == null || $week_number != $w;
-        });
+        })->groupBy('ticket_id');
 
         // $task_plannings = $plannings->reject(function($planning){
         //     return $planning->task_id == null;

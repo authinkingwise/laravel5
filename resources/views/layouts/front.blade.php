@@ -7,7 +7,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>{{ config('app.name', 'Agency Bucket') }} - @yield('title')</title>
         @section('style')
-        <!-- <link rel="stylesheet" href="{{ asset('/static/font-awesome/css/font-awesome.min.css') }}"> -->
         <link rel="stylesheet" href="{{ asset(elixir('css/app.css')) }}">
         <link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}">
         @show
@@ -51,12 +50,13 @@
                             <li class="register {{ Request::getPathInfo() == '/site/register' ? 'active' : '' }}"><a href="{{ url('site/register') }}">Sign Up</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <a href="{{ url('dashboard') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{{ url('dashboard') }}">Dashboard</a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

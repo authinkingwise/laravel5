@@ -10,6 +10,7 @@ Dashboard
 
 	@include('dashboard.chart')
 
+	{{--
 	<div class="row dashboard-content">
 		
 		<div class="col-lg-4 col-md-4">
@@ -292,6 +293,7 @@ Dashboard
 			</div>
 		</div>
 
-	</div>
+	</div><!-- End .row -->
+	--}}
 
 @endsection

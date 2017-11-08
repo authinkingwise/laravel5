@@ -125,8 +125,8 @@
 					<div class="page-heading panel-heading">
 						<span>Ticket Planning</span>
 						<span class="planning-pagination pull-right">
-							<a href="{{ url('users/'.$user->id.'?week='.($week_page-1)) }}" class="btn btn-sm btn-skyblue" alt="previous week" title="previous week"><i class="fa fa-angle-left"></i></a>
-							<a href="{{ url('users/'.$user->id.'?week='.($week_page+1)) }}" class="btn btn-sm btn-skyblue" alt="next week" title="next week"><i class="fa fa-angle-right"></i></a>
+							<a href="{{ url('users/'.$user->id.'?week='.($week_page-1)) }}" class="btn btn-sm btn-skyblue" alt="previous week" title="previous week"><span>Prev week</span></a>
+							<a href="{{ url('users/'.$user->id.'?week='.($week_page+1)) }}" class="btn btn-sm btn-skyblue" alt="next week" title="next week"><span>Next week</span></a>
 						</span>
 					</div>
 
@@ -203,11 +203,14 @@
 														{{ date('D j', strtotime('sunday +' . $week_page . ' week')) }}
 													@endif
 												</span>
+												<span class="slot col-md-1 no-padding">
+													SUM
+												</span>
 											</div>
 										</div>
 									</div>
 								</li>
-
+								{{--
 								@foreach($ticket_plannings as $key => $planning)
 									<li class="row">
 										<div class="col-md-5">
@@ -219,11 +222,10 @@
 										</div>
 										<div class="col-md-7">
 											<div class="row">
-												<?php 
-													// Numeric representation of the schedule date of the week.
-													$day = (int)date('w', strtotime($planning->schedule_date)); 
-												?>
-												<!-- schedule hours for the work -->
+												@php
+													$day = (int)date('w', strtotime($planning->schedule_date));
+												@endphp
+												
 												@for ($i = 1; $i <= 7; $i++)
 													<span class="slot col-md-1 no-padding">
 														@if($day == $i)
@@ -231,6 +233,43 @@
 														@endif
 													</span>
 												@endfor
+
+												<span class="slot col-md-1 no-padding">
+													{{ $ticket_plannings->sum('schedule_hours') }}
+												</span>
+											</div>
+										</div>
+									</li>
+								@endforeach
+								--}}
+
+								@foreach($ticket_plannings as $key => $items)
+									<li>
+										<div class="row">
+											<div class="col-md-5">
+												<div class="ticket-title">
+													<a href="{{ url('tickets/'.$key) }}" class="black bold">{{ \App\Models\Ticket::findOrFail($key)->title }}</a>
+												</div>
+											</div>
+											<div class="col-md-7">
+												<div class="row">
+													@for ($i = 1; $i <= 7; $i++)
+														<span class="slot col-md-1 no-padding">
+															@foreach($items as $item)
+																<?php 
+																	// Numeric representation of the schedule date of the week.
+																	$day = (int)date('w', strtotime($item->schedule_date)); 
+																?>
+																@if($day == $i)
+																	{{ $item->schedule_hours . 'h' }}
+																@endif
+															@endforeach
+														</span>
+													@endfor
+													<span class="slot col-md-1 no-padding">
+														{{ $items->sum('schedule_hours') . 'h' }}
+													</span>
+												</div>
 											</div>
 										</div>
 									</li>
@@ -261,8 +300,8 @@
 					<div class="page-heading panel-heading">
 						<span>Project Planning</span>
 						<span class="planning-pagination pull-right">
-							<a href="{{ url('users/'.$user->id.'?week='.($week_page-1)) }}" class="btn btn-sm btn-skyblue" alt="previous week" title="previous week"><i class="fa fa-angle-left"></i></a>
-							<a href="{{ url('users/'.$user->id.'?week='.($week_page+1)) }}" class="btn btn-sm btn-skyblue" alt="next week" title="next week"><i class="fa fa-angle-right"></i></a>
+							<a href="{{ url('users/'.$user->id.'?week='.($week_page-1)) }}" class="btn btn-sm btn-skyblue" alt="previous week" title="previous week"><span>Prev week</span></a>
+							<a href="{{ url('users/'.$user->id.'?week='.($week_page+1)) }}" class="btn btn-sm btn-skyblue" alt="next week" title="next week"><span>Next week</span></a>
 						</span>
 					</div>
 
@@ -335,6 +374,9 @@
 														{{ date('D j', strtotime('sunday +' . $week_page . ' week')) }}
 													@endif
 												</span>
+												<span class="slot col-md-1 no-padding">
+													SUM
+												</span>
 											</div>
 										</div>
 									</div>
@@ -367,6 +409,9 @@
 																	@endif
 																</span>
 															@endfor
+															<span class="slot col-md-1 no-padding">
+																{{ $items->sum('schedule_hours') . 'h' }}
+															</span>
 														</div>
 													</div>
 												</li>

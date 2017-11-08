@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
-	protected function index()
+	protected function index(Request $request)
 	{
 		// My Tickets
 		$tickets = Ticket::where('tenant_id', '=', Auth::user()->tenant_id)
@@ -35,6 +35,30 @@ class DashboardController extends Controller
 			return $task->project->status == 0;
 		});
 
+		// Plannings
+		$week_page = 0;
+        if (isset($request['week'])) {
+            $week_page = (int)$request['week'];
+        }
+
+        $week_number = (int)date('W') + $week_page; // week number of year
+
+        $plannings = $user->plannings;
+
+        $ticket_plannings = $plannings->reject(function($planning) use ($week_number) {
+            $w = (int)date('W', strtotime($planning->schedule_date));
+            return $planning->ticket_id == null || $week_number != $w;
+        })->groupBy('ticket_id');
+
+        $task_plannings = $plannings->reject(function($planning) use ($week_number) {
+            $w = (int)date('W', strtotime($planning->schedule_date));
+            return $planning->task_id == null || $week_number != $w;
+        })->groupBy('project_id');
+
+        $project_plannings = $plannings->reject(function($planning){
+            return $planning->project_id == null;
+        });
+
 		return view('dashboard.index', [
 			'tickets' => $tickets->orderBy('updated_at', 'desc')->take(6)->get(),
 			'countTickets' => count($tickets->orderBy('updated_at', 'desc')->get()),
@@ -47,6 +71,12 @@ class DashboardController extends Controller
 
 			'myTickets' => $myTickets,
 			'myTasks' => $tasks,
+
+			'plannings' => $plannings,
+            'ticket_plannings' => $ticket_plannings,
+            'task_plannings' => $task_plannings,
+            'project_plannings' => $project_plannings,
+            'week_page' => $week_page,
 		]);
 	}
 }
