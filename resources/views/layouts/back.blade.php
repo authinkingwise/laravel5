@@ -13,10 +13,11 @@
         @show
 
         <script type="text/javascript" src="{{ asset('/js/jquery/jquery-3.2.1.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('/js/bootstrap/bootstrap.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/jquery/jquery-ui.js') }}"></script>
         <!-- <script type="text/javascript" src="{{ asset('/js/jquery/timepicker/jquery.timepicker.js') }}"></script> -->
+        <script>$.widget.bridge('uitooltip', $.ui.tooltip);</script>
+        <script type="text/javascript" src="{{ asset('/js/bootstrap/bootstrap.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/chart/Chart.bundle.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/chart/utils.js') }}"></script>
     </head>

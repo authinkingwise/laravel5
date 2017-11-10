@@ -158,52 +158,95 @@
 
 										<div class="col-md-7 col-md-offset-5">
 											<div class="row">
-												<span class="slot col-md-1 no-padding @if($today_num==1) black @endif">
+												{{--
+												<span class="slot col-md-1 no-padding @if($week_page == 0 && $today_num == 1) black @endif">
 													@if ($today_num <= 1)
 														{{ date('D j', strtotime('monday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last monday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==2) black @endif">
+												<span class="slot col-md-1 no-padding @if($week_page == 0 && $today_num == 2) black @endif">
 													@if ($today_num <= 2)
 														{{ date('D j', strtotime('tuesday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last tuesday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==3) black @endif">
+												<span class="slot col-md-1 no-padding @if($week_page == 0 && $today_num == 3) black @endif">
 													@if ($today_num <= 3)
 														{{ date('D j', strtotime('wednesday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last wednesday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==4) black @endif">
+												<span class="slot col-md-1 no-padding @if($week_page == 0 && $today_num == 4) black @endif">
 													@if ($today_num <= 4)
 														{{ date('D j', strtotime('thursday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last thursday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==5) black @endif">
+												<span class="slot col-md-1 no-padding @if($week_page == 0 && $today_num == 5) black @endif">
 													@if ($today_num <= 5)
 														{{ date('D j', strtotime('friday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last friday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==6) black @endif">
+												<span class="slot col-md-1 no-padding @if($week_page == 0 && $today_num == 6) black @endif">
 													{{ date('D j', strtotime('saturday +' . $week_page . ' week')) }}
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==0) black @endif">
+												<span class="slot col-md-1 no-padding @if($week_page == 0 && $today_num == 0) black @endif">
 													@if ($today_num == 0)
 														{{ date('D j', strtotime('last sunday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('sunday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding">
+												--}}
+												<?php
+													for ($i = 1; $i <= 7; $i++) { // from monday to sunday
+														// textual representation of the day of the week
+														switch ($i) {
+															case 7:
+																$today_day = 'sunday';
+																break;
+															case 1:
+																$today_day = 'monday';
+																break;
+															case 2:
+																$today_day = 'tuesday';
+																break;
+															case 3:
+																$today_day = 'wednesday';
+																break;
+															case 4:
+																$today_day = 'thursday';
+																break;
+															case 5:
+																$today_day = 'friday';
+																break;
+															case 6:
+																$today_day = 'saturday';
+																break;
+															default:
+																$today_day = 'monday';
+																break;
+														} ?>
+														<span class="slot col-md-1 no-padding head <?php if($week_page == 0 && ($today_num == $i || ($i == 7 && $today_num == 0) )) echo 'black'; ?>">
+															<?php
+																if ($today_num <= $i) {
+																	echo date('D j', strtotime($today_day . ' +' . $week_page . ' week'));
+																} else {
+																	echo date('D j', strtotime('last ' . $today_day . ' +' . $week_page . ' week'));
+																}
+															?>
+														</span>
+												<?php }
+												?>
+
+												<span class="slot col-md-1 no-padding head">
 													SUM
 												</span>
 											</div>
@@ -244,7 +287,7 @@
 								--}}
 
 								@foreach($ticket_plannings as $key => $items)
-									<li>
+									<li class="single">
 										<div class="row">
 											<div class="col-md-5">
 												<div class="ticket-title">
@@ -254,6 +297,10 @@
 											<div class="col-md-7">
 												<div class="row">
 													@for ($i = 1; $i <= 7; $i++)
+														@php
+															$matched = false; // check if it is the scheduled item
+														@endphp
+
 														<span class="slot col-md-1 no-padding">
 															@foreach($items as $item)
 																<?php 
@@ -261,13 +308,40 @@
 																	$day = (int)date('w', strtotime($item->schedule_date)); 
 																?>
 																@if($day == $i)
-																	{{ $item->schedule_hours . 'h' }}
+
+																	@php
+																		$matched = true;
+																	@endphp
+
+																	@if($item->schedule_hours > 0)
+																		<div class="schedule-hour-num" title="Edit" data-toggle="modal" data-target="#edit-schedule-ticket-modal" data-planning="{{ $item->id }}" data-toggle="tooltip" data-placement="right">
+																		{{ $item->schedule_hours . 'h' }}
+																	</div>
+																	@else
+																		<div class="zero-hour-num" data-planning="{{ $item->id }}"></div>
+																	@endif
+
+																	@if($item->actual_hours > 0)
+																		<div class="actual-hour-num" title="actual hours">{{ $item->actual_hours . 'h' }}</div>
+																	@endif
+																
 																@endif
 															@endforeach
+
+															@if($matched == false)
+																<div class="schedule-hour-num no-schedule" title="Update actual hours" data-ticket="{{ $key }}" data-toggle="modal" data-target="#add-actual-hours-ticket-modal" data-date="<?php echo date('Y-m-d', strtotime($week_page*7+$i-$today_num . ' day')); ?>" data-toggle="tooltip" data-placement="right"></div>
+															@endif
 														</span>
 													@endfor
 													<span class="slot col-md-1 no-padding">
-														{{ $items->sum('schedule_hours') . 'h' }}
+														<div class="schedule-hour-num" title="Total schedule" data-toggle="tooltip" data-placement="right">
+															{{ $items->sum('schedule_hours') . 'h' }}
+														</div>
+														@if ($items->sum('actual_hours') > 0)
+															<div class="actual-hour-num" title="actual hours">
+																{{ $items->sum('actual_hours') . 'h' }}
+															</div>
+														@endif
 													</span>
 												</div>
 											</div>
@@ -329,52 +403,52 @@
 
 										<div class="col-md-7 col-md-offset-5">
 											<div class="row">
-												<span class="slot col-md-1 no-padding @if($today_num==1) black @endif">
+												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 1) black @endif">
 													@if ($today_num <= 1)
 														{{ date('D j', strtotime('monday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last monday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==2) black @endif">
+												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 2) black @endif">
 													@if ($today_num <= 2)
 														{{ date('D j', strtotime('tuesday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last tuesday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==3) black @endif">
+												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 3) black @endif">
 													@if ($today_num <= 3)
 														{{ date('D j', strtotime('wednesday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last wednesday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==4) black @endif">
+												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 4) black @endif">
 													@if ($today_num <= 4)
 														{{ date('D j', strtotime('thursday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last thursday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==5) black @endif">
+												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 5) black @endif">
 													@if ($today_num <= 5)
 														{{ date('D j', strtotime('friday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('last friday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==6) black @endif">
+												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 6) black @endif">
 													{{ date('D j', strtotime('saturday +' . $week_page . ' week')) }}
 												</span>
-												<span class="slot col-md-1 no-padding @if($today_num==0) black @endif">
+												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 0) black @endif">
 													@if ($today_num == 0)
 														{{ date('D j', strtotime('last sunday +' . $week_page . ' week')) }}
 													@else
 														{{ date('D j', strtotime('sunday +' . $week_page . ' week')) }}
 													@endif
 												</span>
-												<span class="slot col-md-1 no-padding">
+												<span class="slot col-md-1 no-padding head">
 													SUM
 												</span>
 											</div>
@@ -449,9 +523,23 @@
 </div>
 
 <div class="modal fade" id="schedule-ticket-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label">
-	@include('user.schedule_ticket')
+	@include('user.tab.schedule_ticket')
 </div><!-- End #schedule-ticket-modal -->
 
 <div class="modal fade" id="schedule-task-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label">
-	@include('user.schedule_task')
+	@include('user.tab.schedule_task')
 </div><!-- End #schedule-task-modal -->
+
+<div class="modal fade" id="edit-schedule-ticket-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label">
+	@include('user.tab.edit_schedule_ticket')
+</div><!-- End #edit-schedule-ticket-modal -->
+
+<div class="modal fade" id="add-actual-hours-ticket-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label">
+	@include('user.tab.add_actual_hours_ticket')
+</div><!-- End #add-actual-hours-ticket-modal -->
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>

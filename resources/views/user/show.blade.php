@@ -89,5 +89,6 @@ User Details
 @section('javascript')
 	<script type="text/javascript">var url_get_ticket = "{{ url('tickets') }}";</script>
 	<script type="text/javascript">var url_get_task = "{{ url('tasks') }}";</script>
+	<script type="text/javascript">var url_get_planning = "{{ url('plannings') }}";</script>
 	@parent
 @endsection

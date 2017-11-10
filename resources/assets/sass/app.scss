@@ -958,7 +958,7 @@ form {
 		border: 1px solid $grey;
 		vertical-align: middle;
 		display: inline-block;
-		line-height: 44px;
+		//line-height: 44px;
 		text-align: center;
 		font-weight: bold;
 		font-size: 11px;
@@ -966,6 +966,10 @@ form {
 
 		&.black {
 			color: $black;
+		}
+
+		&.head {
+			line-height: 46px;
 		}
 
 		.available {
@@ -983,6 +987,36 @@ form {
 	.project-name {
 		color: $lightgrey;
 	}
+}
+
+.schedule-hour-num {
+	background-color: $gainsboro;
+	line-height: 24px;
+	height: 24px;
+	&.hover {
+		cursor: pointer;
+		background-color: $pink;
+		color: $white;
+	}
+	&.no-schedule {
+		background-color: transparent;
+		&.hover {
+			background: $lightgainsboro;
+		}
+	}
+}
+
+.actual-hour-num {
+	background-color: $green;
+	line-height: 24px;
+	height: 24px;
+	color: $white;
+}
+
+.zero-hour-num {
+	background-color: transparent;
+	line-height: 24px;
+	height: 24px;
 }
 
 .planning-pagination {

@@ -285,4 +285,52 @@ $(function(){
         });
     });
 
+    $(".schedule-hour-num").hover(function(){
+        $(this).addClass("hover");
+    }, function(){
+        $(this).removeClass("hover");
+    });
+
+    $(".schedule-hour-num").on("click", function(){
+
+        if ($(this).hasClass("no-schedule")) {
+            var ticket_id = $(this).data("ticket");
+            $("input[name='ticket_id']").val(ticket_id);
+
+            var title_text = $(this).closest("li.single").find(".ticket-title").text();
+            $(".modal-dialog .ticket-name").html(title_text); // show ticket title
+
+            var planning_date = $(this).data('date');
+            $("input[name='schedule_date']").val(planning_date);
+            return;
+        }
+
+        var planning_id = $(this).data("planning");
+        var action_url = $("#edit-schedule-ticket").attr("action"); // Retrieve the post action url.
+        
+        var title_text = $(this).closest("li.single").find(".ticket-title").text();
+        $(".modal-dialog .ticket-name").html(title_text); // show ticket title
+
+        $.getJSON(url_get_planning + "/" + planning_id, function(data){
+            $("#edit-schedule-ticket #schedule_hours").val(data.schedule_hours);
+            $("#edit-schedule-ticket .schedule_date").val(data.schedule_date);
+
+            if (typeof data.actual_hours !== "undefined" && data.actual_hours != null) {
+                $("#edit-schedule-ticket #actual_hours").val(data.actual_hours);
+            } else {
+                $("#edit-schedule-ticket #actual_hours").val(null);
+            }
+
+            if (typeof data.description !== "undefined" && data.description !== null) {
+                tinyMCE.get("planning-description").setContent(data.description); // Set content inside TinyMCE editor.
+            } else {
+                tinyMCE.get("planning-description").setContent("");
+            }
+            
+            var post_url = $("#edit-schedule-ticket").attr("action", action_url + "/" + planning_id); // Dynamically add planning_id to the url as the new POST url.
+        });
+    });
+
+    $(".schedule-hour-num").tooltip();
+
 });

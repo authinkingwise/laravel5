@@ -35,7 +35,18 @@ class PlanningController extends Controller
 
     public function update(Request $request, $id)
     {
-    	
+    	$input = $request->all();
+
+        if ($this->repository->update($input, $id)) {
+            return redirect()->back()->with('success', 'This planning has been updated.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to update the planning.');
+        }
+    }
+
+    public function show($id)
+    {
+        return $this->repository->find($id);
     }
 
     public function getByTicketId($ticket_id)
