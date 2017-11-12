@@ -90,7 +90,7 @@ Dashboard
 					<span class="number pull-right">{{ $countTickets }}</span>
 				</div>
 				<div class="panel-body">
-					{{--
+					
 					<ul>
 						<li>
 							<div class="row">
@@ -149,7 +149,7 @@ Dashboard
 							</div>
 						</li>
 					</ul>
-					--}}
+					
 					
 					@if(count($tickets))
 						<ul>

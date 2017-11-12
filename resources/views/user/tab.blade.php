@@ -146,10 +146,14 @@
 											<div class="row">
 												<div class="col-md-7 text-center bold">
 													<?php
-														if ($today_num <= 1) {
-															echo date('M d', strtotime('monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+														if ($today_num == 0){
+															echo date('M d', strtotime('monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . ($week_page + 1) . ' week'));
 														} else {
-															echo date('M d', strtotime('last monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+															if ($today_num == 1) {
+																echo date('M d', strtotime('monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+															} elseif($today_num > 1) {
+																echo date('M d', strtotime('last monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+															}
 														}
 													?>
 												</div>
@@ -236,11 +240,20 @@
 														} ?>
 														<span class="slot col-md-1 no-padding head <?php if($week_page == 0 && ($today_num == $i || ($i == 7 && $today_num == 0) )) echo 'black'; ?>">
 															<?php
-																if ($today_num <= $i) {
-																	echo date('D j', strtotime($today_day . ' +' . $week_page . ' week'));
+																if ($today_num == 0 && $i == 7) {
+																	echo date('D j', strtotime($today_day . ' +' . ($week_page + 1) . ' week'));
 																} else {
-																	echo date('D j', strtotime('last ' . $today_day . ' +' . $week_page . ' week'));
+																	if ($today_num <= $i) {
+																		echo date('D j', strtotime($today_day . ' +' . $week_page . ' week'));
+																	} else {
+																		echo date('D j', strtotime('last ' . $today_day . ' +' . $week_page . ' week'));
+																	}
 																}
+																// if ($today_num <= $i) {
+																// 	echo date('D j', strtotime($today_day . ' +' . $week_page . ' week'));
+																// } else {
+																// 	echo date('D j', strtotime('last ' . $today_day . ' +' . $week_page . ' week'));
+																// }
 															?>
 														</span>
 												<?php }
@@ -391,10 +404,14 @@
 											<div class="row">
 												<div class="col-md-7 text-center bold">
 													<?php
-														if ($today_num <= 1) {
-															echo date('M d', strtotime('monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+														if ($today_num == 0) {
+															echo date('M d', strtotime('monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . ($week_page + 1) . ' week'));
 														} else {
-															echo date('M d', strtotime('last monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+															if ($today_num == 1) {
+																echo date('M d', strtotime('monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+															} elseif ($today_num > 1) {
+																echo date('M d', strtotime('last monday +' . $week_page . ' week')) . " - " . date('M d', strtotime('sunday +' . $week_page . ' week'));
+															}
 														}
 													?>
 												</div>
@@ -443,7 +460,7 @@
 												</span>
 												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 0) black @endif">
 													@if ($today_num == 0)
-														{{ date('D j', strtotime('last sunday +' . $week_page . ' week')) }}
+														{{ date('D j', strtotime('sunday +' . ($week_page + 1) . ' week')) }}
 													@else
 														{{ date('D j', strtotime('sunday +' . $week_page . ' week')) }}
 													@endif
