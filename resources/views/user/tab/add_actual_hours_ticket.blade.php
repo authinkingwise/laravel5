@@ -18,9 +18,9 @@
 				<input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
 
 				<div class="form-group">
-					<label for="schedule_date" class="col-sm-4 control-label">Schedule Date</label>
+					<label for="actual_date" class="col-sm-4 control-label">Work Date</label>
 					<div class="col-sm-4">
-						<input type="text" name="schedule_date" class="form-control schedule_date">
+						<input type="text" name="actual_date" class="form-control actual_date">
 					</div>
 				</div>
 
@@ -34,7 +34,7 @@
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10 text-right">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Save</button>
+						<button type="submit" class="btn btn-primary">Add</button>
 					</div>
 				</div>
 

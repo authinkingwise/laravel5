@@ -30,6 +30,8 @@ $(function(){
         }
     });
 
+    $('[data-toggle="tooltip"]').tooltip();
+
 	/*
 	* On Add a new project.
 	*/
@@ -285,13 +287,17 @@ $(function(){
         });
     });
 
-    $(".schedule-hour-num").hover(function(){
+    $(".schedule-hour-num, .actual-hour-num").hover(function(){
         $(this).addClass("hover");
     }, function(){
         $(this).removeClass("hover");
     });
 
     $(".schedule-hour-num").on("click", function(){
+
+        if($(this).hasClass("sum")) {
+            return;
+        }
 
         if ($(this).hasClass("no-schedule")) {
             var ticket_id = $(this).data("ticket");
@@ -301,7 +307,16 @@ $(function(){
             $(".modal-dialog .ticket-name").html(title_text); // show ticket title
 
             var planning_date = $(this).data('date');
-            $("input[name='schedule_date']").val(planning_date);
+            $("input[name='actual_date']").val(planning_date);
+
+            if (typeof $(this).data("planning") !== "undefined" && $(this).data("planning") !== null) {
+                var form = $(".modal-dialog form");
+                var planning_id = $(this).data("planning");
+                var action_url = $("#schedule-ticket").attr("action");
+                var post_url = $("#schedule-ticket").attr("action", action_url + "/" + planning_id);
+                form.append('<input type="hidden" name="_method" value="PUT">');
+            }
+
             return;
         }
 
@@ -331,6 +346,38 @@ $(function(){
         });
     });
 
-    $(".schedule-hour-num").tooltip();
+    $(".schedule-hour-num, .actual-hour-num").tooltip();
+
+    // validate the input is numeric.
+    $("input[name='actual_hours'], input[name='schedule_hours']").keyup(function(){
+        if (this.value != this.value.replace(/[^0-9\.]/g,'')) {
+            this.value = this.value.replace(/[^0-9\.]/g,'')
+        }
+    });
+
+    $(".actual-hour-num").on("click", function(){
+        if($(this).hasClass("sum")) {
+            return;
+        }
+
+        var planning_id = $(this).data("planning");
+        var action_url = $("#edit-actual-hours-ticket").attr("action"); // Retrieve the post action url.
+
+        var title_text = $(this).closest("li.single").find(".ticket-title").text();
+        $(".modal-dialog .ticket-name").html(title_text); // show ticket title
+
+        $.getJSON(url_get_planning + "/" + planning_id, function(data){
+            $("#edit-actual-hours-ticket .schedule_date").val(data.schedule_date);
+
+            if (typeof data.actual_hours !== "undefined" && data.actual_hours != null) {
+                $("#edit-actual-hours-ticket #actual_hours").val(data.actual_hours);
+            } else {
+                $("#edit-actual-hours-ticket #actual_hours").val(null);
+            }
+
+            var post_url = $("#edit-actual-hours-ticket").attr("action", action_url + "/" + planning_id); // Dynamically add planning_id to the url as the new POST url.
+            var delete_url = $("#delete-planning").attr("action", action_url + "/" + planning_id);
+        });
+    });
 
 });

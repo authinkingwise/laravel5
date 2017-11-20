@@ -1001,16 +1001,21 @@ form {
 	&.no-schedule {
 		background-color: transparent;
 		&.hover {
-			background: $lightgainsboro;
+			background: $lightblue;
 		}
 	}
 }
 
 .actual-hour-num {
-	background-color: $green;
+	background-color: $lightgreen;
 	line-height: 24px;
 	height: 24px;
 	color: $white;
+	&.hover {
+		cursor: pointer;
+		background-color: $lightblue;
+		color: $black;
+	}
 }
 
 .zero-hour-num {

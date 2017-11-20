@@ -153,7 +153,13 @@ class UserController extends Controller
         $plannings = $user->plannings;
 
         $ticket_plannings = $plannings->reject(function($planning) use ($week_number) {
-            $w = (int)date('W', strtotime($planning->schedule_date));
+            if ($planning->schedule_date != null) {
+                $w = (int)date('W', strtotime($planning->schedule_date));
+            } else {
+                if ($planning->actual_date != null) {
+                    $w = (int)date('W', strtotime($planning->actual_date));
+                }
+            }
             return $planning->ticket_id == null || $week_number != $w;
         })->groupBy('ticket_id');
 

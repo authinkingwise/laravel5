@@ -20,6 +20,7 @@
         <script type="text/javascript" src="{{ asset('/js/bootstrap/bootstrap.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/chart/Chart.bundle.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/chart/utils.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/vuejs/vue.js') }}"></script>
     </head>
     <body id="app">
         <div class="container-fluid">
