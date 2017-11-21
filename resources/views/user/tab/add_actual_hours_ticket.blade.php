@@ -9,7 +9,7 @@
 
 		<div class="modal-body">
 
-			<form class="form-horizontal" action="{{ url('plannings') }}" method="POST" id="schedule-ticket">
+			<form class="form-horizontal" action="{{ url('plannings') }}" method="POST" id="add-actual-hours-ticket">
 
 				{{ csrf_field() }}
 
@@ -20,7 +20,7 @@
 				<div class="form-group">
 					<label for="actual_date" class="col-sm-4 control-label">Work Date</label>
 					<div class="col-sm-4">
-						<input type="text" name="actual_date" class="form-control actual_date">
+						<input type="text" name="actual_date" class="form-control actual_date" readonly="readonly">
 					</div>
 				</div>
 

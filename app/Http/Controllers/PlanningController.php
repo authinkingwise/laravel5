@@ -49,6 +49,23 @@ class PlanningController extends Controller
         return $this->repository->find($id);
     }
 
+    public function destroy($id)
+    {
+        $planning = $this->repository->find($id);
+
+        if ($planning->actual_hours > 0 && empty($planning->schedule_hours)) {
+            if ($planning->delete())
+                return redirect()->back()->with('success', 'The actual hours of planning has been updated.');
+        }
+
+        if ($planning->actual_hours > 0 && $planning->schedule_hours > 0) {
+            $planning->actual_hours = null;
+            $planning->actual_date = null;
+            if ($planning->save())
+                return redirect()->back()->with('success', 'This planning has been updated.');
+        }
+    }
+
     public function getByTicketId($ticket_id)
     {
 

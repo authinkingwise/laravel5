@@ -16,9 +16,9 @@
 				<input type="hidden" name="_method" value="PUT">
 
 				<div class="form-group">
-					<label for="schedule_date" class="col-sm-4 control-label">Schedule Date</label>
+					<label for="schedule_date" class="col-sm-4 control-label">Work Date</label>
 					<div class="col-sm-4">
-						<input type="text" name="schedule_date" class="form-control schedule_date" disabled>
+						<input type="text" name="schedule_date" class="form-control actual_date" disabled>
 					</div>
 				</div>
 
@@ -31,19 +31,19 @@
 
 				<div class="form-group">
 					<div class="col-sm-4 text-right">
-						<button type="button" class="btn btn-danger" form="delete-planning">Delete</button>
+						<button type="submit" class="btn btn-danger" form="delete-actual-hours-ticket">Delete</button>
 					</div>
 					<div class="col-sm-8 text-right">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Save</button>
+						<button type="submit" class="btn btn-primary" form="edit-actual-hours-ticket">Save</button>
 					</div>
 				</div>
 
 			</form>
 
-			<form action="{{ url('plannings') }}" method="POST" class="form-inline delete-action" id="delete-planning">
-				<input type="hidden" name="_token" value="{{ csrf_token() }}" form="delete-planning">
-			    <input type="hidden" name="_method" value="DELETE" form="delete-planning">
+			<form action="{{ url('plannings') }}" method="POST" class="form-inline delete-action" id="delete-actual-hours-ticket">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}" form="delete-actual-hours-ticket">
+			    <input type="hidden" name="_method" value="DELETE" form="delete-actual-hours-ticket">
 			</form>
 
 		</div>

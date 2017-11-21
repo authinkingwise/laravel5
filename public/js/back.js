@@ -312,8 +312,8 @@ $(function(){
             if (typeof $(this).data("planning") !== "undefined" && $(this).data("planning") !== null) {
                 var form = $(".modal-dialog form");
                 var planning_id = $(this).data("planning");
-                var action_url = $("#schedule-ticket").attr("action");
-                var post_url = $("#schedule-ticket").attr("action", action_url + "/" + planning_id);
+                var action_url = $("#add-actual-hours-ticket").attr("action");
+                var post_url = $("#add-actual-hours-ticket").attr("action", action_url + "/" + planning_id);
                 form.append('<input type="hidden" name="_method" value="PUT">');
             }
 
@@ -367,7 +367,7 @@ $(function(){
         $(".modal-dialog .ticket-name").html(title_text); // show ticket title
 
         $.getJSON(url_get_planning + "/" + planning_id, function(data){
-            $("#edit-actual-hours-ticket .schedule_date").val(data.schedule_date);
+            $("#edit-actual-hours-ticket .actual_date").val(data.actual_date);
 
             if (typeof data.actual_hours !== "undefined" && data.actual_hours != null) {
                 $("#edit-actual-hours-ticket #actual_hours").val(data.actual_hours);
@@ -376,7 +376,7 @@ $(function(){
             }
 
             var post_url = $("#edit-actual-hours-ticket").attr("action", action_url + "/" + planning_id); // Dynamically add planning_id to the url as the new POST url.
-            var delete_url = $("#delete-planning").attr("action", action_url + "/" + planning_id);
+            var delete_url = $("#delete-actual-hours-ticket").attr("action", action_url + "/" + planning_id);
         });
     });
 

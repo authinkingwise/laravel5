@@ -30,13 +30,6 @@
 				</div>
 
 				<div class="form-group">
-					<label for="actual_hours" class="col-sm-4 control-label">Actual Work Hours</label>
-					<div class="col-sm-4">
-						<input type="text" name="actual_hours" class="form-control" id="actual_hours">
-					</div>
-				</div>
-
-				<div class="form-group">
 					<label for="planning-description" class="col-sm-4 control-label">Description</label>
 					<div class="col-sm-8">
 						<textarea name="description" class="form-control" id="planning-description" form="edit-schedule-ticket" rows="2"></textarea>
