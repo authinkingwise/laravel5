@@ -15,6 +15,8 @@
 
 				<input type="hidden" name="ticket_id" id="ticket_id" value="">
 
+				<input type="hidden" name="task_id" id="task_id" value="">
+
 				<input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
 
 				<div class="form-group">

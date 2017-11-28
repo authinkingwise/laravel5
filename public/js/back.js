@@ -299,20 +299,36 @@ $(function(){
             return;
         }
 
-        if ($(this).hasClass("no-schedule")) {
-            var ticket_id = $(this).data("ticket");
-            $("input[name='ticket_id']").val(ticket_id);
+        var action_url = url_get_planning;
 
-            var title_text = $(this).closest("li.single").find(".ticket-title").text();
+        if ($(this).hasClass("no-schedule")) {
+
+            var form = $(".modal-dialog form");
+
+            if (typeof $(this).data("ticket") !== "undefined" && $(this).data("ticket") !== null) {
+                var ticket_id = $(this).data("ticket");
+                $("input[name='ticket_id']").val(ticket_id);
+            }
+
+            if (typeof $(this).data("task") !== "undefined" && $(this).data("task") !== null) {
+                var task_id = $(this).data("task");
+                $("input[name='task_id']").val(task_id);
+            }
+
+            if (typeof $(this).data("project") !== "undefined" && $(this).data("project") !== null) {
+                var project_id = $(this).data("project");
+                form.append('<input type="hidden" name="project" value="' + project_id + '">');
+            }
+
+            var title_text = $(this).closest("li.single").find(".item-title").text();
             $(".modal-dialog .ticket-name").html(title_text); // show ticket title
 
             var planning_date = $(this).data('date');
             $("input[name='actual_date']").val(planning_date);
 
             if (typeof $(this).data("planning") !== "undefined" && $(this).data("planning") !== null) {
-                var form = $(".modal-dialog form");
                 var planning_id = $(this).data("planning");
-                var action_url = $("#add-actual-hours-ticket").attr("action");
+                //var action_url = $("#add-actual-hours-ticket").attr("action");
                 var post_url = $("#add-actual-hours-ticket").attr("action", action_url + "/" + planning_id);
                 form.append('<input type="hidden" name="_method" value="PUT">');
             }
@@ -321,9 +337,9 @@ $(function(){
         }
 
         var planning_id = $(this).data("planning");
-        var action_url = $("#edit-schedule-ticket").attr("action"); // Retrieve the post action url.
+        //var action_url = $("#edit-schedule-ticket").attr("action"); // Retrieve the post action url.
         
-        var title_text = $(this).closest("li.single").find(".ticket-title").text();
+        var title_text = $(this).closest("li.single").find(".item-title").text();
         $(".modal-dialog .ticket-name").html(title_text); // show ticket title
 
         $.getJSON(url_get_planning + "/" + planning_id, function(data){
@@ -361,9 +377,10 @@ $(function(){
         }
 
         var planning_id = $(this).data("planning");
-        var action_url = $("#edit-actual-hours-ticket").attr("action"); // Retrieve the post action url.
+        //var action_url = $("#edit-actual-hours-ticket").attr("action"); // Retrieve the post action url.
+        var action_url = url_get_planning;
 
-        var title_text = $(this).closest("li.single").find(".ticket-title").text();
+        var title_text = $(this).closest("li.single").find(".item-title").text();
         $(".modal-dialog .ticket-name").html(title_text); // show ticket title
 
         $.getJSON(url_get_planning + "/" + planning_id, function(data){

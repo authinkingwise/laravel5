@@ -302,7 +302,7 @@
 									<li class="single">
 										<div class="row">
 											<div class="col-md-5">
-												<div class="ticket-title">
+												<div class="item-title">
 													<a href="{{ url('tickets/'.$key) }}" class="black bold">{{ \App\Models\Ticket::findOrFail($key)->title }}</a>
 												</div>
 											</div>
@@ -432,6 +432,7 @@
 
 										<div class="col-md-7 col-md-offset-5">
 											<div class="row">
+												{{--
 												<span class="slot col-md-1 no-padding head @if($week_page == 0 && $today_num == 1) black @endif">
 													@if ($today_num <= 1)
 														{{ date('D j', strtotime('monday +' . $week_page . ' week')) }}
@@ -480,12 +481,62 @@
 												<span class="slot col-md-1 no-padding head">
 													SUM
 												</span>
+												--}}
+												<?php
+													for ($i = 1; $i <= 7; $i++) { // from monday to sunday
+														// textual representation of the day of the week
+														switch ($i) {
+															case 7:
+																$today_day = 'sunday';
+																break;
+															case 1:
+																$today_day = 'monday';
+																break;
+															case 2:
+																$today_day = 'tuesday';
+																break;
+															case 3:
+																$today_day = 'wednesday';
+																break;
+															case 4:
+																$today_day = 'thursday';
+																break;
+															case 5:
+																$today_day = 'friday';
+																break;
+															case 6:
+																$today_day = 'saturday';
+																break;
+															default:
+																$today_day = 'monday';
+																break;
+														} ?>
+														<span class="slot col-md-1 no-padding head <?php if($week_page == 0 && ($today_num == $i || ($i == 7 && $today_num == 0) )) echo 'black'; ?>">
+															<?php
+																if ($today_num == 0 && $i == 7) {
+																	echo date('D j', strtotime($today_day . ' +' . ($week_page + 1) . ' week'));
+																} else {
+																	if ($today_num <= $i) {
+																		echo date('D j', strtotime($today_day . ' +' . $week_page . ' week'));
+																	} else {
+																		echo date('D j', strtotime('last ' . $today_day . ' +' . $week_page . ' week'));
+																	}
+																}
+															?>
+														</span>
+												<?php }
+												?>
+
+												<span class="slot col-md-1 no-padding head">SUM</span>
+												<span class="slot col-md-1 no-padding"></span>
 											</div>
 										</div>
 									</div>
 								</li>
 
+								<!--
 								@foreach($task_plannings as $key => $items)
+									
 									<li>
 										<ul>
 											@foreach($items as $item)
@@ -495,7 +546,7 @@
 															{{ $item->task->name }}
 														</div>
 														<div class="project-name">
-															<a href="{{ url('projects/'.$key) }}">{{ \App\Models\Project::findOrFail($key)->name }}</a>&nbsp;(project)
+															<a href="{{ url('projects/'.$key) }}">{{ \App\Models\Task::findOrFail($key)->project->name }}</a>&nbsp;(project)
 														</div>
 													</div>
 													<div class="col-md-7">
@@ -504,7 +555,7 @@
 																// Numeric representation of the schedule date of the week.
 																$day = (int)date('w', strtotime($item->schedule_date)); 
 															?>
-															<!-- schedule hours for the work -->
+															
 															@for ($i = 1; $i <= 7; $i++)
 																<span class="slot col-md-1 no-padding">
 																	@if($day == $i)
@@ -521,6 +572,89 @@
 											@endforeach
 										</ul>
 									</li>
+									
+								@endforeach
+								-->
+
+								@foreach($task_plannings as $key => $items)
+
+									<li class="single">
+										<div class="row">
+											<div class="col-md-5">
+												<div class="task-name item-title">
+													{{ \App\Models\Task::findOrFail($key)->name }}
+												</div>
+												<div class="project-name">
+													<a href="{{ url('projects/' . \App\Models\Task::findOrFail($key)->project->id) }}">{{ \App\Models\Task::findOrFail($key)->project->name }}</a>&nbsp;(project)
+												</div>
+											</div>
+											<div class="col-md-7">
+												<div class="row">
+													@for ($i = 1; $i <= 7; $i++)
+														@php
+															$matched = false; // check if it includes a scheduled item
+														@endphp
+
+														<span class="slot col-md-1 no-padding slot-{{ $i }}">
+															@foreach($items as $item)
+																<?php 
+																	// Numeric representation of the schedule date of the week.
+																	if($item->schedule_date != null)
+																		$day = (int)date('w', strtotime($item->schedule_date));
+																	else {
+																		if($item->actual_date != null)
+																			$day = (int)date('w', strtotime($item->actual_date));
+																	}
+																?>
+																@if($day == $i)
+
+																	@php
+																		$matched = true;
+																	@endphp
+
+																	@if($item->schedule_hours > 0)
+																		<div class="schedule-hour-num" title="Edit" data-toggle="modal" data-target="#edit-schedule-ticket-modal" data-planning="{{ $item->id }}" data-placement="right">
+																			{{ $item->schedule_hours . 'h' }}
+																		</div>
+																	@else
+																		<div class="zero-hour-num" data-planning="{{ $item->id }}"></div>
+																	@endif
+																	
+																	@if($item->actual_hours > 0)
+																		<div class="actual-hour-num" title="Actual hours" data-toggle="modal" data-target="#edit-actual-hours-ticket-modal" data-planning="{{ $item->id }}" data-placement="right">{{ $item->actual_hours . 'h' }}</div>
+																	@else
+																		<div class="schedule-hour-num no-schedule" title="Update actual hours" data-task="{{ $key }}" data-toggle="modal" data-target="#add-actual-hours-ticket-modal" data-date="@php echo date('Y-m-d', strtotime($week_page*7+$i-$today_num . ' day')); @endphp" data-toggle="tooltip" data-placement="right" data-planning="{{ $item->id }}" data-project="{{ \App\Models\Task::findOrFail($key)->project->id }}"></div>
+																	@endif
+
+																@endif
+															@endforeach
+															
+															@if($matched == false)
+																<div class="zero-hour-num" data-planning="{{ $item->id }}"></div>
+																<div class="schedule-hour-num no-schedule" title="Update actual hours" data-task="{{ $key }}" data-toggle="modal" data-target="#add-actual-hours-ticket-modal" data-date="@php echo date('Y-m-d', strtotime($week_page*7+$i-$today_num . ' day')); @endphp" data-placement="right" data-project="{{ \App\Models\Task::findOrFail($key)->project->id }}"></div>
+															@endif
+
+														</span>
+													@endfor
+													<span class="slot col-md-1 no-padding">
+														<div class="schedule-hour-num sum" title="Total schedule" data-toggle="tooltip" data-placement="right">
+															{{ $items->sum('schedule_hours') . 'h' }}
+														</div>
+														@if ($items->sum('actual_hours') > 0)
+															<div class="actual-hour-num syn" title="Total actual hours" data-toggle="tooltip" data-placement="right">
+																{{ $items->sum('actual_hours') . 'h' }}
+															</div>
+														@endif
+													</span>
+													<span class="slot col-md-1 no-padding">
+														<div class="schedule-hour-num sum" title="Scheduled hours" data-toggle="tooltip" data-placement="right">SCHED</div>
+														<div class="actual-hour-num sum" title="Actual working hours" data-toggle="tooltip" data-placement="right">ACT</div>
+													</span>
+												</div>
+											</div>
+										</div>
+									</li>
+
 								@endforeach
 
 							</ul>

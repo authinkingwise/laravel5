@@ -150,7 +150,7 @@ class UserController extends Controller
 
         $week_number = (int)date('W') + $week_page; // week number of year
 
-        $plannings = $user->plannings;
+        $plannings = $user->plannings()->orderBy('created_at', 'asc')->get();
 
         $ticket_plannings = $plannings->reject(function($planning) use ($week_number) {
             if ($planning->schedule_date != null) {
@@ -168,9 +168,17 @@ class UserController extends Controller
         // });
 
         $task_plannings = $plannings->reject(function($planning) use ($week_number) {
-            $w = (int)date('W', strtotime($planning->schedule_date));
+            //$w = (int)date('W', strtotime($planning->schedule_date));
+            //return $planning->task_id == null || $week_number != $w;
+            if ($planning->schedule_date != null) {
+                $w = (int)date('W', strtotime($planning->schedule_date));
+            } else {
+                if ($planning->actual_date != null) {
+                    $w = (int)date('W', strtotime($planning->actual_date));
+                }
+            }
             return $planning->task_id == null || $week_number != $w;
-        })->groupBy('project_id');
+        })->groupBy('task_id');
 
         $project_plannings = $plannings->reject(function($planning){
             return $planning->project_id == null;
